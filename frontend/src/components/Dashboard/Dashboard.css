@@ -1,0 +1,96 @@
+/* Estilos copiados de App.css y adaptados para Dashboard */
+.App {
+  text-align: center;
+}
+
+.header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-email {
+  font-size: 0.9rem;
+  color: #a0aec0;
+}
+
+.auth-button-logout {
+  background: #e53e3e;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.auth-button-logout:hover {
+  background: #c53030;
+}
+
+.back-button {
+  background: none;
+  border: 1px solid white;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background: white;
+  color: #282c34;
+}
+
+.main-content {
+  padding: 20px;
+}
+
+.courses-section, .roadmap-section, .stats-section {
+  margin-bottom: 40px;
+}
+
+.courses-grid, .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.course-card, .stat-card, .roadmap-step {
+  background: #f7fafc;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* ... (otros estilos de App.css) ... */
+
+.footer {
+  background-color: #282c34;
+  padding: 20px;
+  color: #a0aec0;
+  margin-top: 40px;
+}

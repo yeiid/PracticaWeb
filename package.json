@@ -1,0 +1,24 @@
+{
+  "name": "academia-web",
+  "version": "1.0.0",
+  "description": "Plataforma completa de aprendizaje web",
+  "scripts": {
+    "start:main": "node serve.js",
+    "start:html": "cd HTML && node serve.js",
+    "start:css": "cd CSS && node serve.js",
+    "start:js": "cd JS && node serve.js",
+    "start:backend": "cd backend && npm install && node server.js",
+    "start:frontend": "cd frontend && npm install && npm start",
+    "dev": "concurrently \"pnpm run start:backend\" \"pnpm run start:frontend\"",
+    "install:all": "pnpm install && cd HTML && pnpm install && cd ../CSS && pnpm install && cd ../JS && pnpm install && cd ../backend && npm install && cd ../frontend && npm install"
+  },
+  "keywords": ["html", "css", "javascript", "react", "backend", "educacion"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
