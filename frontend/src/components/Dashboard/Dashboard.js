@@ -1,4 +1,6 @@
+// Dashboard principal del usuario
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './Dashboard.css';
 import ProgressSystem from '../ProgressSystem/ProgressSystem';
 import HTMLCourse from '../../courses/HTML/HTMLCourse';
@@ -6,6 +8,9 @@ import CSSCourse from '../../courses/CSS/CSSCourse';
 import JSCourse from '../../courses/JS/JSCourse';
 import PythonCourse from '../../courses/Python/PythonCourse';
 import { useAuth } from '../../contexts/AuthContext';
+import CourseCard from './CourseCard';
+import Header from '../Header/Header';
+import RoadmapStep from './RoadmapStep';
 
 function Dashboard() {
   const { user, signOut } = useAuth();
@@ -64,12 +69,12 @@ function Dashboard() {
   ];
 
   const roadmapSteps = [
-    { id: 1, title: 'HTML5 - Los Fundamentos', description: 'Estructura básica y semántica', completed: true, course: 'html' },
-    { id: 2, title: 'CSS3 - El diseño Visual', description: 'Estilos y layouts modernos', completed: true, course: 'css' },
-    { id: 3, title: 'JavaScript - La Interactividad', description: 'Programación y DOM', completed: true, course: 'js' },
-    { id: 4, title: 'Python - Programación Versátil', description: 'Lenguaje multiuso para todo', completed: true, course: 'python' },
-    { id: 5, title: 'React - Próximamente', description: 'Aplicaciones web avanzadas', completed: false, course: 'react' },
-    { id: 6, title: 'Backend - Próximamente', description: 'Node.js y APIs', completed: false, course: 'backend' }
+    { id: 1, title: 'HTML5 - Los Fundamentos', description: 'Estructura básica y semántica', completed: true, course: 'html', icon: '📄' },
+    { id: 2, title: 'CSS3 - El diseño Visual', description: 'Estilos y layouts modernos', completed: true, course: 'css', icon: '🎨' },
+    { id: 3, title: 'JavaScript - La Interactividad', description: 'Programación y DOM', completed: true, course: 'js', icon: '⚡' },
+    { id: 4, title: 'Python - Programación Versátil', description: 'Lenguaje multiuso para todo', completed: true, course: 'python', icon: '🐍' },
+    { id: 5, title: 'React - Próximamente', description: 'Aplicaciones web avanzadas', completed: false, course: 'react', icon: '⚛️' },
+    { id: 6, title: 'Backend - Próximamente', description: 'Node.js y APIs', completed: false, course: 'backend', icon: '⚙️' }
   ];
 
   const handleCourseSelect = (course) => {
@@ -106,81 +111,33 @@ function Dashboard() {
     <div className="App">
       <ProgressSystem progress={progress} />
 
-      <header className="header">
-        <h1>🚀 Academia Web</h1>
-        <div className="header-right">
-          <span className="user-email">{user?.email}</span>
-          <button onClick={signOut} className="auth-button-logout">Cerrar Sesión</button>
-        </div>
-      </header>
+      <Header />
 
       <main className="main-content">
         <section className="courses-section">
           <h2>📚 Cursos Disponibles</h2>
-          <div className="courses-grid">
+          <div className="courses-grid-modern">
             {courses.map(course => (
-              <div
+              <CourseCard
                 key={course.id}
-                className="course-card"
-                onClick={() => handleCourseSelect(course)}
-                style={{
-                  borderLeft: `5px solid ${course.color}`,
-                  cursor: 'pointer'
-                }}
-              >
-                <div className="course-icon">{course.icon}</div>
-                <h3>{course.title}</h3>
-                <p>{course.description}</p>
-
-                <div className="course-progress">
-                  <div className="progress-info">
-                    <span className="slides-count">{course.slides} slides</span>
-                    <span className="progress-percentage">{getProgressPercentage(course.id)}%</span>
-                  </div>
-                  <div className="progress-bar-container">
-                    <div
-                      className="progress-bar"
-                      style={{
-                        width: `${getProgressPercentage(course.id)}%`,
-                        backgroundColor: course.color
-                      }}
-                    ></div>
-                  </div>
-                </div>
-
-                <button
-                  className="course-button"
-                  style={{ backgroundColor: course.color }}
-                >
-                  Comenzar Curso →
-                </button>
-              </div>
+                course={course}
+                onSelect={handleCourseSelect}
+                progress={getProgressPercentage(course.id)}
+              />
             ))}
           </div>
         </section>
 
         <section className="roadmap-section">
           <h2>🗺️ Ruta de Aprendizaje</h2>
-          <div className="roadmap">
-            {roadmapSteps.map((step, index) => (
-              <div
+          <div className="roadmap-modern">
+            {roadmapSteps.map(step => (
+              <RoadmapStep
                 key={step.id}
-                className={`roadmap-step ${step.completed ? 'completed' : ''}`}
-                onClick={() => step.completed && step.course && handleCourseSelect(courses.find(c => c.id === step.course))}
-              >
-                <div className="step-number">{step.id}</div>
-                <div className="step-content">
-                  <h4>{step.title}</h4>
-                  <p>{step.description}</p>
-                  {step.completed && <span className="completed-badge">✅ Completado</span>}
-                  {!step.completed && <span className="upcoming-badge">🔄 Próximamente</span>}
-                </div>
-                {step.completed && step.course && (
-                  <div className="step-progress">
-                    {getProgressPercentage(step.course)}%
-                  </div>
-                )}
-              </div>
+                step={step}
+                onSelect={() => handleCourseSelect(courses.find(c => c.id === step.course))}
+                progress={getProgressPercentage(step.course)}
+              />
             ))}
           </div>
         </section>

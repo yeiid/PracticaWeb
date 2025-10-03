@@ -4,6 +4,8 @@ import { useAuth } from './contexts/AuthContext';
 import Auth from './components/Auth/Auth';
 import Dashboard from './components/Dashboard/Dashboard';
 import ResetPassword from './components/Auth/ResetPassword';
+import LandingPage from './components/LandingPage/LandingPage';
+import Profile from './components/Profile/Profile';
 
 function App() {
   const { user, loading } = useAuth();
@@ -19,9 +21,11 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={!user ? <Auth /> : <Navigate to="/" />} />
+        <Route path="/" element={!user ? <LandingPage /> : <Navigate to="/dashboard" />} />
+        <Route path="/login" element={!user ? <Auth /> : <Navigate to="/dashboard" />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/" element={user ? <Dashboard /> : <Navigate to="/login" />} />
+        <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
+        <Route path="/profile" element={user ? <Profile /> : <Navigate to="/login" />} />
       </Routes>
     </Router>
   );

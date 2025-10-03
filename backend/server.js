@@ -5,7 +5,7 @@ const { createClient } = require('@supabase/supabase-js');
 
 // Configuración de Supabase
 const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const app = express();
@@ -102,6 +102,43 @@ app.get('/api/certificates', authMiddleware, async (req, res) => {
     res.status(500).json({ error: 'Error al obtener certificados' });
   }
 });
+
+// Rutas para el perfil de usuario
+
+// Obtener perfil del usuario
+app.get('/api/profile', authMiddleware, async (req, res) => {
+  // El middleware ya nos da el usuario, así que simplemente lo devolvemos
+  res.json(req.user);
+});
+
+// Actualizar perfil del usuario (nombre, etc.)
+app.put('/api/profile', authMiddleware, async (req, res) => {
+  const { full_name } = req.body;
+  const { error } = await supabase.auth.updateUser({
+    data: { full_name }
+  });
+
+  if (error) {
+    return res.status(400).json({ error: error.message });
+  }
+  res.json({ success: true, message: 'Perfil actualizado correctamente.' });
+});
+
+// Actualizar credenciales del usuario (email/contraseña)
+app.put('/api/auth/user', authMiddleware, async (req, res) => {
+  const { email, password } = req.body;
+  const updates = {};
+  if (email) updates.email = email;
+  if (password) updates.password = password;
+
+  const { error } = await supabase.auth.updateUser(updates);
+
+  if (error) {
+    return res.status(400).json({ error: error.message });
+  }
+  res.json({ success: true, message: 'Credenciales actualizadas correctamente.' });
+});
+
 
 // Health check
 app.get('/health', (req, res) => {

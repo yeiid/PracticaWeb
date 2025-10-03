@@ -1,0 +1,120 @@
+.roadmap-step-modern {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 15px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.roadmap-step-modern.unlocked,
+.roadmap-step-modern.in-progress,
+.roadmap-step-modern.completed {
+  cursor: pointer;
+}
+
+.roadmap-step-modern:hover:not(.locked) {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+}
+
+.step-icon-modern {
+  font-size: 1.8rem;
+  margin-right: 20px;
+  background-color: #f1f5f9;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #64748b;
+}
+
+.step-content-modern {
+  flex-grow: 1;
+}
+
+.step-number-modern {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #94a3b8;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.step-content-modern h4 {
+  margin: 0 0 5px 0;
+  font-size: 1.1rem;
+  color: #334155;
+}
+
+.step-content-modern p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+/* Status: Completed */
+.roadmap-step-modern.completed .step-icon-modern {
+  background-color: #dcfce7;
+  color: #22c55e;
+}
+.roadmap-step-modern.completed .step-content-modern h4 {
+  color: #166534;
+}
+
+/* Status: In Progress */
+.roadmap-step-modern.in-progress .step-icon-modern {
+  background-color: #e0f2fe;
+  color: #0ea5e9;
+}
+
+/* Status: Locked */
+.roadmap-step-modern.locked {
+  background-color: #f8fafc;
+  cursor: not-allowed;
+}
+
+.roadmap-step-modern.locked .step-content-modern h4,
+.roadmap-step-modern.locked .step-content-modern p {
+  color: #cbd5e0;
+}
+
+.lock-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(248, 250, 252, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #94a3b8;
+  font-size: 1rem;
+}
+
+/* Progress Bar */
+.step-progress-container {
+  width: 100px;
+  text-align: right;
+}
+
+.step-progress-bar {
+  height: 6px;
+  background-color: #22c55e;
+  border-radius: 3px;
+  margin-top: 5px;
+}
+
+.step-progress-text {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #16a34a;
+}
