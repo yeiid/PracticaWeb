@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import IntroduccionCSSSlide from './IntroduccionCSSSlide';
 import SelectoresCSSSlide from './SelectoresCSSSlide';
+import ModeloCajaSlide from './ModeloCajaSlide';
+import FlexboxSlide from './FlexboxSlide';
+import GridSlide from './GridSlide';
+import ResponsiveSlide from './ResponsiveSlide';
+import AnimacionesSlide from './AnimacionesSlide';
+import BuenasPracticasSlide from './BuenasPracticasSlide';
 import styles from './CSSSlides.module.css';
 
 const CSSCourse = () => {
@@ -9,7 +15,12 @@ const CSSCourse = () => {
   const slides = [
     { component: IntroduccionCSSSlide, title: 'Introducción a CSS' },
     { component: SelectoresCSSSlide, title: 'Selectores CSS' },
-    // Agregar más slides aquí cuando se creen
+    { component: ModeloCajaSlide, title: 'Modelo de Caja' },
+    { component: FlexboxSlide, title: 'Flexbox' },
+    { component: GridSlide, title: 'CSS Grid' },
+    { component: ResponsiveSlide, title: 'Diseño Responsivo' },
+    { component: AnimacionesSlide, title: 'Animaciones' },
+    { component: BuenasPracticasSlide, title: 'Buenas Prácticas' }
   ];
 
   const nextSlide = () => {

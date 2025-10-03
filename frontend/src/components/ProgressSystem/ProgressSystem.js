@@ -27,15 +27,6 @@ const ProgressSystem = () => {
     fetchProgress();
   }, [user]);
 
-  const saveProgress = async (newProgress) => {
-    setProgress(newProgress);
-    if (!user) return;
-
-    await supabase
-      .from('progress')
-      .upsert({ user_id: user.id, progress_data: newProgress }, { onConflict: 'user_id' });
-  };
-
   // ... (el resto del código de ProgressSystem.js adaptado)
 
   return (

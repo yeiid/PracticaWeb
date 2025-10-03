@@ -26,22 +26,40 @@
   margin-bottom: 50px;
 }
 
-.history-card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 25px;
-  text-align: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  transition: all 0.3s ease;
-  border-top: 4px solid #667eea;
+.history-card-link {
+  color: inherit;
+  display: block;
 }
 
-.history-card:hover {
+.history-card-link.locked {
+  pointer-events: none; /* Deshabilitar clics en tarjetas bloqueadas */
+}
+
+.detail-3d-view {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column; /* Cambiado para apilar el globo y la descripción */
+  align-items: center;
+  justify-content: center;
+  background-color: #1a253c;
+  border-radius: 15px;
+  padding: 2rem;
+  min-height: 400px;
+}
+
+.interactive-description {
+  color: #a0aec0; /* Un color más suave para el texto */
+  margin-top: 1.5rem; /* Espacio entre el modelo 3D y la descripción */
+  font-size: 1rem;
+  max-width: 80%;
+  text-align: center;
+  line-height: 1.6;
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(0,0,0,0.08);
 }
 
-.history-card.locked {
+.history-card-link.locked .history-card {
   opacity: 0.6;
   filter: grayscale(80%);
 }
@@ -63,19 +81,20 @@
   min-height: 60px; /* Para alinear botones */
 }
 
-.explore-btn {
+.explore-btn-container {
   margin-top: 20px;
+}
+
+.explore-btn {
   padding: 10px 25px;
   background: #667eea;
   color: white;
   border: none;
   border-radius: 6px;
-  cursor: pointer;
   font-weight: 600;
 }
 
 .soon-badge {
-  margin-top: 20px;
   display: inline-block;
   padding: 8px 15px;
   background: #e2e8f0;
@@ -84,53 +103,74 @@
   font-weight: 600;
 }
 
-.timeline-display-section {
-  margin-top: 40px;
+/* Detail View Styles */
+.main-content-history.detail-view {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* Detail View */
 .back-btn {
-  background: transparent;
-  border: 1px solid #cbd5e0;
-  color: #4a5568;
-  padding: 8px 15px;
-  border-radius: 6px;
+  background: none;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  padding: 8px 16px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
-  margin-bottom: 30px;
-  transition: all 0.3s ease;
+  margin-bottom: 25px;
+  transition: all 0.2s ease;
 }
 
 .back-btn:hover {
   background-color: #f1f5f9;
-  border-color: #a0aec0;
+  border-color: #94a3b8;
 }
 
 .detail-header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
 .detail-header h2 {
   font-size: 2.5rem;
-  color: #334155;
+  color: #1e293b;
 }
 
 .detail-content-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  display: flex;
+  gap: 30px;
   align-items: flex-start;
 }
 
-.detail-3d-view {
-  position: sticky;
-  top: 80px; /* Ajustar según la altura del header */
-  height: 400px;
+.detail-timeline-view {
+  flex: 1.2;
+  min-width: 300px;
+  padding: 2rem 2.5rem;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
-.detail-timeline-view {
-  max-height: 80vh;
-  overflow-y: auto;
-  padding-right: 15px; /* Para la barra de scroll */
+.detail-timeline-view h3 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #667eea;
+}
+
+.timeline-item-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.timeline-item-link .timeline-item {
+  border-radius: 10px;
+}
+
+.timeline-item-link:hover .timeline-item {
+  transform: scale(1.02);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
 }

@@ -27,7 +27,7 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
         <Route path="/profile" element={user ? <Profile /> : <Navigate to="/login" />} />
-        <Route path="/history" element={user ? <HistoryPage /> : <Navigate to="/login" />} />
+        <Route path="/history" element={<HistoryPage />} />
       </Routes>
     </Router>
   );

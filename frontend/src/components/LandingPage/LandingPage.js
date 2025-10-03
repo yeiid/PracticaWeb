@@ -37,6 +37,27 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
+
+        <div className="history-section">
+          <h3>Un Viaje por la Historia Web</h3>
+          <div className="history-timeline">
+            <div className="history-item">
+              <h4>1991: El Nacimiento de la World Wide Web</h4>
+              <p>Tim Berners-Lee crea la primera página web.</p>
+              <Link to="/history/www" className="btn btn-tertiary">Explorar en 3D</Link>
+            </div>
+            <div className="history-item">
+              <h4>1995: El Auge de JavaScript</h4>
+              <p>Netscape introduce el lenguaje que daría vida a la web.</p>
+              <Link to="/history/javascript" className="btn btn-tertiary">Explorar en 3D</Link>
+            </div>
+            <div className="history-item">
+              <h4>2005: La Web 2.0 y el Contenido Interactivo</h4>
+              <p>Nacen plataformas como YouTube y Facebook.</p>
+              <Link to="/history/web2" className="btn btn-tertiary">Explorar en 3D</Link>
+            </div>
+          </div>
+        </div>
       </main>
 
       <footer className="landing-footer">
