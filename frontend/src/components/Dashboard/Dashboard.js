@@ -1,6 +1,5 @@
 // Dashboard principal del usuario
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import './Dashboard.css';
 import ProgressSystem from '../ProgressSystem/ProgressSystem';
 import HTMLCourse from '../../courses/HTML/HTMLCourse';
@@ -142,8 +141,7 @@ function Dashboard() {
           </div>
         </section>
 
-        {/* ... más secciones ... */}
-      </main>
+              </main>
 
       <footer className="footer">
         <p>🎓 ¡Aprende a tu ritmo, construye proyectos increíbles!</p>

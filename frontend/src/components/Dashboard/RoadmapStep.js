@@ -2,7 +2,7 @@ import React from 'react';
 import './RoadmapStep.css';
 
 const RoadmapStep = ({ step, onSelect, progress }) => {
-  const { id, title, description, completed, course, icon } = step;
+  const { id, title, description, completed, icon } = step;
 
   const getStatus = () => {
     if (!completed) return 'locked';

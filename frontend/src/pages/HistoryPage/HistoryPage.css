@@ -1,0 +1,89 @@
+.main-content-history {
+  padding: 30px;
+}
+
+.history-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.history-header h2 {
+  font-size: 2.2rem;
+  color: #334155;
+}
+
+.history-header p {
+  font-size: 1.1rem;
+  color: #64748b;
+  max-width: 600px;
+  margin: 10px auto 0 auto;
+}
+
+.history-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin-bottom: 50px;
+}
+
+.history-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  border-top: 4px solid #667eea;
+}
+
+.history-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.history-card.locked {
+  opacity: 0.6;
+  filter: grayscale(80%);
+}
+
+.history-card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.history-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.history-card p {
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  min-height: 60px; /* Para alinear botones */
+}
+
+.explore-btn {
+  margin-top: 20px;
+  padding: 10px 25px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.soon-badge {
+  margin-top: 20px;
+  display: inline-block;
+  padding: 8px 15px;
+  background: #e2e8f0;
+  color: #64748b;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.timeline-display-section {
+  margin-top: 40px;
+}

@@ -14,6 +14,7 @@ const Header = () => {
       <nav className="main-nav">
         <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>Cursos</NavLink>
         <NavLink to="/profile" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>Mi Perfil</NavLink>
+        <NavLink to="/history" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>Historia</NavLink>
         {/* Añadir más enlaces aquí en el futuro */}
       </nav>
       <div className="header-right">

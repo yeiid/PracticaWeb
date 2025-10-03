@@ -6,6 +6,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import ResetPassword from './components/Auth/ResetPassword';
 import LandingPage from './components/LandingPage/LandingPage';
 import Profile from './components/Profile/Profile';
+import HistoryPage from './pages/HistoryPage/HistoryPage';
 
 function App() {
   const { user, loading } = useAuth();
@@ -26,6 +27,7 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
         <Route path="/profile" element={user ? <Profile /> : <Navigate to="/login" />} />
+        <Route path="/history" element={user ? <HistoryPage /> : <Navigate to="/login" />} />
       </Routes>
     </Router>
   );

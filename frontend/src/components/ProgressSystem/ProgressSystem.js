@@ -5,8 +5,7 @@ import { supabase } from '../../config/supabase';
 
 const ProgressSystem = () => {
   const { user } = useAuth();
-  const [progress, setProgress] = useState({});
-  const [showProgress, setShowProgress] = useState(false);
+  const [, setProgress] = useState({});
 
   useEffect(() => {
     const fetchProgress = async () => {

@@ -5,7 +5,7 @@ import './Profile.css';
 import Header from '../Header/Header';
 
 const Profile = () => {
-  const { user, session } = useAuth();
+  const { user } = useAuth();
   const [formData, setFormData] = useState({ fullName: '', email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
