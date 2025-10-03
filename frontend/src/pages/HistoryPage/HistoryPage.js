@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../../components/Header/Header';
-import HistoryTimeline from '../../components/Dashboard/HistoryTimeline'; // Lo moveremos luego
+import HistoryTimeline from '../../components/Dashboard/HistoryTimeline';
+import WebGlobe from '../../components/3d/WebGlobe';
+import ComputingCube from '../../components/3d/ComputingCube';
+import IndustrialCog from '../../components/3d/IndustrialCog';
+import ComputingHistory from '../../components/Dashboard/ComputingHistory';
+import IndustrialHistory from '../../components/Dashboard/IndustrialHistory';
 import './HistoryPage.css';
 
 const historySections = [
@@ -9,25 +14,62 @@ const historySections = [
     title: 'Historia de la Web',
     description: 'Un recorrido desde el nacimiento de la WWW hasta el estándar de HTML5.',
     component: <HistoryTimeline />,
+    interactiveComponent: <WebGlobe />,
     icon: '🌐'
   },
   {
     id: 'computing-history',
     title: 'Historia de la Computación',
-    description: 'Desde el ábaco hasta las supercomputadoras cuánticas. (Próximamente)',
-    component: null,
+    description: 'Desde el ábaco hasta las supercomputadoras cuánticas.',
+    component: <ComputingHistory />,
+    interactiveComponent: <ComputingCube />,
     icon: '💻'
   },
   {
     id: 'industrial-revolution',
     title: 'Revolución Industrial',
-    description: 'El cambio de la producción manual a la maquinaria que transformó el mundo. (Próximamente)',
-    component: null,
+    description: 'El cambio de la producción manual a la maquinaria que transformó el mundo.',
+    component: <IndustrialHistory />,
+    interactiveComponent: <IndustrialCog />,
     icon: '🏭'
   }
 ];
 
 const HistoryPage = () => {
+  const [selectedSection, setSelectedSection] = useState(null);
+
+  const handleSelectSection = (section) => {
+    if (section.component) {
+      setSelectedSection(section);
+    }
+  };
+
+  const handleGoBack = () => {
+    setSelectedSection(null);
+  };
+
+  if (selectedSection) {
+    return (
+      <div className="page-container">
+        <Header />
+        <main className="main-content-history detail-view">
+          <button onClick={handleGoBack} className="back-btn">← Volver a la historia</button>
+          <div className="detail-header">
+            <h2>{selectedSection.icon} {selectedSection.title}</h2>
+          </div>
+          <div className="detail-content-wrapper">
+            <div className="detail-3d-view">
+              {selectedSection.interactiveComponent}
+            </div>
+            <div className="detail-timeline-view">
+              {selectedSection.component}
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
   return (
     <div className="page-container">
       <Header />
@@ -38,24 +80,24 @@ const HistoryPage = () => {
         </div>
         <div className="history-cards-grid">
           {historySections.map(section => (
-            <div key={section.id} className={`history-card ${!section.component ? 'locked' : ''}`}>
+            <div 
+              key={section.id} 
+              className={`history-card ${!section.component ? 'locked' : ''}`}
+              onClick={() => handleSelectSection(section)}
+            >
               <div className="history-card-icon">{section.icon}</div>
               <h3>{section.title}</h3>
               <p>{section.description}</p>
-              {section.component ? (
-                <button className="explore-btn">Explorar</button>
-              ) : (
-                <span className="soon-badge">Próximamente</span>
-              )}
+              <div className="explore-btn-container">
+                {section.component ? (
+                  <span className="explore-btn">Explorar</span>
+                ) : (
+                  <span className="soon-badge">Próximamente</span>
+                )}
+              </div>
             </div>
           ))}
         </div>
-        
-        {/* Por ahora, mostramos la línea de tiempo aquí directamente */}
-        <div className="timeline-display-section">
-          <HistoryTimeline />
-        </div>
-
       </main>
     </div>
   );

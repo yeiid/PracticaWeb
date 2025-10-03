@@ -87,3 +87,50 @@
 .timeline-display-section {
   margin-top: 40px;
 }
+
+/* Detail View */
+.back-btn {
+  background: transparent;
+  border: 1px solid #cbd5e0;
+  color: #4a5568;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 30px;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background-color: #f1f5f9;
+  border-color: #a0aec0;
+}
+
+.detail-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.detail-header h2 {
+  font-size: 2.5rem;
+  color: #334155;
+}
+
+.detail-content-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.detail-3d-view {
+  position: sticky;
+  top: 80px; /* Ajustar según la altura del header */
+  height: 400px;
+}
+
+.detail-timeline-view {
+  max-height: 80vh;
+  overflow-y: auto;
+  padding-right: 15px; /* Para la barra de scroll */
+}
