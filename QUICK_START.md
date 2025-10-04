@@ -109,10 +109,18 @@ cd frontend && npm start
 - Asegúrate de seleccionar los 3 entornos al configurarlas
 - Re-despliega después de agregar variables nuevas
 
+## 📦 Gestor de Paquetes
+
+Vercel usa **npm** por defecto (configurado en `vercel.json`).
+
+**¿Quieres usar pnpm?** Consulta [VERCEL_PACKAGE_MANAGER.md](./VERCEL_PACKAGE_MANAGER.md)
+
 ## 📚 Documentación Completa
 
 - [Guía Detallada de Despliegue](./VERCEL_DEPLOYMENT.md)
 - [Resumen de Configuración](./DEPLOYMENT_SUMMARY.md)
+- [Gestores de Paquetes](./VERCEL_PACKAGE_MANAGER.md)
+- [Solución de Problemas](./TROUBLESHOOTING.md)
 - [README Principal](./README.md)
 
 ---
