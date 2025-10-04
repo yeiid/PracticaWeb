@@ -11,16 +11,30 @@ const ProgressSystem = () => {
     const fetchProgress = async () => {
       if (!user) return;
 
-      const { data, error } = await supabase
-        .from('progress')
-        .select('progress_data')
-        .eq('user_id', user.id)
-        .single();
+      try {
+        const { data, error } = await supabase
+          .from('progress')
+          .select('progress_data')
+          .eq('user_id', user.id)
+          .single();
 
-      if (data && data.progress_data) {
-        setProgress(data.progress_data);
-      } else if (error && error.code !== 'PGRST116') {
-        console.error('Error fetching progress:', error);
+        if (data && data.progress_data) {
+          setProgress(data.progress_data);
+        } else if (error && error.code !== 'PGRST116') {
+          console.warn('Tabla progress no disponible, usando localStorage:', error.message);
+          // Usar localStorage como fallback
+          const localProgress = localStorage.getItem(`progress-${user.id}`);
+          if (localProgress) {
+            setProgress(JSON.parse(localProgress));
+          }
+        }
+      } catch (err) {
+        console.warn('Error al cargar progreso, usando localStorage:', err.message);
+        // Usar localStorage como fallback
+        const localProgress = localStorage.getItem(`progress-${user.id}`);
+        if (localProgress) {
+          setProgress(JSON.parse(localProgress));
+        }
       }
     };
 
