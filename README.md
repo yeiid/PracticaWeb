@@ -58,6 +58,16 @@ pnpm run dev
 - **Package Manager**: **pnpm** (más rápido que npm)
 - **Automatización**: concurrently, scripts bash
 
+## 🚀 Despliegue en Vercel
+
+Para desplegar esta aplicación en Vercel, consulta la [Guía de Despliegue](./VERCEL_DEPLOYMENT.md).
+
+**Características del despliegue:**
+- ✅ Frontend React optimizado
+- ✅ Backend como funciones serverless
+- ✅ Integración con Supabase
+- ✅ Variables de entorno seguras
+
 ## 📞 Soporte
 
 ### Problemas Comunes

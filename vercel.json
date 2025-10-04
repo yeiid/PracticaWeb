@@ -1,44 +1,21 @@
 {
   "version": 2,
-  "builds": [
+  "buildCommand": "cd frontend && npm install && npm run build",
+  "outputDirectory": "frontend/build",
+  "rewrites": [
     {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": { "outputDirectory": "build" }
-    },
-    {
-      "src": "backend/index.js",
-      "use": "@vercel/node"
+      "source": "/api/:path*",
+      "destination": "/api/server"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/backend/index.js"
-    },
-    {
-      "src": "/static/(.*)",
-      "dest": "/frontend/build/static/$1"
-    },
-    {
-      "src": "/favicon.ico",
-      "dest": "/frontend/build/favicon.ico"
-    },
-    {
-      "src": "/manifest.json",
-      "dest": "/frontend/build/manifest.json"
-    },
-    {
-      "src": "/logo192.png",
-      "dest": "/frontend/build/logo192.png"
-    },
-    {
-      "src": "/logo512.png",
-      "dest": "/frontend/build/logo512.png"
+      "dest": "/api/server"
     },
     {
       "src": "/(.*)",
-      "dest": "/frontend/build/index.html"
+      "dest": "/index.html"
     }
   ]
 }
