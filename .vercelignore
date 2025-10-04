@@ -4,7 +4,4 @@ node_modules
 *.log
 .DS_Store
 dev.sh
-JAVA/
-JavaScript/
-Python/
 pnpm-lock.yaml

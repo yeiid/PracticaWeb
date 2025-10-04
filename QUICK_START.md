@@ -93,9 +93,13 @@ cd frontend && npm start
 
 ## ❓ Problemas Comunes
 
+### ❌ Error: "Module not found: Python/PythonCourse"
+**Solución:** Ya corregido en `.vercelignore`. Haz commit y push de los cambios.
+
 ### Build falla
 - Verifica que todas las dependencias estén en `frontend/package.json`
 - Revisa los logs en Vercel Dashboard
+- Consulta [TROUBLESHOOTING.md](./TROUBLESHOOTING.md)
 
 ### API no responde
 - Verifica que las 4 variables de entorno estén configuradas
