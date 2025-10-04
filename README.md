@@ -14,8 +14,10 @@ Plataforma educativa completa para aprender desarrollo web, completamente migrad
 
 ```
 Academia Web/
-├── 🔧 backend/                 # API REST (puerto 3004)
-├── ⚛️ frontend/                # Aplicación React (puerto 3005)
+├── 🔧 api/                     # Funciones serverless (Vercel)
+│   ├── server.js              # API Express como función serverless
+│   └── package.json           # Dependencias de la API
+├── ⚛️ frontend/                # Aplicación React
 │   ├── src/courses/           # Cursos modulares en React
 │   │   ├── HTML/              # Curso HTML5 completo
 │   │   ├── CSS/               # Curso CSS3 completo
@@ -24,7 +26,7 @@ Academia Web/
 │   ├── src/App.js             # Componente principal
 │   └── src/ProgressSystem.js  # Sistema de progreso
 ├── 📦 package.json            # Dependencias y scripts (pnpm)
-├── ⚡ dev.sh                   # Script de desarrollo completo
+├── 🚀 vercel.json             # Configuración de Vercel
 └── 📚 README.md              # Esta documentación
 ```
 
@@ -35,28 +37,32 @@ Academia Web/
 ./dev.sh
 ```
 
-### 🖥️ Manualmente
+### 🖥️ Desarrollo Local
 ```bash
 # Instalar dependencias con pnpm
 pnpm install
 
-# Iniciar backend y frontend
-pnpm run dev
+# Iniciar solo el frontend
+cd frontend && npm start
 ```
+
+**Nota:** En desarrollo local, el frontend se conecta directamente a Supabase. Las funciones serverless solo funcionan en Vercel.
 
 ## 🌐 Servicios
 
-| Servicio | Puerto | Descripción |
-|----------|--------|-------------|
-| **🔧 Backend** | 3004 | API REST para progreso |
-| **⚛️ Frontend** | 3005 | Aplicación React completa |
+| Servicio | Ubicación | Descripción |
+|----------|-----------|-------------|
+| **⚛️ Frontend** | Puerto 3005 (local) | Aplicación React completa |
+| **🔧 API** | `/api/*` (Vercel) | Funciones serverless en producción |
+| **💾 Supabase** | Cloud | Base de datos y autenticación |
 
 ## 🛠️ Tecnologías
 
 - **Frontend**: React 18, CSS Modules, JavaScript ES6+
-- **Backend**: Node.js, Express.js, JSON
+- **Backend**: Express.js como funciones serverless (Vercel)
+- **Base de datos**: Supabase (PostgreSQL)
+- **Autenticación**: Supabase Auth
 - **Package Manager**: **pnpm** (más rápido que npm)
-- **Automatización**: concurrently, scripts bash
 
 ## 🚀 Despliegue en Vercel
 
@@ -64,17 +70,20 @@ Para desplegar esta aplicación en Vercel, consulta la [Guía de Despliegue](./V
 
 **Características del despliegue:**
 - ✅ Frontend React optimizado
-- ✅ Backend como funciones serverless
-- ✅ Integración con Supabase
+- ✅ API como funciones serverless
+- ✅ Conexión directa con Supabase
 - ✅ Variables de entorno seguras
+- ✅ Soporte para React Router
+- ✅ Todo en un solo repositorio
 
 ## 📞 Soporte
 
 ### Problemas Comunes
-1. **Puertos ocupados** - Libera puertos 3004 y 3005
-2. **Dependencias** - Ejecuta `pnpm install`
+1. **Puerto ocupado** - Libera puerto 3005 (frontend)
+2. **Dependencias** - Ejecuta `pnpm install` y `cd frontend && npm install`
 3. **pnpm no instalado** - Instala con `npm install -g pnpm`
 4. **Navegador** - Usa Chrome/Firefox para mejor experiencia
+5. **API en local** - Las funciones serverless solo funcionan en Vercel
 
 ---
 

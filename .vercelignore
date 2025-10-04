@@ -1,7 +1,10 @@
 node_modules
-backend
 .env
 .env.local
 *.log
 .DS_Store
 dev.sh
+JAVA/
+JavaScript/
+Python/
+pnpm-lock.yaml

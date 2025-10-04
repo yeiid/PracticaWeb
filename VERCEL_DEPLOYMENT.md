@@ -4,20 +4,23 @@
 
 Este proyecto está configurado para desplegarse en Vercel con:
 - **Frontend**: React app (construida con `react-scripts`)
-- **Backend**: Express API como funciones serverless
+- **Backend**: Funciones serverless en `/api` (Express.js)
+- **Base de datos**: Supabase (conexión directa)
 
 ## Estructura de Archivos
 
 ```
 PracticaWeb/
-├── api/                    # Funciones serverless para Vercel
-│   ├── server.js          # API Express adaptada para serverless
-│   └── package.json       # Dependencias de la API
+├── api/                   # Funciones serverless
+│   ├── server.js         # API Express adaptada para serverless
+│   └── package.json      # Dependencias de la API
 ├── frontend/              # Aplicación React
 │   ├── src/
+│   │   ├── config/       # Configuración de Supabase
+│   │   ├── courses/      # Cursos (HTML, CSS, JS, Python)
+│   │   └── ...
 │   ├── public/
 │   └── package.json
-├── backend/               # Backend original (solo para desarrollo local)
 ├── vercel.json           # Configuración de Vercel
 └── .vercelignore         # Archivos a ignorar en el despliegue
 ```
@@ -34,14 +37,21 @@ npm i -g vercel
 
 Debes agregar las siguientes variables de entorno en el dashboard de Vercel:
 
+**Para el Frontend:**
+- `REACT_APP_SUPABASE_URL`: Tu URL de Supabase
+- `REACT_APP_SUPABASE_ANON_KEY`: Tu clave anónima (pública) de Supabase
+
+**Para las Funciones Serverless (API):**
 - `SUPABASE_URL`: Tu URL de Supabase
-- `SUPABASE_SERVICE_ROLE_KEY`: Tu clave de servicio de Supabase
+- `SUPABASE_SERVICE_ROLE_KEY`: Tu clave de servicio de Supabase (privada)
 
 **Cómo agregar variables de entorno:**
 1. Ve a tu proyecto en Vercel Dashboard
 2. Settings → Environment Variables
 3. Agrega cada variable con su valor
 4. Selecciona los entornos: Production, Preview, Development
+
+**Nota:** El frontend usa la clave anónima (pública) y las funciones serverless usan la service role key (privada) para operaciones administrativas.
 
 ### 3. Desplegar desde la CLI
 
@@ -64,81 +74,80 @@ vercel --prod
 
 ```json
 {
-  "version": 2,
   "buildCommand": "cd frontend && npm install && npm run build",
   "outputDirectory": "frontend/build",
   "rewrites": [
     {
       "source": "/api/:path*",
       "destination": "/api/server"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/server"
     },
     {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
 ```
 
-## Rutas de la API
-
-Todas las rutas de la API están disponibles en `/api/*`:
-
-- `GET /api/health` - Health check
-- `GET /api/progress` - Obtener progreso del usuario
-- `POST /api/progress` - Actualizar progreso
-- `GET /api/certificates` - Obtener certificados
-- `POST /api/certificates` - Generar certificado
-- `GET /api/profile` - Obtener perfil
-- `PUT /api/profile` - Actualizar perfil
-- `PUT /api/auth/user` - Actualizar credenciales
+Esta configuración:
+- **buildCommand**: Instala dependencias y construye el frontend React
+- **outputDirectory**: Define dónde están los archivos estáticos compilados
+- **rewrites**: 
+  - Redirige todas las peticiones `/api/*` a la función serverless
+  - Redirige el resto de rutas al `index.html` para React Router
 
 ## Desarrollo Local
 
-Para desarrollo local, sigue usando:
+Para desarrollo local:
 
 ```bash
-# Desde la raíz
-pnpm run dev
-
-# O manualmente
-cd backend && npm start
+# Solo el frontend (recomendado)
 cd frontend && npm start
 ```
 
+**Nota:** Las funciones serverless (`/api`) solo funcionan en Vercel. En desarrollo local, el frontend se conecta directamente a Supabase sin necesidad del backend intermedio.
+
 ## Notas Importantes
 
-1. **Serverless Functions**: El backend se ejecuta como funciones serverless en Vercel, no como un servidor Express tradicional
-2. **Cold Starts**: Las primeras peticiones pueden ser más lentas debido al arranque en frío
-3. **Timeouts**: Las funciones serverless tienen un límite de tiempo de ejecución (10s en plan gratuito)
+1. **Todo en Uno**: Frontend y API en el mismo repositorio
+2. **Funciones Serverless**: El backend Express se ejecuta como funciones serverless en Vercel
+3. **Supabase**: Maneja toda la autenticación, base de datos y almacenamiento
 4. **Variables de Entorno**: NUNCA subas archivos `.env` al repositorio
+5. **Cold Starts**: Las primeras peticiones a la API pueden ser lentas (arranque en frío)
+6. **Timeouts**: Las funciones serverless tienen límite de 10s en plan gratuito
 
 ## Verificación del Despliegue
 
 Después del despliegue, verifica:
 
-1. **Frontend**: Accede a tu URL de Vercel
-2. **API Health**: `https://tu-dominio.vercel.app/api/health`
-3. **Autenticación**: Prueba el login/registro
-4. **Funcionalidad**: Verifica que todas las features funcionen
+1. **Frontend**: Accede a tu URL de Vercel (ej: `https://tu-proyecto.vercel.app`)
+2. **API Health**: `https://tu-proyecto.vercel.app/api/health`
+3. **Autenticación**: Prueba el login/registro con Supabase
+4. **Navegación**: Verifica que todas las rutas funcionen correctamente
+5. **Cursos**: Accede a los cursos (HTML, CSS, JS, Python)
+6. **Funcionalidad**: Verifica progreso, certificados, etc.
 
 ## Troubleshooting
 
-### Error: "Module not found"
-- Verifica que todas las dependencias estén en `api/package.json`
-
 ### Error: "Environment variable not defined"
-- Asegúrate de haber configurado las variables en Vercel Dashboard
-
-### Error 500 en las APIs
-- Revisa los logs en Vercel Dashboard → Deployments → [tu deployment] → Functions
+- Frontend: Configura `REACT_APP_SUPABASE_URL` y `REACT_APP_SUPABASE_ANON_KEY`
+- API: Configura `SUPABASE_URL` y `SUPABASE_SERVICE_ROLE_KEY`
 
 ### Frontend no carga
 - Verifica que `outputDirectory` apunte a `frontend/build`
 - Asegúrate de que el build command sea correcto
+- Revisa los logs en Vercel Dashboard → Deployments → [tu deployment]
+
+### Rutas no funcionan (404)
+- Verifica que los rewrites estén configurados correctamente en `vercel.json`
+- React Router necesita que todas las rutas redirijan a `index.html`
+
+### API no responde (500/502)
+- Verifica que las variables de entorno de la API estén configuradas
+- Revisa los logs de las funciones en Vercel Dashboard → Functions
+- Asegúrate de que `api/package.json` tenga todas las dependencias
+
+### Error de conexión con Supabase
+- Frontend usa `REACT_APP_SUPABASE_ANON_KEY` (clave pública)
+- API usa `SUPABASE_SERVICE_ROLE_KEY` (clave privada)
+- Verifica que ambas estén correctamente configuradas
