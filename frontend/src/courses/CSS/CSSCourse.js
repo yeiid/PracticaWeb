@@ -9,7 +9,7 @@ import AnimacionesSlide from './AnimacionesSlide';
 import BuenasPracticasSlide from './BuenasPracticasSlide';
 import styles from './CSSSlides.module.css';
 
-const CSSCourse = () => {
+const CSSCourse = ({ onBack }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
@@ -40,6 +40,7 @@ const CSSCourse = () => {
   return (
     <div className={styles.courseContainer}>
       <div className={styles.courseHeader}>
+        <button className={styles.backButton} onClick={onBack}>← Volver al inicio</button>
         <h1>🎨 Curso CSS3</h1>
         <div className={styles.progress}>
           <span>{currentSlide + 1} de {slides.length}</span>

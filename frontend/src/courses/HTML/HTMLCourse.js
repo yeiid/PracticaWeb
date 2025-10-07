@@ -8,7 +8,7 @@ import EtiquetasSlide from './EtiquetasSlide';
 import CierreSlide from './CierreSlide';
 import styles from './HTMLSlides.module.css';
 
-const HTMLCourse = () => {
+const HTMLCourse = ({ onBack }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
@@ -38,6 +38,7 @@ const HTMLCourse = () => {
   return (
     <div className={styles.courseContainer}>
       <div className={styles.courseHeader}>
+        <button className={styles.backButton} onClick={onBack}>← Volver al inicio</button>
         <h1>📄 Curso HTML5</h1>
         <div className={styles.progress}>
           <span>{currentSlide + 1} de {slides.length}</span>

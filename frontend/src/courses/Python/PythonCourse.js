@@ -11,7 +11,7 @@ import HerramientasPythonSlide from './HerramientasPythonSlide';
 import CierrePythonSlide from './CierrePythonSlide';
 import styles from './PythonSlides.module.css';
 
-const PythonCourse = () => {
+const PythonCourse = ({ onBack }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
@@ -44,6 +44,7 @@ const PythonCourse = () => {
   return (
     <div className={styles.courseContainer}>
       <div className={styles.courseHeader}>
+        <button className={styles.backButton} onClick={onBack}>← Volver al inicio</button>
         <h1>🐍 Curso Python</h1>
         <div className={styles.progress}>
           <span>{currentSlide + 1} de {slides.length}</span>

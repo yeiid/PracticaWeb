@@ -14,102 +14,19 @@
   font-weight: 500;
 }
 
-/* Tablets */
-@media (max-width: 768px) {
-  .main-content {
-    padding: 16px;
-  }
-
-  .courses-grid-modern {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .courses-section h2, .roadmap-section h2 {
-    font-size: 1.5rem;
-    text-align: center;
-    margin-bottom: 24px;
-  }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  background-color: #282c34;
+  color: white;
 }
 
-/* Móviles */
-@media (max-width: 480px) {
-  .main-content {
-    padding: 12px;
-  }
-
-  .courses-grid-modern {
-    gap: 16px;
-  }
-
-  .courses-section h2, .roadmap-section h2 {
-    font-size: 1.25rem;
-    margin-bottom: 20px;
-  }
-
-  .roadmap-modern {
-    padding: 0;
-  }
+.header h1 {
+  margin: 0;
+  font-size: 2rem;
 }
-
-/* Header responsive */
-@media (max-width: 768px) {
-  .header {
-    padding: 16px;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .header h1 {
-    font-size: 1.5rem;
-  }
-
-  .header-right {
-    gap: 12px;
-  }
-
-  .auth-button-logout {
-    padding: 6px 12px;
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .header {
-    padding: 12px;
-  }
-
-  .header h1 {
-    font-size: 1.3rem;
-  }
-
-  .back-button {
-    padding: 6px 12px;
-    font-size: 0.85rem;
-  }
-}
-
-/* Móviles muy pequeños */
-@media (max-width: 360px) {
-  .course-card-modern {
-    padding: 12px 8px;
-  }
-
-  .course-icon-modern {
-    font-size: 1.5rem;
-    width: 40px;
-    height: 40px;
-  }
-
-  .course-title-modern h3 {
-    font-size: 0.95rem;
-  }
-
-  .course-description-modern {
-    font-size: 0.75rem;
-  }
-}
-
 
 .header-right {
   display: flex;
@@ -197,29 +114,6 @@
   box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
-/* ... (otros estilos de App.css) ... */
-
-/* Móviles muy pequeños */
-@media (max-width: 360px) {
-  .course-card-modern {
-    padding: 12px 8px;
-  }
-
-  .course-icon-modern {
-    font-size: 1.5rem;
-    width: 40px;
-    height: 40px;
-  }
-
-  .course-title-modern h3 {
-    font-size: 0.95rem;
-  }
-
-  .course-description-modern {
-    font-size: 0.75rem;
-  }
-}
-
 /* Media Queries para Responsive Design - Dashboard */
 
 /* Tablets */
@@ -237,6 +131,21 @@
     font-size: 1.5rem;
     text-align: center;
     margin-bottom: 24px;
+  }
+
+  .header {
+    padding: 16px;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .back-button {
+    padding: 6px 12px;
+    font-size: 0.9rem;
   }
 }
 
@@ -258,31 +167,7 @@
   .roadmap-modern {
     padding: 0;
   }
-}
 
-/* Header responsive */
-@media (max-width: 768px) {
-  .header {
-    padding: 16px;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .header h1 {
-    font-size: 1.5rem;
-  }
-
-  .header-right {
-    gap: 12px;
-  }
-
-  .auth-button-logout {
-    padding: 6px 12px;
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 480px) {
   .header {
     padding: 12px;
   }
@@ -297,3 +182,23 @@
   }
 }
 
+/* Móviles muy pequeños */
+@media (max-width: 360px) {
+  .course-card-modern {
+    padding: 12px 8px;
+  }
+
+  .course-icon-modern {
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+  }
+
+  .course-title-modern h3 {
+    font-size: 0.95rem;
+  }
+
+  .course-description-modern {
+    font-size: 0.75rem;
+  }
+}

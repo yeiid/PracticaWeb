@@ -12,7 +12,7 @@ import ES6JSSlide from './ES6JSSlide';
 import CierreJSSlide from './CierreJSSlide';
 import styles from './JSSlides.module.css';
 
-const JSCourse = () => {
+const JSCourse = ({ onBack }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
@@ -46,6 +46,7 @@ const JSCourse = () => {
   return (
     <div className={styles.courseContainer}>
       <div className={styles.courseHeader}>
+        <button className={styles.backButton} onClick={onBack}>← Volver al inicio</button>
         <h1>⚡ Curso JavaScript</h1>
         <div className={styles.progress}>
           <span>{currentSlide + 1} de {slides.length}</span>

@@ -92,13 +92,12 @@ function Dashboard() {
             ← Volver al inicio
           </button>
           <h1>🚀 Academia Web</h1>
-          <button onClick={signOut} className="auth-button-logout">Cerrar Sesión</button>
         </header>
         <ProgressSystem progress={progress} />
-        {selectedCourse.id === 'html' && <HTMLCourse />}
-        {selectedCourse.id === 'css' && <CSSCourse />}
-        {selectedCourse.id === 'js' && <JSCourse />}
-        {selectedCourse.id === 'python' && <PythonCourse />}
+        {selectedCourse.id === 'html' && <HTMLCourse onBack={() => setCurrentView('home')} />}
+        {selectedCourse.id === 'css' && <CSSCourse onBack={() => setCurrentView('home')} />}
+        {selectedCourse.id === 'js' && <JSCourse onBack={() => setCurrentView('home')} />}
+        {selectedCourse.id === 'python' && <PythonCourse onBack={() => setCurrentView('home')} />}
       </div>
     );
   }

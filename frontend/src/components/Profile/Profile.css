@@ -16,6 +16,7 @@
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+  overflow: hidden; /* To contain the children's border-radius */
 }
 
 .profile-container h2 {
@@ -24,7 +25,7 @@
   color: #333;
 }
 
-.profile-form-unified {
+.profile-form-container {
   padding: 20px;
 }
 
@@ -67,14 +68,91 @@
   transition: all 0.3s ease;
 }
 
-.submit-btn-unified:hover:not(:disabled) {
+.submit-btn-unified:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .submit-btn-unified:disabled {
-  background: #a0aec0;
+  background-color: #a0aec0;
   cursor: not-allowed;
+}
+
+
+/* Action Buttons */
+.profile-actions {
+  padding: 20px;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.action-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.dashboard-btn {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.dashboard-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
+
+.close-btn {
+  background: linear-gradient(135deg, #e53e3e, #c53030);
+  color: white;
+}
+
+.close-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(229, 62, 62, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-content-profile {
+    padding: 15px;
+  }
+
+  .profile-container {
+    margin: 10px auto;
+  }
+
+  
+  .profile-actions {
+    flex-direction: column;
+    padding: 15px;
+  }
+
+  .action-btn {
+    width: 100%;
+    padding: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-container {
+    margin: 5px;
+    border-radius: 4px;
+  }
+
+  .profile-form-container {
+    padding: 15px;
+  }
+
+  .profile-actions {
+    padding: 12px;
+  }
 }
 
 .message {
