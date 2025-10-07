@@ -129,7 +129,7 @@ const Web10Scene = ({ active }) => {
           gsap.killTweensOf(targets);
       }
     };
-  }, [active]);
+  }, [active, SCENE_CONFIG.TRANSITION_DURATION, SCENE_CONFIG.FLOAT_Y_OFFSET, SCENE_CONFIG.FLOAT_DURATION, SCENE_CONFIG.FLOAT_STAGGER]);
 
 
   // Si la escena no está activa, no se renderiza nada

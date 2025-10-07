@@ -43,8 +43,6 @@ const WebBirthScene = ({ active }) => {
   const networkRef = useRef();
   const tlRef = useRef(null);
 
-  const [hoveredLink, setHoveredLink] = useState(null);
-  const [clickedLink, setClickedLink] = useState(null);
   const [showInfo, setShowInfo] = useState(false);
   const [currentCodeLine, setCurrentCodeLine] = useState(0);
   const [showCode, setShowCode] = useState(false);
@@ -86,34 +84,7 @@ const WebBirthScene = ({ active }) => {
     return geometry;
   }, []);
 
-  // Partículas que representan código HTML flotante
-  const codeParticles = React.useMemo(() => {
-    const particles = [];
-    for (let i = 0; i < SCENE_CONFIG.PARTICLE_COUNT; i++) {
-      particles.push({
-        position: [
-          (Math.random() - 0.5) * 30,
-          (Math.random() - 0.5) * 20,
-          (Math.random() - 0.5) * 15
-        ],
-        code: SCENE_CONFIG.CODE_SNIPPETS[i % SCENE_CONFIG.CODE_SNIPPETS.length],
-        delay: i * 0.1
-      });
-    }
-    return particles;
-  }, []);
 
-  // Función para manejar hover en enlaces
-  const handleLinkHover = (linkIndex) => {
-    setHoveredLink(linkIndex);
-  };
-
-  // Función para manejar click en enlaces
-  const handleLinkClick = (linkIndex) => {
-    setClickedLink(linkIndex);
-    setShowInfo(true);
-    setTimeout(() => setShowInfo(false), 3000);
-  };
 
   // Función para manejar click en el monitor
   const handleMonitorClick = () => {

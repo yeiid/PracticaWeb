@@ -11,7 +11,7 @@ import Header from '../Header/Header';
 import RoadmapStep from './RoadmapStep';
 
 function Dashboard() {
-  const { user, signOut } = useAuth();
+  const { user } = useAuth();
   const [currentView, setCurrentView] = useState('home');
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [courses, setCourses] = useState([]);
