@@ -1,4 +1,3 @@
-// Dashboard principal del usuario
 import React, { useState, useEffect } from 'react';
 import './Dashboard.css';
 import ProgressSystem from '../ProgressSystem/ProgressSystem';
@@ -15,57 +14,47 @@ function Dashboard() {
   const { user, signOut } = useAuth();
   const [currentView, setCurrentView] = useState('home');
   const [selectedCourse, setSelectedCourse] = useState(null);
-
-  // Simulación de carga de progreso desde un backend
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState({});
 
   useEffect(() => {
     if (user) {
-      // Aquí llamarías a tu API para obtener el progreso del usuario
-      // Por ahora, simulamos con datos locales
       const localProgress = JSON.parse(localStorage.getItem(`progress-${user.id}`) || '{}');
       setProgress(localProgress);
     }
   }, [user]);
 
-  const courses = [
-    {
-      id: 'html',
-      title: 'HTML5',
-      icon: '📄',
-      description: 'Aprende los fundamentos del lenguaje de marcado que estructura el contenido web.',
-      url: '/HTML/',
-      color: '#e34f26',
-      slides: 7
-    },
-    {
-      id: 'css',
-      title: 'CSS3',
-      icon: '🎨',
-      description: 'Domina el arte del diseño web con estilos modernos y layouts avanzados.',
-      url: '/CSS/',
-      color: '#1572b6',
-      slides: 8
-    },
-    {
-      id: 'js',
-      title: 'JavaScript',
-      icon: '⚡',
-      description: 'Haz que tus páginas cobren vida con programación interactiva moderna.',
-      url: '/JS/',
-      color: '#f7df1e',
-      slides: 11
-    },
-    {
-      id: 'python',
-      title: 'Python',
-      icon: '🐍',
-      description: 'Aprende el lenguaje de programación más versátil para datos, web y automatización.',
-      url: '/Python/',
-      color: '#3776ab',
-      slides: 10
-    }
-  ];
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await fetch('/api/courses');
+        if (response.ok) {
+          const data = await response.json();
+          setCourses(data);
+        } else {
+          console.error('Error al cargar cursos:', response.statusText);
+          setCourses([
+            { id: 'html', title: 'HTML5', icon: '📄', description: 'Aprende los fundamentos del lenguaje de marcado que estructura el contenido web.', url: '/HTML/', color: '#e34f26', slides: 7 },
+            { id: 'css', title: 'CSS3', icon: '🎨', description: 'Domina el arte del diseño web con estilos modernos y layouts avanzados.', url: '/CSS/', color: '#1572b6', slides: 8 },
+            { id: 'js', title: 'JavaScript', icon: '⚡', description: 'Haz que tus páginas cobren vida con programación interactiva moderna.', url: '/JS/', color: '#f7df1e', slides: 11 },
+            { id: 'python', title: 'Python', icon: '🐍', description: 'Aprende el lenguaje de programación más versátil para datos, web y automatización.', url: '/Python/', color: '#3776ab', slides: 10 }
+          ]);
+        }
+      } catch (error) {
+        console.error('Error al conectar con la API:', error);
+        setCourses([
+          { id: 'html', title: 'HTML5', icon: '📄', description: 'Aprende los fundamentos del lenguaje de marcado que estructura el contenido web.', url: '/HTML/', color: '#e34f26', slides: 7 },
+          { id: 'css', title: 'CSS3', icon: '🎨', description: 'Domina el arte del diseño web con estilos modernos y layouts avanzados.', url: '/CSS/', color: '#1572b6', slides: 8 },
+          { id: 'js', title: 'JavaScript', icon: '⚡', description: 'Haz que tus páginas cobren vida con programación interactiva moderna.', url: '/JS/', color: '#f7df1e', slides: 11 },
+          { id: 'python', title: 'Python', icon: '🐍', description: 'Aprende el lenguaje de programación más versátil para datos, web y automatización.', url: '/Python/', color: '#3776ab', slides: 10 }
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCourses();
+  }, []);
 
   const roadmapSteps = [
     { id: 1, title: 'HTML5 - Los Fundamentos', description: 'Estructura básica y semántica', completed: true, course: 'html', icon: '📄' },
@@ -86,6 +75,14 @@ function Dashboard() {
     if (!courseData) return 0;
     return Math.round((courseData.completed / courseData.total) * 100);
   };
+
+  if (loading) {
+    return (
+      <div className="App">
+        <div className="loading">Cargando cursos...</div>
+      </div>
+    );
+  }
 
   if (currentView === 'course' && selectedCourse) {
     return (
@@ -109,9 +106,7 @@ function Dashboard() {
   return (
     <div className="App">
       <ProgressSystem progress={progress} />
-
       <Header />
-
       <main className="main-content">
         <section className="courses-section">
           <h2>📚 Cursos Disponibles</h2>
@@ -126,7 +121,6 @@ function Dashboard() {
             ))}
           </div>
         </section>
-
         <section className="roadmap-section">
           <h2>🗺️ Ruta de Aprendizaje</h2>
           <div className="roadmap-modern">
@@ -140,9 +134,7 @@ function Dashboard() {
             ))}
           </div>
         </section>
-
-              </main>
-
+      </main>
       <footer className="footer">
         <p>🎓 ¡Aprende a tu ritmo, construye proyectos increíbles!</p>
         <p>💡 Recuerda: La práctica hace al maestro</p>
@@ -152,3 +144,4 @@ function Dashboard() {
 }
 
 export default Dashboard;
+

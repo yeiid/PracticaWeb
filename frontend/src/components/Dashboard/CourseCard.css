@@ -106,3 +106,129 @@
 .start-course-btn:hover {
   filter: brightness(1.1);
 }
+
+/* Media Queries para Responsive Design */
+
+/* Tablets y dispositivos medianos */
+@media (max-width: 768px) {
+  .course-card-modern {
+    padding: 20px 16px;
+    margin-bottom: 16px;
+  }
+
+  .course-card-header {
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .course-icon-modern {
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+  }
+
+  .course-title-modern h3 {
+    font-size: 1.1rem;
+  }
+
+  .course-title-modern span {
+    font-size: 0.8rem;
+  }
+
+  .course-description-modern {
+    font-size: 0.875rem;
+    margin-bottom: 20px;
+  }
+
+  .progress-text-modern {
+    font-size: 0.75rem;
+  }
+
+  .start-course-btn {
+    padding: 10px 0;
+    font-size: 0.9rem;
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+  .course-card-modern {
+    padding: 16px 12px;
+    margin-bottom: 12px;
+  }
+
+  .course-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .course-icon-modern {
+    font-size: 1.75rem;
+    width: 45px;
+    height: 45px;
+    align-self: center;
+  }
+
+  .course-title-modern {
+    text-align: center;
+    width: 100%;
+  }
+
+  .course-title-modern h3 {
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+
+  .course-title-modern span {
+    font-size: 0.75rem;
+  }
+
+  .course-description-modern {
+    font-size: 0.8rem;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .course-progress-modern {
+    margin-bottom: 16px;
+  }
+
+  .progress-bar-wrapper {
+    height: 6px;
+    margin-bottom: 6px;
+  }
+
+  .progress-text-modern {
+    font-size: 0.7rem;
+    text-align: center;
+  }
+
+  .start-course-btn {
+    padding: 8px 0;
+    font-size: 0.85rem;
+  }
+}
+
+/* Móviles muy pequeños */
+@media (max-width: 360px) {
+  .course-card-modern {
+    padding: 12px 8px;
+  }
+
+  .course-icon-modern {
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+  }
+
+  .course-title-modern h3 {
+    font-size: 0.95rem;
+  }
+
+  .course-description-modern {
+    font-size: 0.75rem;
+  }
+}
+

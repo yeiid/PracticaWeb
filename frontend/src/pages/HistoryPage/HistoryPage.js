@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import Header from '../../components/Header/Header';
-import WebGlobe from '../../components/3d/WebGlobe';
-import ComputingCube from '../../components/3d/ComputingCube';
-import IndustrialCog from '../../components/3d/IndustrialCog';
+import WebGlobe from '../../components/3d/computing-history/WebGlobe';
+import ComputingCube from '../../components/3d/computing-history/ComputingCube';
+import IndustrialCog from '../../components/3d/computing-history/IndustrialCog';
+import WebJourney from '../../components/3d/web-history/web-evolution/web-journey';
+import JavaScriptScene from '../../components/3d/web-history/javascript-scene';
+import WebBirthScene from '../../components/3d/web-history/web-birth-scene';
 import './HistoryPage.css';
 
 const historyData = {
@@ -24,9 +27,9 @@ const historyData = {
   ],
   events: {
     web: [
-      { id: 'nacimiento-www', year: '1991', title: 'Nacimiento de la WWW', description: 'Tim Berners-Lee crea la primera página web en el CERN.', icon: '🌐', component: <WebGlobe /> },
-      { id: 'auge-js', year: '1995', title: 'Auge de JavaScript', description: 'Netscape introduce el lenguaje que daría vida a la web.', icon: '📜', component: <ComputingCube /> },
-      { id: 'web-2', year: '2005', title: 'La Web 2.0', description: 'Nacen plataformas como YouTube y Facebook.', icon: '👥', component: <IndustrialCog /> }
+      { id: 'nacimiento-www', year: '1991', title: 'Nacimiento de la WWW', description: 'Tim Berners-Lee crea la primera página web en el CERN.', icon: '🌐', component: <WebBirthScene /> },
+      { id: 'auge-js', year: '1995', title: 'Auge de JavaScript', description: 'Netscape introduce el lenguaje que daría vida a la web.', icon: '📜', component: <JavaScriptScene /> },
+      { id: 'web-journey', year: '2000-2024', title: 'La Evolución de la Web', description: 'Viaja a través de las eras de la web: 1.0, 2.0 y 3.0 con escenas 3D interactivas.', icon: '🚀', component: <WebJourney /> }
     ],
     computing: [
       { id: 'maquina-analitica', year: '1837', title: 'La Máquina Analítica', description: 'Charles Babbage concibe el primer computador mecánico programable.', icon: '⚙️', component: <IndustrialCog /> },

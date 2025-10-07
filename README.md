@@ -18,13 +18,17 @@ Academia Web/
 │   ├── server.js              # API Express como función serverless
 │   └── package.json           # Dependencias de la API
 ├── ⚛️ frontend/                # Aplicación React
+│   ├── src/components/        # Componentes modulares
+│   │   ├── Auth/               # Autenticación
+│   │   ├── Dashboard/          # Panel de control
+│   │   ├── ProgressSystem/     # Sistema de progreso
+│   │   └── ...                 # Otros componentes
 │   ├── src/courses/           # Cursos modulares en React
 │   │   ├── HTML/              # Curso HTML5 completo
 │   │   ├── CSS/               # Curso CSS3 completo
 │   │   ├── JS/                # Curso JavaScript completo
 │   │   └── Python/            # Curso Python completo
-│   ├── src/App.js             # Componente principal
-│   └── src/ProgressSystem.js  # Sistema de progreso
+│   └── src/App.js             # Componente principal
 ├── 📦 package.json            # Dependencias y scripts (pnpm)
 ├── 🚀 vercel.json             # Configuración de Vercel
 └── 📚 README.md              # Esta documentación

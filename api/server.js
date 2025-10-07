@@ -138,14 +138,92 @@ app.put('/api/auth/user', authMiddleware, async (req, res) => {
   res.json({ success: true, message: 'Credenciales actualizadas correctamente.' });
 });
 
-// Health check
-app.get('/api/health', (req, res) => {
-  res.json({
-    status: 'OK',
-    timestamp: new Date().toISOString(),
-    version: '2.0.0'
-  });
+// Obtener cursos activos
+app.get('/api/courses', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('courses')
+      .select('*')
+      .eq('active', true)
+      .order('created_at');
+
+    if (error) throw error;
+
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener cursos' });
+  }
 });
+
+// Obtener todos los cursos (solo para administradores en producción)
+app.get('/api/courses/admin', authMiddleware, async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('courses')
+      .select('*')
+      .order('created_at');
+
+    if (error) throw error;
+
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener cursos' });
+  }
+});
+
+// Crear nuevo curso
+app.post('/api/courses', authMiddleware, async (req, res) => {
+  try {
+    const { title, description, icon, color, slides, url } = req.body;
+    const { data, error } = await supabase
+      .from('courses')
+      .insert({ title, description, icon, color, slides, url })
+      .select();
+
+    if (error) throw error;
+
+    res.status(201).json({ success: true, course: data[0] });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al crear curso' });
+  }
+});
+
+// Actualizar curso
+app.put('/api/courses/:id', authMiddleware, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, description, icon, color, slides, url, active } = req.body;
+    const { data, error } = await supabase
+      .from('courses')
+      .update({ title, description, icon, color, slides, url, active })
+      .eq('id', id)
+      .select();
+
+    if (error) throw error;
+
+    res.json({ success: true, course: data[0] });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al actualizar curso' });
+  }
+});
+
+// Eliminar curso
+app.delete('/api/courses/:id', authMiddleware, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { error } = await supabase
+      .from('courses')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
+
+    res.json({ success: true, message: 'Curso eliminado correctamente' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al eliminar curso' });
+  }
+});
+
 
 // Export the Express app as a serverless function
 module.exports = app;

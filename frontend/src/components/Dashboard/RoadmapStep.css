@@ -118,3 +118,101 @@
   font-weight: 600;
   color: #16a34a;
 }
+
+/* Media Queries para Responsive Design - Roadmap */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .roadmap-step-modern {
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  .step-icon-modern {
+    font-size: 1.6rem;
+    margin-right: 16px;
+    width: 45px;
+    height: 45px;
+  }
+
+  .step-content-modern h4 {
+    font-size: 1rem;
+  }
+
+  .step-content-modern p {
+    font-size: 0.85rem;
+  }
+
+  .step-number-modern {
+    font-size: 0.75rem;
+  }
+
+  .step-progress-container {
+    width: 80px;
+  }
+}
+
+/* Móviles */
+@media (max-width: 480px) {
+  .roadmap-step-modern {
+    padding: 12px;
+    margin-bottom: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .step-icon-modern {
+    font-size: 1.4rem;
+    margin-right: 0;
+    margin-bottom: 12px;
+    width: 40px;
+    height: 40px;
+    align-self: center;
+  }
+
+  .step-content-modern {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .step-content-modern h4 {
+    font-size: 0.95rem;
+  }
+
+  .step-content-modern p {
+    font-size: 0.8rem;
+  }
+
+  .step-number-modern {
+    font-size: 0.7rem;
+  }
+
+  .step-progress-container {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+}
+
+/* Móviles muy pequeños */
+@media (max-width: 360px) {
+  .roadmap-step-modern {
+    padding: 10px;
+  }
+
+  .step-icon-modern {
+    font-size: 1.2rem;
+    width: 35px;
+    height: 35px;
+  }
+
+  .step-content-modern h4 {
+    font-size: 0.9rem;
+  }
+
+  .step-content-modern p {
+    font-size: 0.75rem;
+  }
+}
+
