@@ -43,7 +43,6 @@ const WebBirthScene = ({ active }) => {
   const networkRef = useRef();
   const tlRef = useRef(null);
 
-  const [showInfo, setShowInfo] = useState(false);
   const [currentCodeLine, setCurrentCodeLine] = useState(0);
   const [showCode, setShowCode] = useState(false);
 
@@ -331,27 +330,6 @@ const WebBirthScene = ({ active }) => {
 
       </group>
 
-      {/* Información contextual */}
-      {showInfo && (
-        <Html position={[3, 0, 0]} center>
-          <div style={{
-            background: 'rgba(0, 0, 0, 0.9)',
-            border: '2px solid #4a90e2',
-            borderRadius: '8px',
-            padding: '15px',
-            color: '#ffffff',
-            fontSize: '14px',
-            maxWidth: '250px',
-            textAlign: 'center',
-            boxShadow: '0 0 20px rgba(74, 144, 226, 0.3)'
-          }}>
-            <strong>Tim Berners-Lee</strong><br />
-            Inventor de la World Wide Web<br />
-            CERN, 1989-1991<br />
-            <em>"This is for everyone"</em>
-          </div>
-        </Html>
-      )}
 
       {/* Iluminación dramática */}
       <ambientLight intensity={0.2} />
