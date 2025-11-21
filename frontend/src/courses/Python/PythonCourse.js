@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+// Importar los slides
 import IntroduccionPythonSlide from './IntroduccionPythonSlide';
 import HistoriaPythonSlide from './HistoriaPythonSlide';
 import InstalacionPythonSlide from './InstalacionPythonSlide';
@@ -9,12 +10,16 @@ import POO_PythonSlide from './POO_PythonSlide';
 import LibreriasPythonSlide from './LibreriasPythonSlide';
 import HerramientasPythonSlide from './HerramientasPythonSlide';
 import CierrePythonSlide from './CierrePythonSlide';
-import styles from './PythonSlides.module.css';
+// Importar componentes de UI
+import CourseTitle from '../header/CourseTitle';
+import CourseNavigation from '../header/CourseNavigation';
+// Importar estilos globales
+
 
 const PythonCourse = ({ onBack }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const slides = [
+  const slides = [ 
     { component: IntroduccionPythonSlide, title: 'Introducción a Python' },
     { component: HistoriaPythonSlide, title: 'Historia de Python' },
     { component: InstalacionPythonSlide, title: 'Instalación y Configuración' },
@@ -41,47 +46,43 @@ const PythonCourse = ({ onBack }) => {
 
   const CurrentSlideComponent = slides[currentSlide].component;
 
+  // Efecto para manejar el scroll al cambiar de slide
+  useEffect(() => {
+    // Hacer scroll suave al principio del contenedor al cambiar de slide
+    const container = document.querySelector('.courseContainer');
+    if (container) {
+      container.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  }, [currentSlide]);
+
   return (
-    <div className={styles.courseContainer}>
-      <div className={styles.courseHeader}>
-        <button className={styles.backButton} onClick={onBack}>← Volver al inicio</button>
-        <h1>🐍 Curso Python</h1>
-        <div className={styles.progress}>
-          <span>{currentSlide + 1} de {slides.length}</span>
+    <div className="courseContainer">
+      <div className="courseContent">
+        <CourseTitle 
+          title="🐍 Curso de Python"
+          currentSlide={currentSlide}
+          totalSlides={slides.length}
+          onBack={onBack}
+        />
+
+        <div className="slideContainer">
+          <div className="slide">
+            <CurrentSlideComponent />
+          </div>
         </div>
       </div>
 
-      <div className={styles.slideContainer}>
-        <CurrentSlideComponent />
-      </div>
-
-      <div className={styles.navigation}>
-        <button
-          onClick={prevSlide}
-          disabled={currentSlide === 0}
-          className={styles.navButton}
-        >
-          ← Anterior
-        </button>
-
-        <div className={styles.slideIndicator}>
-          {slides.map((_, index) => (
-            <span
-              key={index}
-              className={`${styles.indicator} ${index === currentSlide ? styles.active : ''}`}
-              onClick={() => setCurrentSlide(index)}
-            />
-          ))}
-        </div>
-
-        <button
-          onClick={nextSlide}
-          disabled={currentSlide === slides.length - 1}
-          className={styles.navButton}
-        >
-          Siguiente →
-        </button>
-      </div>
+      <CourseNavigation
+        currentSlide={currentSlide}
+        totalSlides={slides.length}
+        onPrev={prevSlide}
+        onNext={nextSlide}
+        onSlideSelect={setCurrentSlide}
+        className="bottomNavigation"
+      />
     </div>
   );
 };

@@ -10,7 +10,7 @@ import './HistoryPage.css';
 
 const historyData = {
   categories: [
-    {
+    { 
       id: 'web',
       title: 'Historia de la Web',
       description: 'Explora los hitos que dieron forma a la World Wide Web.',

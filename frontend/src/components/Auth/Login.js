@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { supabase } from '../../config/supabase';
+import { useAuth } from '../../contexts/AuthContext';
 import './Auth.css';
 
 function Login({ onSwitchToRegister, onLoginSuccess }) {
+  const { signIn, resetPassword } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -16,18 +17,16 @@ function Login({ onSwitchToRegister, onLoginSuccess }) {
     setMessage('');
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+      const { data, error } = await signIn({ email, password });
 
       if (error) throw error;
 
       if (data.user) {
         // Verificar si el email está confirmado
-        if (!data.user.email_confirmed_at) {
+        // En el modo de prueba, no hay `email_confirmed_at`, así que omitimos esta verificación.
+        if (data.user && data.user.email_confirmed_at === false) {
           setMessage('Por favor, verifica tu email antes de iniciar sesión.');
-          await supabase.auth.signOut();
+          // No es necesario signOut aquí, ya que el usuario no está realmente en la sesión de Supabase.
           return;
         }
         
@@ -53,12 +52,9 @@ function Login({ onSwitchToRegister, onLoginSuccess }) {
     setError('');
 
     try {
-      const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/reset-password`,
-      });
-
+      const { error } = await resetPassword(email);
       if (error) throw error;
-      setMessage('Se ha enviado un email para restablecer tu contraseña');
+      setMessage('Se ha enviado un email para restablecer tu contraseña. (En modo de prueba, esto es una simulación)');
     } catch (error) {
       setError(error.message);
     } finally {

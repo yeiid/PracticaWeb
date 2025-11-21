@@ -1,0 +1,600 @@
+/* Estilos base para el encabezado del curso */
+.courseHeader {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 0;
+}
+
+/* Estado cuando se hace scroll */
+.courseHeader.scrolled {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(8px);
+}
+
+/* Contenedor del contenido del encabezado */
+.headerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  gap: 1rem;
+}
+
+.titleWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  min-width: 0;
+  overflow: hidden;
+} /* Permite que el título se ajuste correctamente */
+
+.title {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #2c3e50;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  transition: all 0.3s ease;
+  line-height: 1.3;
+  padding: 0.5rem 0;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+  border-radius: 2rem;
+  padding: 0.35rem 1rem;
+  min-width: 80px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #6c757d;
+  border: 1px solid #e9ecef;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.progressText {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  position: relative;
+}
+
+.currentSlide {
+  font-weight: 700;
+  color: #2c3e50;
+  min-width: 1.2em;
+  text-align: center;
+  display: inline-block;
+}
+
+.slideSeparator {
+  opacity: 0.5;
+  margin: 0 0.1rem;
+  font-weight: 500;
+}
+
+.totalSlides {
+  min-width: 1.2em;
+  text-align: center;
+  display: inline-block;
+}
+
+/* Barra de progreso */
+.progressBar {
+  width: 100%;
+  height: 3px;
+  background-color: #e9ecef;
+  border-radius: 3px;
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #007bff, #4dabf7);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+/* Botón de volver */
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  color: #6c757d;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.5rem 0.8rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.backButton:hover {
+  background-color: #f1f3f5;
+  color: #2c3e50;
+}
+
+.backIcon {
+  font-size: 1.1em;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+.backText {
+  display: none;
+}
+
+/* Clase para lectores de pantalla */
+.screenReaderOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Estilos para la barra de navegación */
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  gap: 0.8rem;
+  background-color: #ffffff;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: auto;
+  min-height: 70px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+/* Efecto de elevación en la navegación */
+.navigation::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 4px;
+  background-color: #e9ecef;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Estilos para los botones de navegación */
+.navButton {
+  padding: 0.7rem 1.2rem;
+  border: none;
+  background-color: #f8f9fa;
+  color: #2c3e50;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: auto;
+  flex: 1;
+  max-width: 180px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Botón de siguiente con color de acento */
+.navButton.nextButton {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Efecto de hover para los botones */
+.navButton:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.navButton.nextButton:not(:disabled):hover {
+  background-color: #0056b3;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.navButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #e9ecef;
+  color: #6c757d;
+  box-shadow: none;
+}
+
+/* Indicadores de diapositivas */
+.slideIndicators {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: center;
+  margin: 0 0.5rem;
+  min-width: 60px;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  padding: 0.5rem 0;
+}
+
+.slideIndicators::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.slideIndicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #dee2e6;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  padding: 0;
+  min-width: 8px;
+  flex-shrink: 0;
+}
+
+.slideIndicator.active {
+  background-color: #007bff;
+  transform: scale(1.2);
+}
+
+/* Estilos para textos e iconos de los botones */
+.buttonText {
+  transition: opacity 0.3s ease;
+}
+
+.buttonIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+/* Clase para lectores de pantalla */
+.screenReaderOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Media Queries para diferentes tamaños de pantalla */
+@media (min-width: 480px) {
+  .navigation {
+    padding: 0.8rem 1.5rem;
+    gap: 1rem;
+  }
+  
+  .navButton {
+    padding: 0.7rem 1.5rem;
+  }
+  
+  .slideIndicators {
+    gap: 0.6rem;
+  }
+}
+
+@media (min-width: 640px) {
+  .headerContent {
+    padding: 0.8rem 2rem;
+  }
+  
+  .title {
+    font-size: 1.6rem;
+    text-align: left;
+  }
+  
+  .titleWrapper {
+    align-items: flex-start;
+    margin: 0 2rem;
+  }
+  
+  .progress {
+    font-size: 1rem;
+    padding: 0.5rem 1.2rem;
+  }
+  
+  .backText {
+    display: inline;
+  }
+  
+  .navigation {
+    padding: 0.8rem 2rem;
+    gap: 1.5rem;
+    border-radius: 0;
+  }
+  
+  .navigation::before {
+    display: none;
+  }
+  
+  .navButton {
+    max-width: 200px;
+  }
+  
+  .slideIndicators {
+    margin: 0 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .headerContent {
+    padding: 0 2rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+    text-align: left;
+  }
+  
+  .titleWrapper {
+    margin: 0 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .headerContent {
+    padding: 0 3rem;
+  }
+  
+  .title {
+    font-size: 1.8rem;
+  }
+  
+  .progress {
+    font-size: 1.1rem;
+    padding: 0.5rem 1.5rem;
+  }
+  
+  .navigation {
+    padding: 0.8rem 3rem;
+  }
+  
+  .navButton {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+  }
+  
+  .slideIndicators {
+    gap: 0.8rem;
+  }
+  
+  .slideIndicator {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* Estilos para la navegación */
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  gap: 1rem;
+  background-color: #ffffff;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: auto;
+  min-height: 70px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+/* Efecto de elevación en la navegación */
+.navigation::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 4px;
+  background-color: #e9ecef;
+  border-radius: 2px;
+}
+
+/* Mejoras para pantallas medianas */
+@media (min-width: 640px) {
+  .navigation {
+    padding: 0.8rem 2rem;
+    gap: 2rem;
+    border-radius: 0;
+  }
+  
+  .navigation::before {
+    display: none;
+  }
+}
+
+.navButton {
+  padding: 0.7rem 1.2rem;
+  border: none;
+  background-color: #f8f9fa;
+  color: #2c3e50;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: auto;
+  flex: 1;
+  max-width: 180px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Botón de siguiente con color de acento */
+.navButton:last-child {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Efecto de hover para el botón de siguiente */
+.navButton:last-child:hover:not(:disabled) {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+/* Efecto de hover para el botón de anterior */
+.navButton:first-child:hover:not(:disabled) {
+  background-color: #e9ecef;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Efecto de clic */
+.navButton:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navButton:disabled {
+  border-color: #e9ecef;
+  color: #adb5bd;
+  background-color: #f8f9fa;
+  cursor: not-allowed;
+}
+
+.slideIndicator {
+  display: flex;
+  gap: 0.6rem;
+  flex-grow: 1;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 60%;
+  margin: 0 auto;
+  padding: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.slideIndicator::-webkit-scrollbar {
+  display: none;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #e9ecef;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.indicator:hover {
+  background-color: #adb5bd;
+  transform: scale(1.3);
+}
+
+.indicator.active {
+  background-color: #007bff;
+  transform: scale(1.3);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.3);
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .courseHeader {
+    padding: 0.8rem 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .courseHeader h1 {
+    font-size: 1.3rem;
+  }
+  
+  .progress {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.8rem;
+  }
+  
+  .navigation {
+    padding: 0.6rem 1rem;
+    height: 65px;
+  }
+  
+  .navButton {
+    padding: 0.5rem 0.8rem;
+    min-width: 90px;
+    font-size: 0.85rem;
+  }
+  
+  .slideIndicator {
+    gap: 0.4rem;
+    max-width: 50%;
+  }
+  
+  .indicator {
+    width: 8px;
+    height: 8px;
+  }
+}

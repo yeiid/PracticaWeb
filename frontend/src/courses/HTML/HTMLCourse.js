@@ -6,6 +6,8 @@ import HerramientasSlide from './HerramientasSlide';
 import EstructuraHTMLSlide from './EstructuraHTMLSlide';
 import EtiquetasSlide from './EtiquetasSlide';
 import CierreSlide from './CierreSlide';
+import CourseTitle from '../header/CourseTitle';
+import CourseNavigation from '../header/CourseNavigation';
 import styles from './HTMLSlides.module.css';
 
 const HTMLCourse = ({ onBack }) => {
@@ -36,18 +38,25 @@ const HTMLCourse = ({ onBack }) => {
   const CurrentSlideComponent = slides[currentSlide].component;
 
   return (
-    <div className={styles.courseContainer}>
-      <div className={styles.courseHeader}>
-        <button className={styles.backButton} onClick={onBack}>← Volver al inicio</button>
-        <h1>📄 Curso HTML5</h1>
-        <div className={styles.progress}>
-          <span>{currentSlide + 1} de {slides.length}</span>
-        </div>
-      </div>
+    <div className="courseContainer">
+      <CourseTitle 
+        title="📄 Curso HTML5"
+        currentSlide={currentSlide}
+        totalSlides={slides.length}
+      />
 
-      <div className={styles.slideContainer}>
+      <div className="slideContainer">
         <CurrentSlideComponent />
       </div>
+
+      <CourseNavigation
+        currentSlide={currentSlide}
+        totalSlides={slides.length}
+        onPrev={prevSlide}
+        onNext={nextSlide}
+        onSlideSelect={setCurrentSlide}
+        className="bottomNavigation"
+      />
 
       <div className={styles.navigation}>
         <button

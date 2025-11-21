@@ -1,0 +1,188 @@
+.courseContainer {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.courseHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.backButton {
+  background: none;
+  border: none;
+  color: #9f7aea;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s;
+}
+
+.backButton:hover {
+  background-color: #f5f3ff;
+}
+
+.progress {
+  background-color: #f5f3ff;
+  color: #6b46c1;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  font-weight: 600;
+}
+
+.slideContainer {
+  flex: 1;
+  padding: 1rem 0;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #e2e8f0;
+}
+
+.navButton {
+  background-color: #9f7aea;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  min-width: 120px;
+  text-align: center;
+}
+
+.navButton:hover:not(:disabled) {
+  background-color: #805ad5;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navButton:disabled,
+.navButton.disabled {
+  background-color: #e2e8f0;
+  color: #a0aec0;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Progress Bar */
+.progressBar {
+  flex: 1;
+  height: 8px;
+  background-color: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 0 1rem;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #9f7aea, #6b46c1);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+/* Estilos para el contenido de las diapositivas */
+.slide {
+  padding: 1rem 0;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #44337a;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 1.8rem;
+  margin: 1.5rem 0;
+  color: #553c9a;
+}
+
+.content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  color: #2d3748;
+}
+
+.codeBlock {
+  background-color: #2d3748;
+  color: #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.95rem;
+  margin: 1.25rem 0;
+  overflow-x: auto;
+  line-height: 1.6;
+}
+
+.exampleContainer {
+  background-color: #f5f3ff;
+  border-left: 4px solid #9f7aea;
+  padding: 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.exampleTitle {
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: #6b46c1;
+  font-size: 1.1rem;
+}
+
+.note {
+  background-color: #fffaf0;
+  border-left: 4px solid #ecc94b;
+  padding: 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.noteTitle {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #b7791f;
+  font-size: 1.1rem;
+}
+
+ul, ol {
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+pre {
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.9em;
+}

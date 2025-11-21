@@ -1,52 +1,252 @@
-/* Estilos para el módulo Python - Diseño profesional y educativo */
-
-:root {
-  --primary-color: #3776ab;
-  --secondary-color: #ffd43b;
-  --accent-color: #ff6b35;
-  --text-color: #2c3e50;
-  --bg-color: #f8f9fa;
-  --card-bg: #ffffff;
-  --border-color: #e1e4e8;
-  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
-  --border-radius: 12px;
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
+/* Estilos específicos para los slides de Python */
 
 .slide {
-  background: var(--card-bg);
-  border-radius: var(--border-radius);
-  padding: 40px;
-  margin: 20px auto;
-  box-shadow: var(--shadow);
-  transition: var(--transition);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  position: relative;
-  overflow: hidden;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.6;
-  color: var(--text-color);
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 1.5rem auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
   max-width: 900px;
-}
-
-.slide::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  line-height: 1.6;
+  color: #2c3e50;
 }
 
 .slide:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Tipografía mejorada */
+/* Contenedor principal */
+/* Estilos específicos para las diapositivas de Python */
+
+/* Variables de color específicas para Python */
+:root {
+  --python-primary: #3776ab;
+  --python-secondary: #ffd43b;
+  --python-accent: #ff5722;
+}
+
+/* Estilos específicos para el contenedor de Python */
+.courseContainer {
+  --primary-color: var(--python-primary);
+  --secondary-color: var(--python-secondary);
+  --accent-color: var(--python-accent);
+}
+
+/* Estilos para el título del curso */
+.title {
+  color: var(--python-primary);
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--python-primary), var(--python-secondary));
+  border-radius: 3px;
+}
+
+/* Estilos para los bloques de código */
+.slide pre {
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.9em;
+  line-height: 1.6;
+  border-left: 4px solid var(--python-primary);
+  position: relative;
+}
+
+/* Estilos para títulos de sección */
+.slide h2 {
+  color: var(--python-primary);
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.slide h3 {
+  color: var(--python-primary);
+  margin-top: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+/* Estilos para listas */
+.slide ul, 
+.slide ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.slide li {
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.slide ul li::before {
+  content: '🐍';
+  position: absolute;
+  left: -1.5rem;
+  opacity: 0.7;
+}
+
+/* Estilos para enlaces */
+.slide a {
+  color: var(--python-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border-bottom: 1px dashed transparent;
+}
+
+.slide a:hover {
+  color: var(--python-accent);
+  border-bottom-color: currentColor;
+}
+
+/* Estilos para bloques de código en línea */
+.code-inline {
+  background-color: #f0f4f8;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.9em;
+  color: #d6336c;
+}
+
+/* Estilos para tablas */
+.slide table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95em;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.slide th, 
+.slide td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.slide th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: var(--python-primary);
+  text-transform: uppercase;
+  font-size: 0.8em;
+  letter-spacing: 0.5px;
+}
+
+.slide tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Estilos para bloques de nota y advertencia */
+.note {
+  background-color: #e7f5ff;
+  border-left: 4px solid #4dabf7;
+  padding: 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 0 6px 6px 0;
+}
+
+.warning {
+  background-color: #fff3bf;
+  border-left: 4px solid #ffd43b;
+  padding: 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 0 6px 6px 0;
+}
+
+/* Estilos para imágenes */
+.slide img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: block;
+}
+
+/* Media queries para responsividad */
+@media (max-width: 768px) {
+  .slide {
+    padding: 1.5rem;
+  }
+  
+  .slide pre {
+    padding: 1rem;
+    font-size: 0.85em;
+  }
+  
+  .slide h2 {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  .slide h3 {
+    font-size: 1.25rem;
+    margin-top: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .slide {
+    padding: 1.25rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+  }
+  
+  .slide pre {
+    padding: 0.75rem;
+    font-size: 0.8em;
+  }
+  
+  .slide h2 {
+    font-size: 1.4rem;
+  }
+  
+  .slide h3 {
+    font-size: 1.2rem;
+  }
+  
+  .slide ul, 
+  .slide ol {
+    padding-left: 1.25rem;
+  }
+}
+
+/* Contenedor principal */
+.courseContainer {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 100px; /* Espacio para la navegación inferior */
+}
+
+/* Contenedor del slide */
+.slideContainer {
+  margin: 20px 0;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Estilos para los títulos y contenido */
 .slide h1 {
   font-size: 2.5em;
   font-weight: 700;

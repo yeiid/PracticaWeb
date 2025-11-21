@@ -7,10 +7,10 @@
     "start:html": "cd HTML && node serve.js",
     "start:css": "cd CSS && node serve.js",
     "start:js": "cd JS && node serve.js",
-    "start:backend": "cd backend && npm install && node server.js",
-    "start:frontend": "cd frontend && npm install && npm start",
-    "dev": "concurrently \"pnpm run start:backend\" \"pnpm run start:frontend\"",
-    "install:all": "pnpm install && cd HTML && pnpm install && cd ../CSS && pnpm install && cd ../JS && pnpm install && cd ../backend && npm install && cd ../frontend && npm install"
+    "start:api": "cd api && node -r dotenv/config server.js",
+    "start:frontend": "cd frontend && pnpm install && pnpm start",
+    "dev": "concurrently \"pnpm run start:api\" \"pnpm run start:frontend\"",
+    "install:all": "pnpm install && cd api && pnpm install && cd ../frontend && pnpm install"
   },
   "keywords": ["html", "css", "javascript", "react", "backend", "educacion"],
   "author": "",

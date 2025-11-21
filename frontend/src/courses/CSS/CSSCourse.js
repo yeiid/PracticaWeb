@@ -7,6 +7,8 @@ import GridSlide from './GridSlide';
 import ResponsiveSlide from './ResponsiveSlide';
 import AnimacionesSlide from './AnimacionesSlide';
 import BuenasPracticasSlide from './BuenasPracticasSlide';
+import CourseTitle from '../header/CourseTitle';
+import CourseNavigation from '../header/CourseNavigation';
 import styles from './CSSSlides.module.css';
 
 const CSSCourse = ({ onBack }) => {
@@ -38,18 +40,25 @@ const CSSCourse = ({ onBack }) => {
   const CurrentSlideComponent = slides[currentSlide].component;
 
   return (
-    <div className={styles.courseContainer}>
-      <div className={styles.courseHeader}>
-        <button className={styles.backButton} onClick={onBack}>← Volver al inicio</button>
-        <h1>🎨 Curso CSS3</h1>
-        <div className={styles.progress}>
-          <span>{currentSlide + 1} de {slides.length}</span>
-        </div>
-      </div>
+    <div className="courseContainer">
+      <CourseTitle 
+        title="🎨 Curso CSS3"
+        currentSlide={currentSlide}
+        totalSlides={slides.length}
+      />
 
-      <div className={styles.slideContainer}>
+      <div className="slideContainer">
         <CurrentSlideComponent />
       </div>
+
+      <CourseNavigation
+        currentSlide={currentSlide}
+        totalSlides={slides.length}
+        onPrev={prevSlide}
+        onNext={nextSlide}
+        onSlideSelect={setCurrentSlide}
+        className="bottomNavigation"
+      />
 
       <div className={styles.navigation}>
         <button

@@ -5,6 +5,8 @@ import HTMLCourse from '../../courses/HTML/HTMLCourse';
 import CSSCourse from '../../courses/CSS/CSSCourse';
 import JSCourse from '../../courses/JS/JSCourse';
 import PythonCourse from '../../courses/Python/PythonCourse';
+import ReactCourse from '../../courses/React/ReactCourse';
+import BackendCourse from '../../courses/Backend/BackendCourse';
 import { useAuth } from '../../contexts/AuthContext';
 import CourseCard from './CourseCard';
 import Header from '../Header/Header';
@@ -38,7 +40,8 @@ function Dashboard() {
             { id: 'html', title: 'HTML5', icon: '📄', description: 'Aprende los fundamentos del lenguaje de marcado que estructura el contenido web.', url: '/HTML/', color: '#e34f26', slides: 7 },
             { id: 'css', title: 'CSS3', icon: '🎨', description: 'Domina el arte del diseño web con estilos modernos y layouts avanzados.', url: '/CSS/', color: '#1572b6', slides: 8 },
             { id: 'js', title: 'JavaScript', icon: '⚡', description: 'Haz que tus páginas cobren vida con programación interactiva moderna.', url: '/JS/', color: '#f7df1e', slides: 11 },
-            { id: 'python', title: 'Python', icon: '🐍', description: 'Aprende el lenguaje de programación más versátil para datos, web y automatización.', url: '/Python/', color: '#3776ab', slides: 10 }
+            { id: 'python', title: 'Python', icon: '🐍', description: 'Aprende el lenguaje de programación más versátil para datos, web y automatización.', url: '/Python/', color: '#3776ab', slides: 10 },
+            { id: 'react', title: 'React', icon: '⚛️', description: 'Crea interfaces de usuario interactivas y reutilizables con la biblioteca de JavaScript de Facebook.', url: '/React/', color: '#61dafb', slides: 10 }
           ]);
         }
       } catch (error) {
@@ -47,7 +50,8 @@ function Dashboard() {
           { id: 'html', title: 'HTML5', icon: '📄', description: 'Aprende los fundamentos del lenguaje de marcado que estructura el contenido web.', url: '/HTML/', color: '#e34f26', slides: 7 },
           { id: 'css', title: 'CSS3', icon: '🎨', description: 'Domina el arte del diseño web con estilos modernos y layouts avanzados.', url: '/CSS/', color: '#1572b6', slides: 8 },
           { id: 'js', title: 'JavaScript', icon: '⚡', description: 'Haz que tus páginas cobren vida con programación interactiva moderna.', url: '/JS/', color: '#f7df1e', slides: 11 },
-          { id: 'python', title: 'Python', icon: '🐍', description: 'Aprende el lenguaje de programación más versátil para datos, web y automatización.', url: '/Python/', color: '#3776ab', slides: 10 }
+          { id: 'python', title: 'Python', icon: '🐍', description: 'Aprende el lenguaje de programación más versátil para datos, web y automatización.', url: '/Python/', color: '#3776ab', slides: 10 },
+          { id: 'react', title: 'React', icon: '⚛️', description: 'Crea interfaces de usuario interactivas y reutilizables con la biblioteca de JavaScript de Facebook.', url: '/React/', color: '#61dafb', slides: 10 }
         ]);
       } finally {
         setLoading(false);
@@ -61,7 +65,7 @@ function Dashboard() {
     { id: 2, title: 'CSS3 - El diseño Visual', description: 'Estilos y layouts modernos', completed: true, course: 'css', icon: '🎨' },
     { id: 3, title: 'JavaScript - La Interactividad', description: 'Programación y DOM', completed: true, course: 'js', icon: '⚡' },
     { id: 4, title: 'Python - Programación Versátil', description: 'Lenguaje multiuso para todo', completed: true, course: 'python', icon: '🐍' },
-    { id: 5, title: 'React - Próximamente', description: 'Aplicaciones web avanzadas', completed: false, course: 'react', icon: '⚛️' },
+    { id: 5, title: 'React - Próximamente', description: 'Aplicaciones web avanzadas', completed: true, course: 'react', icon: '⚛️' },
     { id: 6, title: 'Backend - Próximamente', description: 'Node.js y APIs', completed: false, course: 'backend', icon: '⚙️' }
   ];
 
@@ -98,6 +102,8 @@ function Dashboard() {
         {selectedCourse.id === 'css' && <CSSCourse onBack={() => setCurrentView('home')} />}
         {selectedCourse.id === 'js' && <JSCourse onBack={() => setCurrentView('home')} />}
         {selectedCourse.id === 'python' && <PythonCourse onBack={() => setCurrentView('home')} />}
+        {selectedCourse.id === 'react' && <ReactCourse onBack={() => setCurrentView('home')} />}
+        {selectedCourse.id === 'backend' && <BackendCourse onBack={() => setCurrentView('home')} />}
       </div>
     );
   }

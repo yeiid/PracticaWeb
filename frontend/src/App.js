@@ -7,6 +7,7 @@ import ResetPassword from './components/Auth/ResetPassword';
 import LandingPage from './components/LandingPage/LandingPage';
 import Profile from './components/Profile/Profile';
 import HistoryPage from './pages/HistoryPage/HistoryPage';
+import BackendCourse from './courses/Backend/BackendCourse';
 
 function App() {
   const { user, loading } = useAuth();
@@ -76,6 +77,7 @@ function App() {
         <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
         <Route path="/profile" element={user ? <Profile /> : <Navigate to="/login" />} />
         <Route path="/history" element={<HistoryPage />} />
+        <Route path="/backend" element={user ? <BackendCourse /> : <Navigate to="/login" />} />
       </Routes>
     </Router>
   );

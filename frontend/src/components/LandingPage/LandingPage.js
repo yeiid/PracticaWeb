@@ -54,7 +54,8 @@ const LandingPage = () => {
             <div className="history-item">
               <h4>2005: La Web 2.0 y el Contenido Interactivo</h4>
               <p>Nacen plataformas como YouTube y Facebook.</p>
-              <Link to="/history/web2" className="btn btn-tertiary">Explorar en 3D</Link>
+              <Link to="/3d/web-history/web-evolution/web2-scene" 
+              className="btn btn-tertiary">Explorar en 3D</Link>
             </div>
           </div>
         </div>
