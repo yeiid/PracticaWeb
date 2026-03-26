@@ -227,3 +227,9 @@ app.delete('/api/courses/:id', authMiddleware, async (req, res) => {
 
 // Export the Express app as a serverless function
 module.exports = app;
+
+if (require.main === module) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => console.log(`API listening on port ${PORT}`));
+}
+
