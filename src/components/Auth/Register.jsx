@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import './Auth.css';
 
-function Register({ onSwitchToLogin }) {
+function Register({ onSwitchToLogin, isDBOffline }) {
   const { signUp } = useAuth();
   const [formData, setFormData] = useState({
     email: '',

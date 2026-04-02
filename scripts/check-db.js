@@ -1,4 +1,7 @@
+import dotenv from 'dotenv';
 import { checkConnection } from '../src/lib/db.js';
+
+dotenv.config();
 
 async function main() {
   console.log('🔍 Comprobando conexión a la base de datos...');

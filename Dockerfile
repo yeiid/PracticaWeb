@@ -1,5 +1,5 @@
 # BUILD STAGE
-FROM node:18-alpine AS builder
+FROM node:22-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
@@ -7,7 +7,7 @@ COPY . .
 RUN npm run build
 
 # RUNTIME STAGE
-FROM node:18-alpine AS runtime
+FROM node:22-alpine AS runtime
 WORKDIR /app
 
 # Instalar netcat para el healthcheck de la base de datos

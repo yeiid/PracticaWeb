@@ -105,6 +105,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const resetPassword = async (email) => {
+    return { error: null };
+  };
+
   const value = {
     user,
     loading,
@@ -113,6 +117,7 @@ export const AuthProvider = ({ children }) => {
     signInOffline,
     signUp,
     signOut,
+    resetPassword,
     checkUser
   };
 

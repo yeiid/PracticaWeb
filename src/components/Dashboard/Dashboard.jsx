@@ -14,7 +14,9 @@ import CourseCard from './CourseCard';
 import Header from '../Header/Header';
 import RoadmapStep from './RoadmapStep';
 
-function Dashboard() {
+import { AuthProvider } from '../../contexts/AuthContext';
+
+function DashboardContent() {
   const { user, isOffline } = useAuth();
   const [currentView, setCurrentView] = useState('home');
   const [selectedCourse, setSelectedCourse] = useState(null);
@@ -57,7 +59,7 @@ function Dashboard() {
       }
     };
     fetchCourses();
-  }, [isOffline]);
+  }, [isOffline, user]);
 
   const roadmapSteps = [
     { id: 1, title: 'HTML5 - Los Fundamentos', description: 'Estructura básica y semántica', completed: true, course: 'html', icon: '📄' },
@@ -90,12 +92,6 @@ function Dashboard() {
   if (currentView === 'course' && selectedCourse) {
     return (
       <div className="App">
-        <header className="header">
-          <button className="back-button" onClick={() => setCurrentView('home')}>
-            ← Volver al inicio
-          </button>
-          <h1>🚀 Academia Web</h1>
-        </header>
         <ProgressSystem progress={progress} />
         {selectedCourse.id === 'html' && <HTMLCourse onBack={() => setCurrentView('home')} />}
         {selectedCourse.id === 'css' && <CSSCourse onBack={() => setCurrentView('home')} />}
@@ -150,6 +146,14 @@ function Dashboard() {
         <p>💡 Recuerda: La práctica hace al maestro</p>
       </footer>
     </div>
+  );
+}
+
+function Dashboard() {
+  return (
+    <AuthProvider>
+      <DashboardContent />
+    </AuthProvider>
   );
 }
 

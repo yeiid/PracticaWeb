@@ -15,7 +15,7 @@ export default defineConfig({
       external: ['three', '@react-three/fiber', '@react-three/drei', 'gsap']
     },
     optimizeDeps: {
-      include: ['framer-motion']
+      include: ['react', 'react-dom', 'react-dom/client', 'react/jsx-runtime', 'framer-motion']
     }
   }
 });

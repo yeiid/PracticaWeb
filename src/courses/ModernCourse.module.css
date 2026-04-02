@@ -1,0 +1,125 @@
+:root {
+  --course-primary: #f97316; /* Default: Orange */
+  --course-primary-dark: #ea580c;
+  --course-accent: rgba(249, 115, 22, 0.1);
+  --course-accent-border: rgba(249, 115, 22, 0.2);
+}
+
+.courseContainer {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+
+.courseHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.backButton {
+  background: var(--card-bg, #1e293b);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-muted, #94a3b8);
+  font-size: 0.875rem;
+  cursor: pointer;
+  padding: 0.6rem 1.5rem;
+  border-radius: 99px;
+  transition: all 0.2s;
+  backdrop-filter: blur(10px);
+}
+
+.backButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  transform: translateX(-4px);
+}
+
+.progress {
+  background: var(--course-accent);
+  color: var(--course-primary);
+  padding: 0.5rem 1.5rem;
+  border-radius: 99px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border: 1px solid var(--course-accent-border);
+}
+
+.headerTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.slideContainer {
+  flex: 1;
+  padding: 2rem 0;
+  animation: fadeInSlide 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3rem;
+  gap: 2rem;
+  padding: 2rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.navButton {
+  background: linear-gradient(135deg, var(--course-primary), var(--course-primary-dark));
+  color: white;
+  border: none;
+  padding: 0.9rem 2.5rem;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 160px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.navButton:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  filter: brightness(1.1);
+}
+
+.navButton:disabled,
+.navButton.disabled {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.2);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.progressBar {
+  flex: 1;
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 99px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--course-primary), var(--course-primary-dark));
+  border-radius: 99px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeInSlide {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}

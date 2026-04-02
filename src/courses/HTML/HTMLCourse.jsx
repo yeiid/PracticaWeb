@@ -6,83 +6,81 @@ import HerramientasSlide from './HerramientasSlide';
 import EstructuraHTMLSlide from './EstructuraHTMLSlide';
 import EtiquetasSlide from './EtiquetasSlide';
 import CierreSlide from './CierreSlide';
-import CourseTitle from '../header/CourseTitle';
-import CourseNavigation from '../header/CourseNavigation';
-import styles from './HTMLSlides.module.css';
+import styles from '../ModernCourse.module.css';
 
 const HTMLCourse = ({ onBack }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
-    { component: IntroduccionSlide, title: 'Introducción' },
+    { component: IntroduccionSlide, title: 'Introducción a HTML5' },
     { component: FrontendBackendSlide, title: 'Frontend vs Backend' },
-    { component: PilaresSlide, title: 'Los 3 Pilares' },
-    { component: HerramientasSlide, title: 'Herramientas' },
-    { component: EstructuraHTMLSlide, title: 'Estructura HTML' },
-    { component: EtiquetasSlide, title: 'Etiquetas Básicas' },
-    { component: CierreSlide, title: 'Cierre' }
+    { component: PilaresSlide, title: 'Los 3 Pilares del Web' },
+    { component: HerramientasSlide, title: 'Tu Arsenal de Trabajo' },
+    { component: EstructuraHTMLSlide, title: 'La Columna Vertebral' },
+    { component: EtiquetasSlide, title: 'Etiquetas Esenciales' },
+    { component: CierreSlide, title: '¡Misión Cumplida!' }
   ];
 
   const nextSlide = () => {
     if (currentSlide < slides.length - 1) {
       setCurrentSlide(currentSlide + 1);
+      window.scrollTo(0, 0);
     }
   };
 
   const prevSlide = () => {
     if (currentSlide > 0) {
       setCurrentSlide(currentSlide - 1);
+      window.scrollTo(0, 0);
     }
   };
 
   const CurrentSlideComponent = slides[currentSlide].component;
 
-  return (
-    <div className="courseContainer">
-      <CourseTitle 
-        title="📄 Curso HTML5"
-        currentSlide={currentSlide}
-        totalSlides={slides.length}
-      />
+  // Estilos específicos para HTML (Azul)
+  const htmlStyles = {
+    '--course-primary': '#3498db',
+    '--course-primary-dark': '#2980b9',
+    '--course-accent': 'rgba(52, 152, 219, 0.1)',
+    '--course-accent-border': 'rgba(52, 152, 219, 0.2)'
+  };
 
-      <div className="slideContainer">
+  return (
+    <div className={styles.courseContainer} style={htmlStyles}>
+      <div className={styles.courseHeader}>
+        <button onClick={onBack} className={styles.backButton}>← Volver al Panel</button>
+        <h1 className={styles.headerTitle}>📄 {slides[currentSlide].title}</h1>
+        <div className={styles.progress}>
+          Paso {currentSlide + 1} de {slides.length}
+        </div>
+      </div>
+
+      <div className={styles.slideContainer}>
         <CurrentSlideComponent />
       </div>
 
-      <CourseNavigation
-        currentSlide={currentSlide}
-        totalSlides={slides.length}
-        onPrev={prevSlide}
-        onNext={nextSlide}
-        onSlideSelect={setCurrentSlide}
-        className="bottomNavigation"
-      />
-
       <div className={styles.navigation}>
-        <button
-          onClick={prevSlide}
+        <button 
+          onClick={prevSlide} 
           disabled={currentSlide === 0}
-          className={styles.navButton}
+          className={`${styles.navButton} ${currentSlide === 0 ? styles.disabled : ''}`}
         >
           ← Anterior
         </button>
-
-        <div className={styles.slideIndicator}>
-          {slides.map((_, index) => (
-            <span
-              key={index}
-              className={`${styles.indicator} ${index === currentSlide ? styles.active : ''}`}
-              onClick={() => setCurrentSlide(index)}
-            />
-          ))}
+        
+        <div className={styles.progressBar}>
+          <div 
+            className={styles.progressFill} 
+            style={{ width: `${((currentSlide + 1) / slides.length) * 100}%` }}
+          />
         </div>
-
-        <button
-          onClick={nextSlide}
+        
+        <button 
+          onClick={nextSlide} 
           disabled={currentSlide === slides.length - 1}
-          className={styles.navButton}
+          className={`${styles.navButton} ${currentSlide === slides.length - 1 ? styles.disabled : ''}`}
         >
-          Siguiente →
+          {currentSlide === slides.length - 1 ? '¡Finalizar Cimiento!' : 'Siguiente Paso →'}
         </button>
       </div>
     </div>

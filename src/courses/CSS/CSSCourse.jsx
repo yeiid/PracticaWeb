@@ -7,84 +7,82 @@ import GridSlide from './GridSlide';
 import ResponsiveSlide from './ResponsiveSlide';
 import AnimacionesSlide from './AnimacionesSlide';
 import BuenasPracticasSlide from './BuenasPracticasSlide';
-import CourseTitle from '../header/CourseTitle';
-import CourseNavigation from '../header/CourseNavigation';
-import styles from './CSSSlides.module.css';
+import styles from '../ModernCourse.module.css';
 
 const CSSCourse = ({ onBack }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
-    { component: IntroduccionCSSSlide, title: 'Introducción a CSS' },
-    { component: SelectoresCSSSlide, title: 'Selectores CSS' },
-    { component: ModeloCajaSlide, title: 'Modelo de Caja' },
-    { component: FlexboxSlide, title: 'Flexbox' },
-    { component: GridSlide, title: 'CSS Grid' },
+    { component: IntroduccionCSSSlide, title: 'Introducción a CSS3' },
+    { component: SelectoresCSSSlide, title: 'Selectores y Cascada' },
+    { component: ModeloCajaSlide, title: 'El Modelo de Caja' },
+    { component: FlexboxSlide, title: 'Flexbox Magic' },
+    { component: GridSlide, title: 'CSS Grid Layout' },
     { component: ResponsiveSlide, title: 'Diseño Responsivo' },
-    { component: AnimacionesSlide, title: 'Animaciones' },
-    { component: BuenasPracticasSlide, title: 'Buenas Prácticas' }
+    { component: AnimacionesSlide, title: 'Animaciones y Transiciones' },
+    { component: BuenasPracticasSlide, title: 'Arquitectura y Clean CSS' }
   ];
 
   const nextSlide = () => {
     if (currentSlide < slides.length - 1) {
       setCurrentSlide(currentSlide + 1);
+      window.scrollTo(0, 0);
     }
   };
 
   const prevSlide = () => {
     if (currentSlide > 0) {
       setCurrentSlide(currentSlide - 1);
+      window.scrollTo(0, 0);
     }
   };
 
   const CurrentSlideComponent = slides[currentSlide].component;
 
-  return (
-    <div className="courseContainer">
-      <CourseTitle 
-        title="🎨 Curso CSS3"
-        currentSlide={currentSlide}
-        totalSlides={slides.length}
-      />
+  // Estilos específicos para CSS (Indigo/Cyan)
+  const cssStyles = {
+    '--course-primary': '#0ea5e9',
+    '--course-primary-dark': '#0284c7',
+    '--course-accent': 'rgba(14, 165, 233, 0.1)',
+    '--course-accent-border': 'rgba(14, 165, 233, 0.2)'
+  };
 
-      <div className="slideContainer">
+  return (
+    <div className={styles.courseContainer} style={cssStyles}>
+      <div className={styles.courseHeader}>
+        <button onClick={onBack} className={styles.backButton}>← Volver al Panel</button>
+        <h1 className={styles.headerTitle}>🎨 {slides[currentSlide].title}</h1>
+        <div className={styles.progress}>
+          Paso {currentSlide + 1} de {slides.length}
+        </div>
+      </div>
+
+      <div className={styles.slideContainer}>
         <CurrentSlideComponent />
       </div>
 
-      <CourseNavigation
-        currentSlide={currentSlide}
-        totalSlides={slides.length}
-        onPrev={prevSlide}
-        onNext={nextSlide}
-        onSlideSelect={setCurrentSlide}
-        className="bottomNavigation"
-      />
-
       <div className={styles.navigation}>
-        <button
-          onClick={prevSlide}
+        <button 
+          onClick={prevSlide} 
           disabled={currentSlide === 0}
-          className={styles.navButton}
+          className={`${styles.navButton} ${currentSlide === 0 ? styles.disabled : ''}`}
         >
           ← Anterior
         </button>
-
-        <div className={styles.slideIndicator}>
-          {slides.map((_, index) => (
-            <span
-              key={index}
-              className={`${styles.indicator} ${index === currentSlide ? styles.active : ''}`}
-              onClick={() => setCurrentSlide(index)}
-            />
-          ))}
+        
+        <div className={styles.progressBar}>
+          <div 
+            className={styles.progressFill} 
+            style={{ width: `${((currentSlide + 1) / slides.length) * 100}%` }}
+          />
         </div>
-
-        <button
-          onClick={nextSlide}
+        
+        <button 
+          onClick={nextSlide} 
           disabled={currentSlide === slides.length - 1}
-          className={styles.navButton}
+          className={`${styles.navButton} ${currentSlide === slides.length - 1 ? styles.disabled : ''}`}
         >
-          Siguiente →
+          {currentSlide === slides.length - 1 ? '¡Estilo Dominado!' : 'Siguiente Paso →'}
         </button>
       </div>
     </div>

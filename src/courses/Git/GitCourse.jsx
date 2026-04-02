@@ -6,7 +6,7 @@ import { Day4 } from './Slides/Day4';
 import { Day5 } from './Slides/Day5';
 import { Day6 } from './Slides/Day6';
 import { Day7 } from './Slides/Day7';
-import styles from './GitSlides.module.css';
+import styles from '../ModernCourse.module.css';
 
 const GitCourse = ({ onBack }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -37,15 +37,21 @@ const GitCourse = ({ onBack }) => {
 
   const CurrentSlideComponent = slides[currentSlide].component;
 
+  // Estilos específicos para Git (Naranja original)
+  const gitStyles = {
+    '--course-primary': '#f97316',
+    '--course-primary-dark': '#ea580c',
+    '--course-accent': 'rgba(249, 115, 22, 0.1)',
+    '--course-accent-border': 'rgba(249, 115, 22, 0.2)'
+  };
+
   return (
-    <div className={styles.courseContainer}>
+    <div className={styles.courseContainer} style={gitStyles}>
       <div className={styles.courseHeader}>
         <button onClick={onBack} className={styles.backButton}>← Volver al Panel</button>
-        <div className={styles.headerInfo}>
-          <h1 className={styles.headerTitle}>🧡 {slides[currentSlide].title}</h1>
-        </div>
+        <h1 className={styles.headerTitle}>🧡 {slides[currentSlide].title}</h1>
         <div className={styles.progress}>
-          <span>Día {currentSlide + 1} de {slides.length}</span>
+          Día {currentSlide + 1} de {slides.length}
         </div>
       </div>
 

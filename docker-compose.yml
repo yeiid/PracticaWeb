@@ -18,12 +18,12 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
 
-  # Unified App (Astro + Seeding)
+  # Development App (Astro with HMR)
   app:
     container_name: academia-app
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     restart: always
     depends_on:
       db:
@@ -31,9 +31,14 @@ services:
     environment:
       DATABASE_URL: postgres://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-password}@db:5432/${POSTGRES_DB:-academia}
       JWT_SECRET: ${JWT_SECRET:-super-secret-key-change-me}
-      PORT: 3000
+      PORT: 4321
+      HOST: 0.0.0.0
     ports:
-      - "3000:3000"
+      - "4321:4321"
+    volumes:
+      - .:/app
+      - /app/node_modules # Evitar sobrescribir node_modules del contenedor con los del host
+    command: ["pnpm", "run", "dev", "--host", "0.0.0.0"]
 
 volumes:
   postgres_data:
