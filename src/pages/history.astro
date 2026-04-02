@@ -1,0 +1,13 @@
+---
+import HistoryPage from '../pages-react/HistoryPage/HistoryPage';
+import Layout from '../layouts/Layout.astro';
+
+const session = Astro.cookies.get('session');
+if (!session) {
+  return Astro.redirect('/login');
+}
+---
+
+<Layout title="Mi Historial - Academia Web">
+  <HistoryPage client:load />
+</Layout>

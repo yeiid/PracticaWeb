@@ -1,22 +1,47 @@
 {
   "name": "academia-web",
+  "type": "module",
   "version": "1.0.0",
   "description": "Plataforma completa de aprendizaje web",
   "scripts": {
-    "start:main": "node serve.js",
-    "start:html": "cd HTML && node serve.js",
-    "start:css": "cd CSS && node serve.js",
-    "start:js": "cd JS && node serve.js",
-    "start:api": "cd api && node -r dotenv/config server.js",
-    "start:frontend": "cd frontend && pnpm install && pnpm start",
-    "dev": "concurrently \"pnpm run start:api\" \"pnpm run start:frontend\"",
-    "install:all": "pnpm install && cd api && pnpm install && cd ../frontend && pnpm install"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "db:up": "sudo docker compose up -d db",
+    "db:down": "sudo docker compose down",
+    "db:check": "node scripts/check-db.js",
+    "seed:user": "node scripts/seed-user.js"
   },
-  "keywords": ["html", "css", "javascript", "react", "backend", "educacion"],
+  "keywords": [
+    "html",
+    "css",
+    "javascript",
+    "react",
+    "backend",
+    "educacion"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.1.0"
+    "@astrojs/node": "^10.1.0",
+    "@astrojs/react": "^4.4.0",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.5.0",
+    "astro": "^6.3.0",
+    "bcryptjs": "^3.0.2",
+    "canvas-confetti": "^1.9.4",
+    "cookie": "^1.0.2",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "framer-motion": "^12.38.0",
+    "gsap": "^3.14.2",
+    "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^1.7.0",
+    "postgres": "^3.4.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "three": "^0.183.2"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

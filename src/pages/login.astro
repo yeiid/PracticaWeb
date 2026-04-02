@@ -1,0 +1,16 @@
+---
+import Auth from '../components/Auth/Auth';
+import Layout from '../layouts/Layout.astro';
+import { checkConnection } from '../lib/db';
+
+const session = Astro.cookies.get('session');
+if (session) {
+  return Astro.redirect('/dashboard');
+}
+
+const isDBConnected = await checkConnection();
+---
+
+<Layout title="Iniciar Sesión - Academia Web">
+  <Auth client:load isDBOffline={!isDBConnected} />
+</Layout>

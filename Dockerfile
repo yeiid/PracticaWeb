@@ -1,33 +1,29 @@
-# Build React Frontend
+# BUILD STAGE
 FROM node:18-alpine AS builder
-WORKDIR /build
-COPY frontend/package*.json ./
+WORKDIR /app
+COPY package*.json ./
 RUN npm install
-COPY frontend/ ./
+COPY . .
 RUN npm run build
 
-# Build Node Backend
-FROM node:18-alpine AS backend
-WORKDIR /app/api
-COPY api/package*.json ./
-RUN npm install --production
-COPY api/ ./
+# RUNTIME STAGE
+FROM node:18-alpine AS runtime
+WORKDIR /app
 
-# Final Container
-FROM nginx:alpine
-RUN apk add --no-cache nodejs npm supervisor
+# Instalar netcat para el healthcheck de la base de datos
+RUN apk add --no-cache netcat-openbsd
 
-# Setup Nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /build/build /usr/share/nginx/html
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/scripts ./scripts
+COPY --from=builder /app/docker-entrypoint.sh ./
 
-# Setup Node API
-WORKDIR /app/api
-COPY --from=backend /app/api /app/api
-ENV PORT=5000
+# Permisos para el entrypoint
+RUN chmod +x docker-entrypoint.sh
 
-# Supervisor to run both
-COPY supervisord.conf /etc/supervisord.conf
+ENV NODE_ENV=production
+ENV PORT=3000
+EXPOSE 3000
 
-EXPOSE 80
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+ENTRYPOINT ["./docker-entrypoint.sh"]

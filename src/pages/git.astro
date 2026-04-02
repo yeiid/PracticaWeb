@@ -1,0 +1,23 @@
+---
+import GitCourse from '../courses/Git/GitCourse';
+import Layout from '../layouts/Layout.astro';
+
+const session = Astro.cookies.get('session');
+if (!session) {
+  return Astro.redirect('/login');
+}
+---
+
+<Layout title="Git Master - Academia Web">
+  <main class="course-page">
+    <GitCourse client:load onBack={() => window.location.href = '/dashboard'} />
+  </main>
+</Layout>
+
+<style>
+  .course-page {
+    min-height: 100vh;
+    background: var(--bg-dark);
+    padding-top: 2rem;
+  }
+</style>

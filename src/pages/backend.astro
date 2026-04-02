@@ -1,0 +1,13 @@
+---
+import BackendCourse from '../courses/Backend/BackendCourse';
+import Layout from '../layouts/Layout.astro';
+
+const session = Astro.cookies.get('session');
+if (!session) {
+  return Astro.redirect('/login');
+}
+---
+
+<Layout title="Curso Backend - Academia Web">
+  <BackendCourse client:load />
+</Layout>

@@ -1,0 +1,13 @@
+---
+import Profile from '../components/Profile/Profile';
+import Layout from '../layouts/Layout.astro';
+
+const session = Astro.cookies.get('session');
+if (!session) {
+  return Astro.redirect('/login');
+}
+---
+
+<Layout title="Mi Perfil - Academia Web">
+  <Profile client:load />
+</Layout>
