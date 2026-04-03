@@ -5,6 +5,7 @@ import PilaresSlide from './PilaresSlide';
 import HerramientasSlide from './HerramientasSlide';
 import EstructuraHTMLSlide from './EstructuraHTMLSlide';
 import EtiquetasSlide from './EtiquetasSlide';
+import HTMLQuiz from './HTMLQuiz';
 import CierreSlide from './CierreSlide';
 import styles from '../ModernCourse.module.css';
 
@@ -18,6 +19,7 @@ const HTMLCourse = ({ onBack }) => {
     { component: HerramientasSlide, title: 'Tu Arsenal de Trabajo' },
     { component: EstructuraHTMLSlide, title: 'La Columna Vertebral' },
     { component: EtiquetasSlide, title: 'Etiquetas Esenciales' },
+    { component: HTMLQuiz, title: 'Evaluación de HTML5' },
     { component: CierreSlide, title: '¡Misión Cumplida!' }
   ];
 

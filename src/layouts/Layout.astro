@@ -46,10 +46,16 @@ const { title } = Astro.props;
 		background: var(--bg-dark);
     color: var(--text-main);
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    height: 100%;
 	}
 	body {
 		margin: 0;
 		padding: 0;
+    min-height: 100%;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
 	}
 	code {
 		font-family:

@@ -2,9 +2,15 @@ import React, { useState, useEffect } from 'react';
 import './ProgressSystem.css';
 import { useAuth } from '../../contexts/AuthContext';
 
-const ProgressSystem = () => {
+const ProgressSystem = ({ progress: propProgress }) => {
   const { user } = useAuth();
-  const [, setProgress] = useState({});
+  const [progress, setProgress] = useState(propProgress || {});
+
+  useEffect(() => {
+    if (propProgress) {
+      setProgress(propProgress);
+    }
+  }, [propProgress]);
 
   useEffect(() => {
     const fetchProgress = async () => {

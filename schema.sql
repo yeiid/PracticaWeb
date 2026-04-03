@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS courses (
   icon TEXT NOT NULL,
   color TEXT NOT NULL,
   slides INTEGER NOT NULL,
-  url TEXT,
+  url TEXT UNIQUE,
   active BOOLEAN DEFAULT true,
   tenant_id UUID REFERENCES tenants(id) ON DELETE CASCADE, -- Cursos específicos por cliente
   created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
@@ -67,6 +67,7 @@ CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
 CREATE INDEX IF NOT EXISTS idx_users_tenant_id ON users(tenant_id);
 CREATE INDEX IF NOT EXISTS idx_progress_user_id ON progress(user_id);
 CREATE INDEX IF NOT EXISTS idx_courses_active ON courses(active);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_courses_url ON courses(url);
 
 -- Función para actualizar updated_at automáticamente
 CREATE OR REPLACE FUNCTION update_updated_at_column()

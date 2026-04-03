@@ -51,16 +51,112 @@ async function seedUser() {
 
     // Seed base courses
     console.log('📚 Syncing base courses...');
-    await sql`
-      INSERT INTO courses (title, description, icon, color, slides, url, active)
-      VALUES 
-        ('Git Master', 'Domina el control de versiones en 7 días con visualizaciones interactivas.', '🧡', '#f97316', 7, '/git', true),
-        ('Backend Pro', 'Node.js, Express y bases de datos desde cero.', '⚙️', '#6366f1', 7, '/backend', true)
-      ON CONFLICT DO NOTHING
-    `;
+    
+    // FIX: Asegurar que la restricción UNIQUE existe antes de insertar
+    try {
+      // 1. Eliminar duplicados manteniendo el más reciente
+      await sql`
+        DELETE FROM courses 
+        WHERE id NOT IN (
+          SELECT id FROM (
+            SELECT id, ROW_NUMBER() OVER (PARTITION BY url ORDER BY created_at DESC) as rn
+            FROM courses
+          ) t
+          WHERE t.rn = 1
+        )
+      `;
+      
+      // 2. Intentar añadir la restricción
+      await sql`ALTER TABLE courses ADD CONSTRAINT courses_url_unique UNIQUE (url)`;
+      console.log('✅ Base de datos preparada con restricción UNIQUE');
+    } catch (e) {
+      // Ignorar si ya existe
+      if (!e.message.includes('already exists')) {
+        console.log('⚠️  Nota:', e.message);
+      }
+    }
+
+    const baseCourses = [
+      {
+        title: 'Git Master',
+        description: 'Domina el control de versiones en 7 días con visualizaciones interactivas.',
+        icon: '🧡',
+        color: '#f97316',
+        slides: 7,
+        url: '/git',
+        active: true
+      },
+      {
+        title: 'HTML5',
+        description: 'Estructura semántica y fundamentos de la web moderna.',
+        icon: '📄',
+        color: '#3498db',
+        slides: 7,
+        url: '/html',
+        active: true
+      },
+      {
+        title: 'CSS3 Moderno',
+        description: 'Diseños increíbles con Flexbox, Grid y Animaciones.',
+        icon: '🎨',
+        color: '#0ea5e9',
+        slides: 8,
+        url: '/css',
+        active: true
+      },
+      {
+        title: 'JavaScript 2025',
+        description: 'De novato a ninja con el lenguaje más popular del mundo.',
+        icon: '⚡',
+        color: '#facc15',
+        slides: 11,
+        url: '/js',
+        active: true
+      },
+      {
+        title: 'Python Pro',
+        description: 'Programación versátil: desde scripts básicos hasta IA.',
+        icon: '🐍',
+        color: '#10b981',
+        slides: 10,
+        url: '/python',
+        active: true
+      },
+      {
+        title: 'React.js Mastery',
+        description: 'Construye interfaces de usuario modernas y reactivas.',
+        icon: '⚛️',
+        color: '#06b6d4',
+        slides: 3,
+        url: '/react',
+        active: true
+      },
+      {
+        title: 'Backend Node.js',
+        description: 'Escalabilidad y arquitectura con Node, Express y SQL.',
+        icon: '⚙️',
+        color: '#ec4899',
+        slides: 7,
+        url: '/backend',
+        active: true
+      }
+    ];
+
+    for (const course of baseCourses) {
+      await sql`
+        INSERT INTO courses (title, description, icon, color, slides, url, active)
+        VALUES (${course.title}, ${course.description}, ${course.icon}, ${course.color}, ${course.slides}, ${course.url}, ${course.active})
+        ON CONFLICT (url) DO UPDATE SET
+          title = EXCLUDED.title,
+          description = EXCLUDED.description,
+          icon = EXCLUDED.icon,
+          color = EXCLUDED.color,
+          slides = EXCLUDED.slides
+      `;
+    }
     console.log('✅ Base courses synced');
 
-    console.log('\n🚀 Ya puedes iniciar sesión en http://localhost:3000/login');
+    console.log('\n🚀 Ya puedes iniciar sesión en http://localhost:4321');
 
   } catch (error) {
     if (error.code === '42P01') {
@@ -68,7 +164,7 @@ async function seedUser() {
       console.error('   docker-compose up -d');
       console.error('   (El schema se aplica automáticamente al iniciar el contenedor)\n');
     } else {
-      console.error('❌ Error:', error.message);
+      console.error('❌ Error crítico:', error.message);
     }
   } finally {
     await sql.end();

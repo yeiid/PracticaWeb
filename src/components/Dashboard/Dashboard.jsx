@@ -43,11 +43,6 @@ function DashboardContent() {
         const response = await fetch('/api/courses');
         if (response.ok) {
           const data = await response.json();
-          // Merge with Git course if not present in DB
-          const hasGit = data.find(c => c.url === '/git' || c.id === 'git');
-          if (!hasGit) {
-            data.unshift(mockCourses[0]);
-          }
           setCourses(data);
         } else {
           setCourses(mockCourses);
@@ -62,12 +57,12 @@ function DashboardContent() {
   }, [isOffline, user]);
 
   const roadmapSteps = [
-    { id: 1, title: 'HTML5 - Los Fundamentos', description: 'Estructura básica y semántica', completed: true, course: 'html', icon: '📄' },
-    { id: 2, title: 'CSS3 - El diseño Visual', description: 'Estilos y layouts modernos', completed: true, course: 'css', icon: '🎨' },
-    { id: 3, title: 'JavaScript - La Interactividad', description: 'Programación y DOM', completed: true, course: 'js', icon: '⚡' },
-    { id: 4, title: 'Python - Programación Versátil', description: 'Lenguaje multiuso para todo', completed: true, course: 'python', icon: '🐍' },
-    { id: 5, title: 'React - Próximamente', description: 'Aplicaciones web avanzadas', completed: true, course: 'react', icon: '⚛️' },
-    { id: 6, title: 'Backend - Próximamente', description: 'Node.js y APIs', completed: false, course: 'backend', icon: '⚙️' }
+    { id: 1, title: 'HTML5 - Los Fundamentos', description: 'Estructura básica y semántica', completed: true, course: '/html', icon: '📄' },
+    { id: 2, title: 'CSS3 - El diseño Visual', description: 'Estilos y layouts modernos', completed: true, course: '/css', icon: '🎨' },
+    { id: 3, title: 'JavaScript - La Interactividad', description: 'Programación y DOM', completed: true, course: '/js', icon: '⚡' },
+    { id: 4, title: 'Python - Programación Versátil', description: 'Lenguaje multiuso para todo', completed: true, course: '/python', icon: '🐍' },
+    { id: 5, title: 'React - Modern UI', description: 'Aplicaciones web avanzadas', completed: true, course: '/react', icon: '⚛️' },
+    { id: 6, title: 'Backend - Arquitectura', description: 'Node.js y APIs', completed: false, course: '/backend', icon: '⚙️' }
   ];
 
   const handleCourseSelect = (course) => {
@@ -90,16 +85,28 @@ function DashboardContent() {
   }
 
   if (currentView === 'course' && selectedCourse) {
+    const url = selectedCourse.url;
     return (
       <div className="App">
         <ProgressSystem progress={progress} />
-        {selectedCourse.id === 'html' && <HTMLCourse onBack={() => setCurrentView('home')} />}
-        {selectedCourse.id === 'css' && <CSSCourse onBack={() => setCurrentView('home')} />}
-        {selectedCourse.id === 'js' && <JSCourse onBack={() => setCurrentView('home')} />}
-        {selectedCourse.id === 'python' && <PythonCourse onBack={() => setCurrentView('home')} />}
-        {selectedCourse.id === 'react' && <ReactCourse onBack={() => setCurrentView('home')} />}
-        {selectedCourse.id === 'backend' && <BackendCourse onBack={() => setCurrentView('home')} />}
-        {(selectedCourse.id === 'git' || selectedCourse.url === '/git') && <GitCourse onBack={() => setCurrentView('home')} />}
+        {url === '/html' && <HTMLCourse onBack={() => setCurrentView('home')} />}
+        {url === '/css' && <CSSCourse onBack={() => setCurrentView('home')} />}
+        {url === '/js' && <JSCourse onBack={() => setCurrentView('home')} />}
+        {url === '/python' && <PythonCourse onBack={() => setCurrentView('home')} />}
+        {url === '/react' && <ReactCourse onBack={() => setCurrentView('home')} />}
+        {url === '/backend' && <BackendCourse onBack={() => setCurrentView('home')} />}
+        {url === '/git' && <GitCourse onBack={() => setCurrentView('home')} />}
+        
+        {/* Safety Check: If NO component matched the URL */}
+        {!['/html', '/css', '/js', '/python', '/react', '/backend', '/git'].includes(url) && (
+          <div className="course-error-modern">
+            <button onClick={() => setCurrentView('home')} className="back-button">← Regresar</button>
+            <div className="error-content">
+              <h2>🚀 Próximamente...</h2>
+              <p>Estamos puliendo los detalles finales de este curso. ¡Vuelve pronto!</p>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -134,7 +141,11 @@ function DashboardContent() {
               <RoadmapStep
                 key={step.id}
                 step={step}
-                onSelect={() => handleCourseSelect(courses.find(c => c.id === step.course))}
+                onSelect={() => {
+                  const course = courses.find(c => c.url === step.course);
+                  if (course) handleCourseSelect(course);
+                  else console.warn(`Course with URL ${step.course} not found`);
+                }}
                 progress={getProgressPercentage(step.course)}
               />
             ))}

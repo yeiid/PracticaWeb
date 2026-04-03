@@ -4,44 +4,44 @@ import styles from './HTMLSlides.module.css';
 const EtiquetasSlide = () => {
   return (
     <div className={styles.slide}>
-      <h2>Etiquetas básicas</h2>
-      <div className={styles.highlight}>
-        <h3>🏗️ Etiquetas de estructura (bloques):</h3>
-        <ul>
-          <li><code>&lt;h1&gt; a &lt;h6&gt;</code> → Títulos jerárquicos (h1 es el más importante)</li>
-          <li><code>&lt;p&gt;</code> → Párrafos de texto</li>
-          <li><code>&lt;div&gt;</code> → Contenedor genérico (como una caja invisible)</li>
-          <li><code>&lt;section&gt;</code> → Sección temática de contenido</li>
-        </ul>
+      <h2>Etiquetas y Semántica HTML5 🏷️</h2>
+      <p>No todas las etiquetas son iguales. El <strong>HTML Semántico</strong> le dice al navegador y a Google <em>qué significa</em> cada parte de tu página, no solo cómo se ve.</p>
+      
+      <div className={styles.tagGrid}>
+        <div className={styles.tagCategory}>
+          <h4>🏗️ Estructurales (Layout)</h4>
+          <p>Organizan las grandes secciones:</p>
+          <ul>
+            <li><code>&lt;header&gt;</code>: Encabezado.</li>
+            <li><code>&lt;nav&gt;</code>: Menú de navegación.</li>
+            <li><code>&lt;main&gt;</code>: Contenido principal.</li>
+            <li><code>&lt;footer&gt;</code>: Pié de página.</li>
+          </ul>
+        </div>
+        
+        <div className={styles.tagCategory}>
+          <h4>📝 De Texto (Contenido)</h4>
+          <ul>
+            <li><code>&lt;h1&gt; - &lt;h6&gt;</code>: Jerarquía de títulos.</li>
+            <li><code>&lt;p&gt;</code>: Párrafos estándar.</li>
+            <li><code>&lt;strong&gt;</code>: Importancia (Negrita).</li>
+            <li><code>&lt;a&gt;</code>: Enlaces (El alma de la web).</li>
+          </ul>
+        </div>
       </div>
-      <div className={styles.highlight}>
-        <h3>🔗 Etiquetas de texto e inline:</h3>
-        <ul>
-          <li><code>&lt;a href=&quot;&quot;&gt;</code> → Enlaces hipertexto</li>
-          <li><code>&lt;strong&gt;</code> → Texto importante (aparece en negrita)</li>
-          <li><code>&lt;em&gt;</code> → Texto enfatizado (aparece en cursiva)</li>
-          <li><code>&lt;span&gt;</code> → Contenedor inline para estilos específicos</li>
-        </ul>
+
+      <div className={styles.warningBox}>
+        <strong>⚠️ Regla de Oro:</strong> Usa solo UN <code>&lt;h1&gt;</code> por página. Es el título principal de tu documento.
       </div>
+
       <div className={styles.example}>
-        <h4>Analogía práctica:</h4>
-        <p>Las etiquetas HTML son como piezas de LEGO:</p>
-        <ul>
-          <li><strong>Etiquetas de bloque</strong> → Piezas grandes (base, paredes)</li>
-          <li><strong>Etiquetas inline</strong> → Piezas pequeñas (decoración, detalles)</li>
-          <li><strong>Atributos</strong> → Instrucciones en la caja (color, tamaño, posición)</li>
-        </ul>
+        <h4>Etiquetas de Auto-cierre (Void Elements):</h4>
+        <p>Algunas etiquetas no envuelven contenido, por lo que no necesitan cierre: <code>&lt;img&gt;</code>, <code>&lt;br&gt;</code>, <code>&lt;hr&gt;</code> e <code>&lt;input&gt;</code>.</p>
       </div>
-      <div className={styles.highlight}>
-        <h3>🏋️ Ejercicios prácticos</h3>
-        <ol>
-          <li><strong>Crea una lista:</strong> Usa las etiquetas de bloque para hacer una lista de tus comidas favoritas</li>
-          <li><strong>Agrega enlaces:</strong> Convierte algunos elementos en enlaces usando la etiqueta &lt;a&gt;</li>
-          <li><strong>Experimenta con texto:</strong> Usa &lt;strong&gt; y &lt;em&gt; en diferentes párrafos</li>
-          <li><strong>Crea secciones:</strong> Organiza tu contenido en &lt;section&gt; y &lt;article&gt;</li>
-        </ol>
+
+      <div className={styles.lessonPreview}>
+        <span>Paso 3 de 8: Semántica y SEO</span>
       </div>
-      <p><strong>💡 Recuerda:</strong> Todas las etiquetas de apertura necesitan una de cierre, excepto las auto-cierres como <code>&lt;img&gt;</code> o <code>&lt;br&gt;</code>.</p>
     </div>
   );
 };
