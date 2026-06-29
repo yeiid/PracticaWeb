@@ -33,11 +33,23 @@ export const AuthProvider = ({ children }) => {
         if (response.status === 503 || response.status === 504) {
           setIsOffline(true);
         }
+        // Si hay modo demo en localStorage, restaurar usuario
+        const demoUser = localStorage.getItem('demo_user');
+        if (demoUser) {
+          setUser(JSON.parse(demoUser));
+          setIsOffline(true);
+        }
       }
     } catch (error) {
       console.error('Error verificando sesión:', error);
       setUser(null);
       setIsOffline(true);
+      // Restaurar modo demo si existe
+      const demoUser = localStorage.getItem('demo_user');
+      if (demoUser) {
+        setUser(JSON.parse(demoUser));
+        setIsOffline(true);
+      }
     } finally {
       setLoading(false);
     }
@@ -69,6 +81,7 @@ export const AuthProvider = ({ children }) => {
     setIsOffline(true);
     // Persistir localmente para la sesión actual
     localStorage.setItem('demo_mode', 'true');
+    localStorage.setItem('demo_user', JSON.stringify(mockUser));
     return { data: { user: mockUser }, error: null };
   };
 
@@ -95,11 +108,14 @@ export const AuthProvider = ({ children }) => {
   const signOut = async () => {
     try {
       localStorage.removeItem('demo_mode');
+      localStorage.removeItem('demo_user');
       await fetch('/api/auth/logout', { method: 'POST' });
       setUser(null);
       window.location.href = '/';
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
+      localStorage.removeItem('demo_mode');
+      localStorage.removeItem('demo_user');
       setUser(null);
       window.location.href = '/';
     }

@@ -4,7 +4,6 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { serialize } from 'cookie';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -21,15 +20,15 @@ export const POST: APIRoute = async ({ request }) => {
     const users = await sql`
       INSERT INTO users (email, password_hash, full_name, tenant_id)
       VALUES (${email}, ${password_hash}, ${full_name}, ${tenant_id || null})
-      RETURNING id, email, full_name, tenant_id
+      RETURNING id, email, full_name, tenant_id, role
     `;
 
     const user = users[0];
 
     // Autologin after registration
     const token = jwt.sign(
-      { id: user.id, email: user.email, tenant_id: user.tenant_id },
-      JWT_SECRET,
+      { id: user.id, email: user.email, tenant_id: user.tenant_id, role: user.role },
+      process['env']['JWT_SECRET']||'dev-fallback',
       { expiresIn: '7d' }
     );
 
@@ -41,7 +40,7 @@ export const POST: APIRoute = async ({ request }) => {
       maxAge: 60 * 60 * 24 * 7 // 7 días
     });
 
-    return new Response(JSON.stringify({ user: { id: user.id, email: user.email, full_name: user.full_name } }), {
+    return new Response(JSON.stringify({ user: { id: user.id, email: user.email, full_name: user.full_name, role: user.role } }), {
       status: 201,
       headers: {
         'Set-Cookie': cookie,

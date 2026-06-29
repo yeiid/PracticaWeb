@@ -1,12 +1,12 @@
 .course-card-modern {
-  background: #ffffff;
-  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 18px;
   padding: 24px;
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
-  border: 1px solid #e2e8f0;
+  border: 1px solid rgba(15, 23, 42, 0.06);
   position: relative;
   overflow: hidden;
 }
@@ -18,12 +18,12 @@
   left: 0;
   right: 0;
   height: 4px;
-  background-color: var(--course-color, #667eea);
+  background: linear-gradient(135deg, var(--course-color, var(--secondary)), var(--tertiary));
 }
 
 .course-card-modern:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 20px 44px rgba(34, 211, 238, 0.16);
 }
 
 .course-card-header {
@@ -48,7 +48,7 @@
 .course-title-modern h3 {
   margin: 0;
   font-size: 1.25rem;
-  color: #2d3748;
+  color: #111827;
 }
 
 .course-title-modern span {
@@ -58,7 +58,7 @@
 
 .course-description-modern {
   font-size: 0.95rem;
-  color: #4a5568;
+  color: #334155;
   line-height: 1.5;
   flex-grow: 1;
   margin-bottom: 24px;
@@ -90,7 +90,7 @@
 }
 
 .start-course-btn {
-  background-color: var(--course-color, #667eea);
+  background: linear-gradient(135deg, var(--course-color, var(--secondary)), var(--tertiary));
   color: white;
   border: none;
   border-radius: 8px;
@@ -105,6 +105,8 @@
 
 .start-course-btn:hover {
   filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(34, 211, 238, 0.18);
 }
 
 /* Media Queries para Responsive Design */

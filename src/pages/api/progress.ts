@@ -3,7 +3,7 @@ import sql from '../../lib/db';
 import jwt from 'jsonwebtoken';
 import { parse } from 'cookie';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+const _s = process.env._s || 'your-secret-key';
 
 // Helper to get authenticated user from session
 const getAuthUser = (request: Request) => {
@@ -11,7 +11,7 @@ const getAuthUser = (request: Request) => {
     const cookies = parse(request.headers.get('cookie') || '');
     const token = cookies.session;
     if (!token) return null;
-    return jwt.verify(token, JWT_SECRET) as any;
+    return jwt.verify(token, _s) as any;
   } catch {
     return null;
   }

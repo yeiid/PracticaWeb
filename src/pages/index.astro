@@ -2,7 +2,6 @@
 import LandingPage from '../components/LandingPage/LandingPage';
 import Layout from '../layouts/Layout.astro';
 
-// En Astro SSR, verificamos la sesión aquí
 const session = Astro.cookies.get('session');
 if (session) {
   return Astro.redirect('/dashboard');

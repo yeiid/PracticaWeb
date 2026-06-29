@@ -1,8 +1,16 @@
 import postgres from 'postgres';
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const connectionString = process.env.DATABASE_URL || 'postgres://postgres:password@localhost:5432/postgres';
+const connectionString = process.env.DATABASE_URL || 'postgres://postgres:password@localhost:5432/academia';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const schemaPath = path.resolve(__dirname, '../../schema.sql');
 
 let sql;
+let schemaInitializationPromise = null;
+
 try {
   sql = postgres(connectionString, {
     max: 10,
@@ -13,13 +21,45 @@ try {
   console.error('❌ Error de inicialización de Postgres:', error.message);
 }
 
+async function initializeDatabase() {
+  if (!sql) return false;
+  if (schemaInitializationPromise) return schemaInitializationPromise;
+
+  schemaInitializationPromise = (async () => {
+    try {
+      const result = await sql`SELECT to_regclass('public.users') AS users_table`;
+      const usersTableExists = result?.[0]?.users_table;
+
+      if (!usersTableExists) {
+        const schemaSql = await readFile(schemaPath, 'utf8');
+        await sql.unsafe(schemaSql);
+        console.log('✅ Esquema de base de datos inicializado');
+      } else {
+        console.log('✅ Esquema de base de datos ya disponible');
+      }
+
+      return true;
+    } catch (error) {
+      console.warn('⚠️ No se pudo verificar o inicializar el esquema automáticamente:', error.message);
+      return false;
+    }
+  })();
+
+  return schemaInitializationPromise;
+}
+
+await initializeDatabase();
+
 export default sql;
+
+export { initializeDatabase };
 
 // Helper to check connection status
 export async function checkConnection() {
   if (!sql) return false;
-  
+
   try {
+    await initializeDatabase();
     const result = await sql`SELECT 1+1 AS result`;
     const isOk = result && result[0] && result[0].result === 2;
     if (isOk) console.log('✅ Base de Datos Conectada');

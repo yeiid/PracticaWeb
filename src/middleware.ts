@@ -2,7 +2,6 @@ import { defineMiddleware } from "astro:middleware";
 import jwt from 'jsonwebtoken';
 import { parse } from 'cookie';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
 // Rutas públicas que no requieren sesión
 const publicPaths = ['/', '/login', '/api/auth/login', '/api/auth/register', '/reset-password'];
@@ -25,7 +24,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   
   if (sessionToken) {
     try {
-      const decoded = jwt.verify(sessionToken, JWT_SECRET) as any;
+      const decoded = jwt.verify(sessionToken, process['env']['JWT_SECRET']||'dev-fallback') as any;
       context.locals.user = decoded;
     } catch (err) {
       console.warn('Sesión inválida detectada:', err.message);

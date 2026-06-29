@@ -1,11 +1,11 @@
 ---
-import Profile from '../components/Profile/Profile';
+import Support from '../components/Support/SupportCenter';
 import Layout from '../layouts/Layout.astro';
 import { AuthProvider } from '../contexts/AuthContext';
 ---
 
-<Layout title="Mi Perfil - Academia Web">
+<Layout title="Soporte - Academia Web">
   <AuthProvider>
-    <Profile client:load />
+    <Support client:load />
   </AuthProvider>
 </Layout>

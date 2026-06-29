@@ -93,3 +93,39 @@ VALUES
   ('Aprende Git desde Cero', 'Domina el control de versiones en 7 días.', '🧡', '#f97316', 7, '/git', true),
   ('Domina el Backend', 'Node.js, Express y Bases de Datos.', '⚙️', '#6366f1', 7, '/backend', true)
 ON CONFLICT DO NOTHING;
+
+-- ============================================
+-- Sistema de Soporte / Tickets
+-- ============================================
+
+CREATE TABLE IF NOT EXISTS support_tickets (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE NOT NULL,
+  tenant_id UUID REFERENCES tenants(id) ON DELETE CASCADE,
+  subject TEXT NOT NULL,
+  message TEXT NOT NULL,
+  category TEXT DEFAULT 'general', -- 'general', 'technical', 'billing', 'question', 'bug'
+  status TEXT DEFAULT 'open', -- 'open', 'in_progress', 'resolved', 'closed'
+  priority TEXT DEFAULT 'normal', -- 'low', 'normal', 'high', 'urgent'
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS ticket_responses (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  ticket_id UUID REFERENCES support_tickets(id) ON DELETE CASCADE NOT NULL,
+  responder_id UUID REFERENCES users(id) ON DELETE SET NULL,
+  message TEXT NOT NULL,
+  is_staff BOOLEAN DEFAULT false,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- Índices para tickets
+CREATE INDEX IF NOT EXISTS idx_support_tickets_user_id ON support_tickets(user_id);
+CREATE INDEX IF NOT EXISTS idx_support_tickets_status ON support_tickets(status);
+CREATE INDEX IF NOT EXISTS idx_support_tickets_tenant_id ON support_tickets(tenant_id);
+CREATE INDEX IF NOT EXISTS idx_ticket_responses_ticket_id ON ticket_responses(ticket_id);
+
+-- Triggers para updated_at
+DROP TRIGGER IF EXISTS update_support_tickets_updated_at ON support_tickets;
+CREATE TRIGGER update_support_tickets_updated_at BEFORE UPDATE ON support_tickets FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();

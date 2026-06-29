@@ -8,7 +8,7 @@ import { AutenticacionSlide } from './AutenticacionSlide';
 import { DespliegueBackendSlide } from './DespliegueBackendSlide';
 import styles from '../ModernCourse.module.css';
 
-const BackendCourse = ({ onBack }) => {
+const BackendCourse = ({ onBack = () => {} }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [

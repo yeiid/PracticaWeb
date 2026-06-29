@@ -154,7 +154,12 @@ function DashboardContent() {
       </main>
       <footer className="footer">
         <p>🎓 ¡Aprende a tu ritmo, construye proyectos increíbles!</p>
-        <p>💡 Recuerda: La práctica hace al maestro</p>
+        <div className="footer-links">
+          <a href="/support" className="footer-link">📩 Centro de Soporte</a>
+          {user?.role === 'admin' && (
+            <a href="/admin/tickets" className="footer-link admin-link">🛡️ Panel Admin</a>
+          )}
+        </div>
       </footer>
     </div>
   );

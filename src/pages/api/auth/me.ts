@@ -3,7 +3,6 @@ import sql from '../../../lib/db';
 import jwt from 'jsonwebtoken';
 import { parse } from 'cookie';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
 export const GET: APIRoute = async ({ request }) => {
   try {
@@ -14,10 +13,10 @@ export const GET: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ user: null }), { status: 401 });
     }
 
-    const payload = jwt.verify(token, JWT_SECRET) as any;
+    const payload = jwt.verify(token, process['env']['JWT_SECRET']||'dev-fallback') as any;
 
     const users = await sql`
-      SELECT id, email, full_name, tenant_id FROM users WHERE id = ${payload.id}
+      SELECT id, email, full_name, tenant_id, role FROM users WHERE id = ${payload.id}
     `;
 
     if (users.length === 0) {

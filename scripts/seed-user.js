@@ -21,15 +21,20 @@ async function seedUser() {
   const password = 'Prueba123!';
   const full_name = 'Usuario de Prueba';
 
+  const adminEmail = 'admin@academia.dev';
+  const adminPassword = 'Admin123!';
+  const adminName = 'Administrador';
+
   try {
     // Asegurar que el schema esté cargado
     console.log('🔄 Conectando a la base de datos...');
 
-    // Hash de contraseña
+    // Hash de contraseñas
     const password_hash = await bcrypt.hash(password, 10);
-    console.log('🔐 Contraseña hasheada');
+    const admin_password_hash = await bcrypt.hash(adminPassword, 10);
+    console.log('🔐 Contraseñas hasheadas');
 
-    // Insertar usuario (o actualizar si ya existe)
+    // Insertar usuario student (o actualizar si ya existe)
     const result = await sql`
       INSERT INTO users (email, password_hash, full_name, role)
       VALUES (${email}, ${password_hash}, ${full_name}, 'student')
@@ -47,6 +52,27 @@ async function seedUser() {
     console.log(`👤 Nombre:     ${full_name}`);
     console.log(`🆔 ID:         ${user.id}`);
     console.log(`🎭 Rol:        ${user.role}`);
+    console.log('─────────────────────────────');
+
+    // Insertar usuario admin (o actualizar si ya existe)
+    const adminResult = await sql`
+      INSERT INTO users (email, password_hash, full_name, role)
+      VALUES (${adminEmail}, ${admin_password_hash}, ${adminName}, 'admin')
+      ON CONFLICT (email) DO UPDATE
+        SET password_hash = EXCLUDED.password_hash,
+            full_name = EXCLUDED.full_name,
+            role = 'admin'
+      RETURNING id, email, full_name, role
+    `;
+
+    const adminUser = adminResult[0];
+    console.log('\n🛡️ Usuario ADMIN listo:');
+    console.log('─────────────────────────────');
+    console.log(`📧 Email:      ${adminEmail}`);
+    console.log(`🔑 Contraseña: ${adminPassword}`);
+    console.log(`👤 Nombre:     ${adminName}`);
+    console.log(`🆔 ID:         ${adminUser.id}`);
+    console.log(`🎭 Rol:        ${adminUser.role}`);
     console.log('─────────────────────────────');
 
     // Seed base courses

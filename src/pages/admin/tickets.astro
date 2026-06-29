@@ -1,0 +1,16 @@
+---
+import AdminTickets from '../../components/Admin/AdminTickets';
+import Layout from '../../layouts/Layout.astro';
+import { AuthProvider } from '../../contexts/AuthContext';
+
+const session = Astro.cookies.get('session');
+if (session) {
+  return Astro.redirect('/dashboard');
+}
+---
+
+<Layout title="Admin Soporte - Academia Web">
+  <AuthProvider>
+    <AdminTickets client:load />
+  </AuthProvider>
+</Layout>

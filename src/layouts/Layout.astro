@@ -21,26 +21,57 @@ const { title } = Astro.props;
 	</head>
 	<body>
 		<slot />
+    <!-- Theme initializer: reads localStorage or OS preference and sets data-theme on <html> -->
+    <script>
+    (function(){
+      try{
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = stored || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      }catch(e){/* ignore */}
+    })();
+    </script>
 	</body>
 </html>
 <style is:global>
 	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-    --bg-dark: #0a0a0c;
-    --card-bg: rgba(255, 255, 255, 0.05);
-    --primary: #6366f1;
-    --secondary: #a855f7;
+		--accent: 26, 188, 156;
+		--accent-light: 129, 140, 248;
+		--accent-dark: 8, 15, 32;
+		--accent-gradient: linear-gradient(135deg, #22d3ee 0%, #6366f1 45%, #ec4899 100%);
+    --bg-dark: #060816;
+    --bg-panel: rgba(255, 255, 255, 0.06);
+    --bg-panel-strong: rgba(255, 255, 255, 0.09);
+    --card-bg: rgba(255, 255, 255, 0.06);
+    --border-soft: rgba(255, 255, 255, 0.12);
+    --primary: #22d3ee;
+    --secondary: #6366f1;
+    --tertiary: #ec4899;
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
+    --success: #34d399;
+    --warning: #fbbf24;
 	}
+
+  /* Light theme overrides */
+  html[data-theme="light"] {
+    --bg-dark: #f7fafc;
+    --bg-panel: rgba(10, 11, 20, 0.02);
+    --bg-panel-strong: rgba(10, 11, 20, 0.04);
+    --card-bg: #ffffff;
+    --border-soft: rgba(2,6,23,0.06);
+    --primary: #0ea5e9;
+    --secondary: #6366f1;
+    --tertiary: #ec4899;
+    --text-main: #0b1220;
+    --text-muted: #475569;
+  }
+
+  /* Dark theme explicit values (explicit for clarity) */
+  html[data-theme="dark"] {
+    /* defaults already tuned for dark in :root */
+  }
 	html {
 		font-family: 'Outfit', system-ui, sans-serif;
 		background: var(--bg-dark);
@@ -73,21 +104,22 @@ const { title } = Astro.props;
     cursor: pointer;
   }
   .btn-primary {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background: var(--accent-gradient);
     color: white;
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 10px 30px rgba(34, 211, 238, 0.2);
+    border: 1px solid rgba(255,255,255,0.12);
   }
   .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 18px 38px rgba(34, 211, 238, 0.24);
   }
   .btn-secondary {
-    background: var(--card-bg);
+    background: var(--bg-panel);
     color: white;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-soft);
   }
   .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--bg-panel-strong);
   }
 </style>

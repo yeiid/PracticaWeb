@@ -77,7 +77,7 @@
 .timeline-year {
   font-size: 0.9rem;
   font-weight: 600;
-  color: #667eea;
+  color: var(--primary);
   margin-bottom: 10px;
   display: inline-block;
 }

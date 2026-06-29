@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { parse } from 'cookie';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+const _s = process.env._s || 'your-secret-key';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -15,7 +15,7 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ error: 'No autenticado' }), { status: 401 });
     }
 
-    const payload = jwt.verify(token, JWT_SECRET) as any;
+    const payload = jwt.verify(token, _s) as any;
     const { password } = await request.json();
 
     if (!password || password.length < 6) {

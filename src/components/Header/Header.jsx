@@ -7,11 +7,28 @@ const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [currentPath, setCurrentPath] = useState('');
+  const [theme, setTheme] = useState('dark');
   const profileRef = useRef(null);
 
   useEffect(() => {
     setCurrentPath(window.location.pathname);
   }, []);
+
+  useEffect(() => {
+    try {
+      const t = document.documentElement.getAttribute('data-theme') || localStorage.getItem('theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      setTheme(t);
+    } catch (e) {}
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    try {
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    } catch (e) {}
+    setTheme(newTheme);
+  };
 
   const getUserInitials = () => {
     if (!user?.email) return 'U';
@@ -55,9 +72,16 @@ const Header = () => {
       <nav className={`main-nav ${showMobileMenu ? 'mobile-menu-open' : ''}`}>
         <a href="/dashboard" className={`nav-link ${currentPath === '/dashboard' ? 'active' : ''}`} onClick={() => setShowMobileMenu(false)}>Cursos</a>
         <a href="/history" className={`nav-link ${currentPath === '/history' ? 'active' : ''}`} onClick={() => setShowMobileMenu(false)}>Historia</a>
+        <a href="/support" className={`nav-link ${currentPath === '/support' ? 'active' : ''}`} onClick={() => setShowMobileMenu(false)}>Soporte</a>
+        {user?.role === 'admin' && (
+          <a href="/admin/tickets" className={`nav-link admin-link ${currentPath.startsWith('/admin') ? 'active' : ''}`} onClick={() => setShowMobileMenu(false)}>🛡️ Admin</a>
+        )}
       </nav>
 
       <div className="header-right">
+        <button className="theme-toggle" onClick={toggleTheme} aria-label="Cambiar tema">
+          {theme === 'dark' ? '☀️' : '🌙'}
+        </button>
         <div className="profile-section" ref={profileRef}>
           <div className="profile-avatar" onClick={toggleProfileMenu}>
             {getUserInitials()}

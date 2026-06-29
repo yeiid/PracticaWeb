@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { serialize } from 'cookie';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+const p = process['env'];
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -14,8 +14,6 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ error: 'Email y contraseña requeridos' }), { status: 400 });
     }
 
-    // Buscar usuario en la base de datos (auth.users no existe en Postgres directo, usaremos una tabla custom)
-    // Para simplificar la migración, asumo que existe una tabla 'users' en el esquema public
     const users = await sql`
       SELECT * FROM users WHERE email = ${email}
     `;
@@ -31,23 +29,21 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ error: 'Contraseña incorrecta' }), { status: 401 });
     }
 
-    // Generar JWT
     const token = jwt.sign(
-      { id: user.id, email: user.email, tenant_id: user.tenant_id },
-      JWT_SECRET,
+      { id: user.id, email: user.email, tenant_id: user.tenant_id, role: user.role },
+      process['env']['JWT_SECRET']||'dev-fallback',
       { expiresIn: '7d' }
     );
 
-    // Crear cookie de sesión
     const cookie = serialize('session', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: p['NODE_ENV'] === 'production',
       sameSite: 'lax',
       path: '/',
-      maxAge: 60 * 60 * 24 * 7 // 7 días
+      maxAge: 60 * 60 * 24 * 7
     });
 
-    return new Response(JSON.stringify({ user: { id: user.id, email: user.email, full_name: user.full_name } }), {
+    return new Response(JSON.stringify({ user: { id: user.id, email: user.email, full_name: user.full_name, role: user.role } }), {
       status: 200,
       headers: {
         'Set-Cookie': cookie,

@@ -10,7 +10,7 @@
   align-items: center;
   height: 200px;
   font-size: 1.2rem;
-  color: #4a5568;
+  color: var(--text-main);
   font-weight: 500;
 }
 
@@ -19,9 +19,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 3rem;
-  background: rgba(15, 15, 20, 0.8);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(6, 8, 22, 0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   color: white;
 }
 
@@ -90,7 +90,7 @@
 }
 
 .offline-banner {
-  background: var(--primary);
+  background: var(--accent-gradient);
   color: white;
   text-align: center;
   padding: 8px;
