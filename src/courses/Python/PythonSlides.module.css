@@ -1,283 +1,50 @@
-/* Estilos específicos para los slides de Python */
+/* Python Slides - NeuralJira Theme */
+:root {
+  --course-color: #10B981;
+  --course-color-dark: #059669;
+}
 
 .slide {
-  background: #ffffff;
-  border-radius: 12px;
+  background: #1A2235;
+  border-radius: 16px;
   padding: 2rem;
   margin: 1.5rem auto;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #252E42;
+  border-left: 4px solid #10B981;
   transition: all 0.3s ease;
   max-width: 900px;
   line-height: 1.6;
-  color: #2c3e50;
+  color: #CBD5E1;
 }
 
 .slide:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Contenedor principal */
-/* Estilos específicos para las diapositivas de Python */
-
-/* Variables de color específicas para Python */
-:root {
-  --python-primary: #3776ab;
-  --python-secondary: #ffd43b;
-  --python-accent: #ff5722;
-}
-
-/* Estilos específicos para el contenedor de Python */
-.courseContainer {
-  --primary-color: var(--python-primary);
-  --secondary-color: var(--python-secondary);
-  --accent-color: var(--python-accent);
-}
-
-/* Estilos para el título del curso */
-.title {
-  color: var(--python-primary);
-  position: relative;
-  padding-bottom: 0.5rem;
-}
-
-.title::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--python-primary), var(--python-secondary));
-  border-radius: 3px;
-}
-
-/* Estilos para los bloques de código */
-.slide pre {
-  background-color: #f8f9fa;
-  border-radius: 6px;
-  padding: 1.25rem;
-  overflow-x: auto;
-  margin: 1.5rem 0;
-  font-family: 'Fira Code', 'Courier New', monospace;
-  font-size: 0.9em;
-  line-height: 1.6;
-  border-left: 4px solid var(--python-primary);
-  position: relative;
-}
-
-/* Estilos para títulos de sección */
-.slide h2 {
-  color: var(--python-primary);
-  margin-top: 2rem;
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid #f0f0f0;
-}
-
-.slide h3 {
-  color: var(--python-primary);
-  margin-top: 1.8rem;
-  margin-bottom: 1rem;
-}
-
-/* Estilos para listas */
-.slide ul, 
-.slide ol {
-  margin-bottom: 1.5rem;
-  padding-left: 1.5rem;
-}
-
-.slide li {
-  margin-bottom: 0.5rem;
-  position: relative;
-}
-
-.slide ul li::before {
-  content: '🐍';
-  position: absolute;
-  left: -1.5rem;
-  opacity: 0.7;
-}
-
-/* Estilos para enlaces */
-.slide a {
-  color: var(--python-primary);
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  border-bottom: 1px dashed transparent;
-}
-
-.slide a:hover {
-  color: var(--python-accent);
-  border-bottom-color: currentColor;
-}
-
-/* Estilos para bloques de código en línea */
-.code-inline {
-  background-color: #f0f4f8;
-  padding: 0.2em 0.4em;
-  border-radius: 3px;
-  font-family: 'Fira Code', 'Courier New', monospace;
-  font-size: 0.9em;
-  color: #d6336c;
-}
-
-/* Estilos para tablas */
-.slide table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1.5rem 0;
-  font-size: 0.95em;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.slide th, 
-.slide td {
-  padding: 0.75rem 1rem;
-  text-align: left;
-  border-bottom: 1px solid #e9ecef;
-}
-
-.slide th {
-  background-color: #f8f9fa;
-  font-weight: 600;
-  color: var(--python-primary);
-  text-transform: uppercase;
-  font-size: 0.8em;
-  letter-spacing: 0.5px;
-}
-
-.slide tr:hover {
-  background-color: #f8f9fa;
-}
-
-/* Estilos para bloques de nota y advertencia */
-.note {
-  background-color: #e7f5ff;
-  border-left: 4px solid #4dabf7;
-  padding: 1.25rem;
-  margin: 1.5rem 0;
-  border-radius: 0 6px 6px 0;
-}
-
-.warning {
-  background-color: #fff3bf;
-  border-left: 4px solid #ffd43b;
-  padding: 1.25rem;
-  margin: 1.5rem 0;
-  border-radius: 0 6px 6px 0;
-}
-
-/* Estilos para imágenes */
-.slide img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin: 1.5rem 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  display: block;
-}
-
-/* Media queries para responsividad */
-@media (max-width: 768px) {
-  .slide {
-    padding: 1.5rem;
-  }
-  
-  .slide pre {
-    padding: 1rem;
-    font-size: 0.85em;
-  }
-  
-  .slide h2 {
-    font-size: 1.5rem;
-    margin-top: 1.5rem;
-  }
-  
-  .slide h3 {
-    font-size: 1.25rem;
-    margin-top: 1.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .slide {
-    padding: 1.25rem;
-    margin: 1rem 0;
-    border-radius: 8px;
-  }
-  
-  .slide pre {
-    padding: 0.75rem;
-    font-size: 0.8em;
-  }
-  
-  .slide h2 {
-    font-size: 1.4rem;
-  }
-  
-  .slide h3 {
-    font-size: 1.2rem;
-  }
-  
-  .slide ul, 
-  .slide ol {
-    padding-left: 1.25rem;
-  }
-}
-
-/* Contenedor principal */
-.courseContainer {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding-bottom: 100px; /* Espacio para la navegación inferior */
-}
-
-/* Contenedor del slide */
-.slideContainer {
-  margin: 20px 0;
-  min-height: 60vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-/* Estilos para los títulos y contenido */
-.slide h1 {
-  font-size: 2.5em;
-  font-weight: 700;
-  color: var(--text-color);
-  margin-bottom: 20px;
-  text-align: center;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  border-color: #10B981;
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.15);
 }
 
 .slide h2 {
   font-size: 2em;
-  font-weight: 600;
-  color: var(--primary-color);
-  margin-bottom: 15px;
-  text-align: center;
+  font-weight: 700;
+  color: #F8FAFC;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #252E42;
 }
 
 .slide h3 {
   font-size: 1.5em;
   font-weight: 600;
-  color: var(--accent-color);
-  margin-bottom: 12px;
+  color: #10B981;
+  margin-top: 1.8rem;
+  margin-bottom: 1rem;
 }
 
 .slide h4 {
   font-size: 1.2em;
-  font-weight: 500;
-  color: var(--text-color);
+  font-weight: 600;
+  color: #F8FAFC;
   margin-bottom: 10px;
 }
 
@@ -287,289 +54,159 @@
   line-height: 1.7;
 }
 
-/* Código mejorado */
 .slide pre {
-  background: linear-gradient(135deg, #2c3e50, #34495e);
-  color: #ecf0f1;
-  padding: 20px;
-  border-radius: 10px;
+  background: #0D1320;
+  color: #E2E8F0;
+  padding: 1.25rem;
+  border-radius: 12px;
   overflow-x: auto;
-  font-family: 'Fira Code', 'Courier New', monospace;
+  margin: 1.5rem 0;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-size: 0.9em;
-  line-height: 1.5;
-  margin: 20px 0;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  position: relative;
-}
-
-.slide pre::before {
-  content: '🐍';
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  background: var(--accent-color);
-  color: white;
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-size: 0.7em;
-  font-weight: bold;
-  text-transform: uppercase;
+  line-height: 1.6;
+  border: 1px solid #252E42;
 }
 
 .slide code {
-  background: rgba(55, 118, 171, 0.1);
-  color: var(--primary-color);
+  background: rgba(16, 185, 129, 0.12);
+  color: #10B981;
   padding: 2px 6px;
   border-radius: 4px;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-size: 0.9em;
 }
 
-/* Highlights mejorados */
-.highlight {
-  background: linear-gradient(135deg, #e8f4fd, #b3d9f2);
-  border-left: 4px solid var(--primary-color);
-  padding: 25px;
-  margin: 25px 0;
-  border-radius: 10px;
-  position: relative;
-  transition: var(--transition);
-  box-shadow: 0 2px 10px rgba(55, 118, 171, 0.1);
-}
-
-.highlight:hover {
-  transform: translateX(5px);
-  box-shadow: 0 4px 20px rgba(55, 118, 171, 0.2);
-}
-
-.highlight::before {
-  content: '💡';
-  position: absolute;
-  top: -10px;
-  left: 15px;
-  background: var(--primary-color);
-  color: white;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-}
-
-.highlight h3 {
-  color: var(--primary-color);
-  margin-top: 0;
-  margin-bottom: 15px;
-  font-size: 1.3em;
-}
-
-/* Ejemplos mejorados */
-.example {
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-  border: 2px solid var(--border-color);
-  border-radius: 10px;
-  padding: 20px;
-  margin: 20px 0;
-  position: relative;
-  transition: var(--transition);
-}
-
-.example:hover {
-  border-color: var(--primary-color);
-  box-shadow: 0 4px 15px rgba(55, 118, 171, 0.1);
-}
-
-.example h4 {
-  color: var(--secondary-color);
-  margin-top: 0;
-  margin-bottom: 15px;
-  font-size: 1.2em;
-}
-
-.example::before {
-  content: '🚀';
-  position: absolute;
-  top: -10px;
-  left: 15px;
-  background: var(--secondary-color);
-  color: white;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-}
-
-/* Listas mejoradas */
 .slide ol, .slide ul {
-  padding-left: 25px;
-  margin: 15px 0;
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
 }
 
 .slide li {
-  margin: 8px 0;
-  padding: 5px 0;
+  margin-bottom: 0.5rem;
   line-height: 1.6;
 }
 
-/* Responsive design */
+.slide a {
+  color: #38BDF8;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.slide a:hover {
+  color: #7DD3FC;
+  text-decoration: underline;
+}
+
+.code-inline {
+  background: rgba(16, 185, 129, 0.12);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.9em;
+  color: #10B981;
+}
+
+.slide table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.slide th, .slide td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #252E42;
+}
+
+.slide th {
+  background-color: rgba(16, 185, 129, 0.1);
+  font-weight: 600;
+  color: #10B981;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  letter-spacing: 0.5px;
+}
+
+.slide tr:hover {
+  background-color: rgba(16, 185, 129, 0.05);
+}
+
+.note {
+  background: rgba(56, 189, 248, 0.08);
+  border-left: 4px solid #38BDF8;
+  padding: 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 0 12px 12px 0;
+}
+
+.warning {
+  background: rgba(251, 191, 36, 0.08);
+  border-left: 4px solid #FBBF24;
+  padding: 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 0 12px 12px 0;
+}
+
+.highlight {
+  background: rgba(16, 185, 129, 0.08);
+  border-left: 4px solid #10B981;
+  padding: 25px;
+  margin: 25px 0;
+  border-radius: 12px;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.highlight h3 {
+  color: #10B981;
+  margin-top: 0;
+}
+
+.example {
+  background: #0D1320;
+  border: 1px solid #252E42;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.example h4 {
+  color: #F97316;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.slide img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+
 @media (max-width: 768px) {
   .slide {
-    padding: 20px;
-    margin: 10px;
+    padding: 1.5rem;
   }
-
-  .slide h1 {
-    font-size: 2em;
-  }
-
-  .slide h2 {
-    font-size: 1.5em;
-  }
-
   .slide pre {
+    padding: 1rem;
+    font-size: 0.85em;
+  }
+  .slide h2 {
+    font-size: 1.5rem;
+  }
+  .slide h3 {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .slide {
+    padding: 1.25rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+  }
+  .slide pre {
+    padding: 0.75rem;
     font-size: 0.8em;
-    padding: 15px;
-  }
-}
-
-/* Curso completo Python */
-.courseContainer {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 20px;
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-  min-height: 100vh;
-}
-
-.courseHeader {
-  text-align: center;
-  margin-bottom: 30px;
-  padding: 20px;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.courseHeader h1 {
-  color: var(--primary-color);
-  margin-bottom: 15px;
-  font-size: 2.5em;
-}
-
-.backButton {
-  background: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1em;
-  transition: var(--transition);
-}
-
-.backButton:hover {
-  background: #27ae60;
-  transform: translateY(-2px);
-}
-
-.progress {
-  background: #e9ecef;
-  border-radius: 20px;
-  padding: 8px 20px;
-  display: inline-block;
-  color: #495057;
-  font-weight: 600;
-}
-
-.slideContainer {
-  margin-bottom: 30px;
-}
-
-.navigation {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 40px;
-  padding-top: 30px;
-  border-top: 2px solid #e1e4e8;
-}
-
-.navButton {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 25px;
-  font-weight: 600;
-  font-size: 1em;
-  cursor: pointer;
-  transition: var(--transition);
-  box-shadow: 0 4px 15px rgba(55, 118, 171, 0.3);
-}
-
-.navButton:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(55, 118, 171, 0.4);
-}
-
-.navButton:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.slideIndicator {
-  display: flex;
-  gap: 8px;
-}
-
-.indicator {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #dee2e6;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.indicator.active {
-  background: var(--primary-color);
-  transform: scale(1.2);
-}
-
-.indicator:hover {
-  background: #6c757d;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .courseContainer {
-    padding: 10px;
-  }
-
-  .courseHeader {
-    padding: 15px;
-  }
-
-  .courseHeader h1 {
-    font-size: 2em;
-  }
-
-  .navigation {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .navButton {
-    width: 100%;
-    text-align: center;
-  }
-
-  .slideIndicator {
-    order: -1;
   }
 }

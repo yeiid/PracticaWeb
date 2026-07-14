@@ -1,3 +1,4 @@
+/* Backend Slides - NeuralJira Theme */
 .courseContainer {
   max-width: 900px;
   margin: 0 auto;
@@ -13,30 +14,35 @@
   align-items: center;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
-  border-bottom: 2px solid #e2e8f0;
+  border-bottom: 1px solid #252E42;
 }
 
 .backButton {
-  background: none;
-  border: none;
-  color: #9f7aea;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  color: #8B5CF6;
   font-size: 1rem;
   cursor: pointer;
   padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  transition: background-color 0.2s;
+  border-radius: 12px;
+  transition: all 0.2s;
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-weight: 600;
 }
 
 .backButton:hover {
-  background-color: #f5f3ff;
+  background: rgba(139, 92, 246, 0.2);
+  color: #A78BFA;
 }
 
 .progress {
-  background-color: #f5f3ff;
-  color: #6b46c1;
+  background: rgba(139, 92, 246, 0.15);
+  color: #8B5CF6;
   padding: 0.5rem 1rem;
-  border-radius: 1rem;
+  border-radius: 99px;
   font-weight: 600;
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
 }
 
 .slideContainer {
@@ -51,32 +57,32 @@
   margin-top: 2rem;
   gap: 1rem;
   padding-top: 1.5rem;
-  border-top: 2px solid #e2e8f0;
+  border-top: 1px solid #252E42;
 }
 
 .navButton {
-  background-color: #9f7aea;
+  background: linear-gradient(135deg, #8B5CF6, #7C3AED);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
+  border-radius: 12px;
   cursor: pointer;
   font-weight: 600;
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
   transition: all 0.2s ease;
   min-width: 120px;
   text-align: center;
 }
 
 .navButton:hover:not(:disabled) {
-  background-color: #805ad5;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
 }
 
 .navButton:disabled,
 .navButton.disabled {
-  background-color: #e2e8f0;
-  color: #a0aec0;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.2);
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
@@ -86,7 +92,7 @@
 .progressBar {
   flex: 1;
   height: 8px;
-  background-color: #e2e8f0;
+  background-color: rgba(139, 92, 246, 0.15);
   border-radius: 4px;
   overflow: hidden;
   margin: 0 1rem;
@@ -94,12 +100,11 @@
 
 .progressFill {
   height: 100%;
-  background: linear-gradient(90deg, #9f7aea, #6b46c1);
+  background: linear-gradient(90deg, #8B5CF6, #EC4899);
   border-radius: 4px;
   transition: width 0.3s ease;
 }
 
-/* Estilos para el contenido de las diapositivas */
 .slide {
   padding: 1rem 0;
 }
@@ -107,62 +112,65 @@
 .title {
   font-size: 2.5rem;
   margin-bottom: 2rem;
-  color: #44337a;
+  color: #F8FAFC;
   text-align: center;
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-weight: 800;
 }
 
 .subtitle {
   font-size: 1.8rem;
   margin: 1.5rem 0;
-  color: #553c9a;
+  color: #8B5CF6;
 }
 
 .content {
   font-size: 1.1rem;
   line-height: 1.8;
   margin-bottom: 1.5rem;
-  color: #2d3748;
+  color: #CBD5E1;
 }
 
 .codeBlock {
-  background-color: #2d3748;
-  color: #e2e8f0;
-  border-radius: 0.5rem;
+  background: #0D1320;
+  color: #E2E8F0;
+  border-radius: 12px;
   padding: 1.25rem;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-size: 0.95rem;
   margin: 1.25rem 0;
   overflow-x: auto;
   line-height: 1.6;
+  border: 1px solid #252E42;
 }
 
 .exampleContainer {
-  background-color: #f5f3ff;
-  border-left: 4px solid #9f7aea;
+  background: rgba(139, 92, 246, 0.06);
+  border-left: 4px solid #8B5CF6;
   padding: 1.25rem;
   margin: 1.5rem 0;
-  border-radius: 0 0.5rem 0.5rem 0;
+  border-radius: 0 12px 12px 0;
 }
 
 .exampleTitle {
   font-weight: 700;
   margin-bottom: 0.75rem;
-  color: #6b46c1;
+  color: #8B5CF6;
   font-size: 1.1rem;
 }
 
 .note {
-  background-color: #fffaf0;
-  border-left: 4px solid #ecc94b;
+  background: rgba(251, 191, 36, 0.08);
+  border-left: 4px solid #FBBF24;
   padding: 1.25rem;
   margin: 1.5rem 0;
-  border-radius: 0 0.5rem 0.5rem 0;
+  border-radius: 0 12px 12px 0;
 }
 
 .noteTitle {
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: #b7791f;
+  color: #FBBF24;
   font-size: 1.1rem;
 }
 
@@ -183,6 +191,6 @@ pre {
 }
 
 code {
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-size: 0.9em;
 }

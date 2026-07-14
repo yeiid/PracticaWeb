@@ -1,16 +1,15 @@
-/* Estilos copiados de App.css y adaptados para Dashboard */
+/* Estilos del Dashboard - NeuralJira */
 .App {
   text-align: center;
 }
 
-/* Loading state */
 .loading {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 200px;
   font-size: 1.2rem;
-  color: var(--text-main);
+  color: #F8FAFC;
   font-weight: 500;
 }
 
@@ -19,7 +18,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 3rem;
-  background: rgba(6, 8, 22, 0.85);
+  background: rgba(11, 15, 26, 0.85);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   color: white;
@@ -39,7 +38,7 @@
 }
 
 .profile-link {
-  color: var(--text-muted);
+  color: #4A5568;
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;
@@ -51,17 +50,18 @@
 
 .user-email {
   font-size: 0.875rem;
-  color: var(--text-muted);
+  color: #4A5568;
 }
 
 .auth-button-logout {
-  background: rgba(229, 62, 62, 0.1);
+  background: rgba(239, 68, 68, 0.1);
   color: #f87171;
   border: 1px solid rgba(248, 113, 113, 0.2);
   padding: 8px 16px;
   border-radius: 99px;
   cursor: pointer;
   font-weight: 600;
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
   transition: all 0.3s ease;
 }
 
@@ -87,10 +87,14 @@
   font-weight: 800;
   margin-bottom: 2.5rem;
   letter-spacing: -1px;
+  background: linear-gradient(135deg, #F97316, #38BDF8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .offline-banner {
-  background: var(--accent-gradient);
+  background: linear-gradient(135deg, #F97316, #EA580C);
   color: white;
   text-align: center;
   padding: 8px;
@@ -102,9 +106,7 @@
   z-index: 1000;
 }
 
-/* Media Queries para Responsive Design - Dashboard */
-
-/* Tablets */
+/* Media Queries */
 @media (max-width: 768px) {
   .main-content {
     padding: 16px;
@@ -137,7 +139,6 @@
   }
 }
 
-/* Móviles */
 @media (max-width: 480px) {
   .main-content {
     padding: 12px;
@@ -170,7 +171,6 @@
   }
 }
 
-/* Móviles muy pequeños */
 @media (max-width: 360px) {
   .course-card-modern {
     padding: 12px 8px;
@@ -189,4 +189,31 @@
   .course-description-modern {
     font-size: 0.75rem;
   }
+}
+
+/* History Preview Section */
+.history-preview-section {
+  margin-top: 40px;
+  padding: 40px 20px;
+  background: rgba(26, 34, 53, 0.3);
+  border-radius: 20px;
+  border: 1px solid #252E42;
+}
+
+.explore-history-btn {
+  display: inline-block;
+  padding: 12px 28px;
+  background: linear-gradient(135deg, #F97316, #ea580c);
+  color: white;
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+}
+
+.explore-history-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(249, 115, 22, 0.35);
 }

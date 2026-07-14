@@ -110,7 +110,7 @@ function Register({ onSwitchToLogin, isDBOffline }) {
     <div className="auth-container">
       <div className="auth-card">
         <div className="auth-header">
-          <h1>🚀 Academia Web</h1>
+          <h1>Academia<span style={{color: '#F97316'}}>Web</span></h1>
           <h2>Crear Cuenta</h2>
           <p>Comienza tu viaje de aprendizaje hoy</p>
         </div>
@@ -192,7 +192,7 @@ function Register({ onSwitchToLogin, isDBOffline }) {
             className="auth-button primary"
             disabled={loading}
           >
-            {loading ? '⏳ Creando cuenta...' : '✨ Crear Cuenta'}
+            {loading ? 'Creando cuenta...' : 'Crear Cuenta'}
           </button>
         </form>
 

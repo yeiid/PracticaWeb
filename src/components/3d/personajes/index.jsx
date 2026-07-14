@@ -1,0 +1,9 @@
+export { default as PascalCharacter } from './PascalCharacter';
+export { default as BabbageCharacter } from './BabbageCharacter';
+export { default as LovelaceCharacter } from './LovelaceCharacter';
+export { default as TuringCharacter } from './TuringCharacter';
+export { default as HopperCharacter } from './HopperCharacter';
+export { default as RitchieCharacter } from './RitchieCharacter';
+export { default as JobsCharacter } from './JobsCharacter';
+export { default as TorvaldsCharacter } from './TorvaldsCharacter';
+export { default as VanRossumCharacter } from './VanRossumCharacter';

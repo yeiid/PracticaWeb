@@ -22,6 +22,16 @@ const SCENE_CONFIG = {
   NUM_CODE_PARTICLES: 15,
   NUM_INTERACTION_PARTICLES: 25,
   INTERACTION_RANGE: 15,
+  CODE_SNIPPETS: [
+    "const app = express();",
+    "app.get('/', (req, res) => {",
+    "  res.send('Hello World!');",
+    "});",
+    "document.getElementById('app')",
+    "addEventListener('click', handler)",
+    "fetch('/api/data').then()",
+    "async/await pattern"
+  ],
 };
 
 const JavaScriptScene = ({ active }) => {

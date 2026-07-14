@@ -68,7 +68,7 @@ function Login({ onSwitchToRegister, onLoginSuccess, isDBOffline }) {
     <div className="auth-container">
       <div className="auth-card">
         <div className="auth-header">
-          <h1>🚀 Academia Web</h1>
+          <h1>Academia<span style={{color: '#F97316'}}>Web</span></h1>
           <h2>Iniciar Sesión</h2>
           <p>Continúa tu viaje de aprendizaje</p>
         </div>
@@ -133,7 +133,7 @@ function Login({ onSwitchToRegister, onLoginSuccess, isDBOffline }) {
             className="auth-button primary"
             disabled={loading || isDBOffline}
           >
-            {loading ? '⏳ Iniciando sesión...' : '🚀 Iniciar Sesión'}
+            {loading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
           </button>
 
           {isDBOffline && (
@@ -143,7 +143,7 @@ function Login({ onSwitchToRegister, onLoginSuccess, isDBOffline }) {
               onClick={handleDemoLogin}
               disabled={loading}
             >
-              🛠️ Entrar en Modo Demo
+              Entrar en Modo Demo
             </button>
           )}
         </form>

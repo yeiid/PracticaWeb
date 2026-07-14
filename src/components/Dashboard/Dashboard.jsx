@@ -13,6 +13,7 @@ import { mockCourses } from '../../lib/mockData';
 import CourseCard from './CourseCard';
 import Header from '../Header/Header';
 import RoadmapStep from './RoadmapStep';
+import HistoryTimeline from './HistoryTimeline';
 
 import { AuthProvider } from '../../contexts/AuthContext';
 
@@ -132,6 +133,12 @@ function DashboardContent() {
                 progress={getProgressPercentage(course.id)}
               />
             ))}
+          </div>
+        </section>
+        <section className="history-preview-section">
+          <HistoryTimeline />
+          <div style={{ textAlign: 'center', marginTop: '20px' }}>
+            <a href="/history" className="explore-history-btn">Explorar Historia Completa →</a>
           </div>
         </section>
         <section className="roadmap-section">

@@ -17,7 +17,7 @@ const { title } = Astro.props;
 		<title>{title}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 	</head>
 	<body>
 		<slot />
@@ -36,36 +36,46 @@ const { title } = Astro.props;
 </html>
 <style is:global>
 	:root {
-		--accent: 26, 188, 156;
-		--accent-light: 129, 140, 248;
-		--accent-dark: 8, 15, 32;
-		--accent-gradient: linear-gradient(135deg, #22d3ee 0%, #6366f1 45%, #ec4899 100%);
-    --bg-dark: #060816;
-    --bg-panel: rgba(255, 255, 255, 0.06);
-    --bg-panel-strong: rgba(255, 255, 255, 0.09);
-    --card-bg: rgba(255, 255, 255, 0.06);
-    --border-soft: rgba(255, 255, 255, 0.12);
-    --primary: #22d3ee;
-    --secondary: #6366f1;
-    --tertiary: #ec4899;
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-    --success: #34d399;
-    --warning: #fbbf24;
+		--accent: 249, 115, 22;
+		--accent-light: 56, 189, 248;
+		--accent-dark: 11, 15, 26;
+		--accent-gradient: linear-gradient(135deg, #F97316 0%, #38BDF8 100%);
+    --bg-dark: #0B0F1A;
+    --bg-panel: rgba(26, 34, 53, 0.6);
+    --bg-panel-strong: rgba(26, 34, 53, 0.9);
+    --card-bg: rgba(26, 34, 53, 0.8);
+    --border-soft: rgba(37, 46, 66, 0.8);
+    --primary: #F97316;
+    --secondary: #38BDF8;
+    --tertiary: #8B5CF6;
+    --text-main: #F8FAFC;
+    --text-muted: #4A5568;
+    --success: #34D399;
+    --warning: #FBBF24;
+    --nj-orange: #F97316;
+    --nj-blue: #38BDF8;
+    --nj-surface: #1A2235;
+    --nj-border: #252E42;
+    --nj-code-bg: #0D1320;
+    --font-heading: 'Space Grotesk', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', Menlo, monospace;
 	}
 
   /* Light theme overrides */
   html[data-theme="light"] {
-    --bg-dark: #f7fafc;
-    --bg-panel: rgba(10, 11, 20, 0.02);
-    --bg-panel-strong: rgba(10, 11, 20, 0.04);
-    --card-bg: #ffffff;
-    --border-soft: rgba(2,6,23,0.06);
-    --primary: #0ea5e9;
-    --secondary: #6366f1;
-    --tertiary: #ec4899;
-    --text-main: #0b1220;
-    --text-muted: #475569;
+    --bg-dark: #F8FAFC;
+    --bg-panel: rgba(255, 255, 255, 0.8);
+    --bg-panel-strong: rgba(255, 255, 255, 0.95);
+    --card-bg: #FFFFFF;
+    --border-soft: rgba(37, 46, 66, 0.15);
+    --primary: #F97316;
+    --secondary: #38BDF8;
+    --tertiary: #8B5CF6;
+    --text-main: #0B0F1A;
+    --text-muted: #4A5568;
+    --nj-surface: #FFFFFF;
+    --nj-border: rgba(37, 46, 66, 0.15);
+    --nj-code-bg: #F1F5F9;
   }
 
   /* Dark theme explicit values (explicit for clarity) */
@@ -73,7 +83,7 @@ const { title } = Astro.props;
     /* defaults already tuned for dark in :root */
   }
 	html {
-		font-family: 'Outfit', system-ui, sans-serif;
+		font-family: var(--font-heading), system-ui, sans-serif;
 		background: var(--bg-dark);
     color: var(--text-main);
     scroll-behavior: smooth;
@@ -89,15 +99,14 @@ const { title } = Astro.props;
     flex-direction: column;
 	}
 	code {
-		font-family:
-			Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
+		font-family: var(--font-mono);
 	}
   /* Global premium button styles */
   .btn {
     padding: 0.75rem 1.5rem;
     border-radius: 12px;
     font-weight: 600;
+    font-family: var(--font-heading);
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: inline-block;
@@ -106,20 +115,21 @@ const { title } = Astro.props;
   .btn-primary {
     background: var(--accent-gradient);
     color: white;
-    box-shadow: 0 10px 30px rgba(34, 211, 238, 0.2);
-    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 10px 30px rgba(249, 115, 22, 0.25);
+    border: 1px solid rgba(249, 115, 22, 0.3);
   }
   .btn-primary:hover {
     transform: translateY(-2px) scale(1.01);
-    box-shadow: 0 18px 38px rgba(34, 211, 238, 0.24);
+    box-shadow: 0 18px 38px rgba(249, 115, 22, 0.3);
   }
   .btn-secondary {
     background: var(--bg-panel);
-    color: white;
+    color: var(--text-main);
     backdrop-filter: blur(10px);
     border: 1px solid var(--border-soft);
   }
   .btn-secondary:hover {
     background: var(--bg-panel-strong);
+    border-color: var(--nj-orange);
   }
 </style>

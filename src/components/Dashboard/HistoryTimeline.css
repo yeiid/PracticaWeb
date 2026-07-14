@@ -1,3 +1,4 @@
+/* HistoryTimeline - NeuralJira Theme */
 .history-timeline-section {
   margin-bottom: 40px;
 }
@@ -6,7 +7,13 @@
   text-align: center;
   margin-bottom: 40px;
   font-size: 1.8rem;
-  color: #334155;
+  font-weight: 800;
+  color: #F8FAFC;
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  background: linear-gradient(135deg, #F97316, #38BDF8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .timeline-container {
@@ -22,8 +29,8 @@
   top: 0;
   bottom: 0;
   left: 50%;
-  width: 3px;
-  background-color: #e2e8f0;
+  width: 2px;
+  background: linear-gradient(180deg, #F97316, #252E42);
   transform: translateX(-50%);
 }
 
@@ -47,8 +54,8 @@
   z-index: 1;
   width: 50px;
   height: 50px;
-  background: white;
-  border: 3px solid #e2e8f0;
+  background: #1A2235;
+  border: 2px solid #F97316;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -67,29 +74,42 @@
 }
 
 .timeline-content {
-  padding: 20px 30px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  padding: 20px 24px;
+  background: #1A2235;
+  border-radius: 12px;
+  border: 1px solid #252E42;
   position: relative;
+  transition: all 0.3s ease;
+}
+
+.timeline-content:hover {
+  border-color: #F97316;
+  transform: translateY(-2px);
 }
 
 .timeline-year {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #F97316;
   margin-bottom: 10px;
   display: inline-block;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  background: rgba(249, 115, 22, 0.15);
+  padding: 2px 10px;
+  border-radius: 6px;
 }
 
 .timeline-content h4 {
   margin: 0 0 10px 0;
   font-size: 1.1rem;
+  font-weight: 700;
+  color: #F8FAFC;
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
 }
 
 .timeline-content p {
   margin: 0;
   font-size: 0.95rem;
-  color: #64748b;
+  color: #4A5568;
   line-height: 1.5;
 }

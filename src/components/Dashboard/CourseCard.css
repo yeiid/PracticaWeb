@@ -1,12 +1,12 @@
 .course-card-modern {
-  background: rgba(255, 255, 255, 0.96);
+  background: #1A2235;
   border-radius: 18px;
   padding: 24px;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   cursor: pointer;
-  border: 1px solid rgba(15, 23, 42, 0.06);
+  border: 1px solid #252E42;
   position: relative;
   overflow: hidden;
 }
@@ -18,12 +18,13 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(135deg, var(--course-color, var(--secondary)), var(--tertiary));
+  background: linear-gradient(135deg, var(--course-color, #F97316), var(--course-primary-dark, #EA580C));
 }
 
 .course-card-modern:hover {
   transform: translateY(-8px) scale(1.01);
-  box-shadow: 0 20px 44px rgba(34, 211, 238, 0.16);
+  border-color: #F97316;
+  box-shadow: 0 20px 44px rgba(249, 115, 22, 0.15);
 }
 
 .course-card-header {
@@ -35,7 +36,7 @@
 
 .course-icon-modern {
   font-size: 2.5rem;
-  background-color: var(--course-color, #667eea);
+  background-color: var(--course-color, #F97316);
   color: white;
   border-radius: 12px;
   width: 60px;
@@ -48,17 +49,20 @@
 .course-title-modern h3 {
   margin: 0;
   font-size: 1.25rem;
-  color: #111827;
+  color: #F8FAFC;
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-weight: 700;
+  letter-spacing: -0.3px;
 }
 
 .course-title-modern span {
   font-size: 0.875rem;
-  color: #718096;
+  color: #4A5568;
 }
 
 .course-description-modern {
   font-size: 0.95rem;
-  color: #334155;
+  color: #CBD5E1;
   line-height: 1.5;
   flex-grow: 1;
   margin-bottom: 24px;
@@ -69,7 +73,7 @@
 }
 
 .progress-bar-wrapper {
-  background-color: #e2e8f0;
+  background-color: rgba(249, 115, 22, 0.15);
   border-radius: 8px;
   height: 8px;
   overflow: hidden;
@@ -78,19 +82,20 @@
 
 .progress-bar-fill {
   height: 100%;
-  background-color: var(--course-color, #667eea);
+  background: linear-gradient(90deg, var(--course-color, #F97316), #38BDF8);
   border-radius: 8px;
   transition: width 0.4s ease;
 }
 
 .progress-text-modern {
   font-size: 0.8rem;
-  color: #718096;
+  color: #4A5568;
   font-weight: 500;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
 }
 
 .start-course-btn {
-  background: linear-gradient(135deg, var(--course-color, var(--secondary)), var(--tertiary));
+  background: linear-gradient(135deg, var(--course-color, #F97316), var(--course-primary-dark, #EA580C));
   color: white;
   border: none;
   border-radius: 8px;
@@ -98,20 +103,19 @@
   width: 100%;
   font-size: 1rem;
   font-weight: 600;
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
   margin-top: auto;
 }
 
 .start-course-btn:hover {
   filter: brightness(1.1);
   transform: translateY(-1px);
-  box-shadow: 0 10px 24px rgba(34, 211, 238, 0.18);
+  box-shadow: 0 10px 24px rgba(249, 115, 22, 0.2);
 }
 
-/* Media Queries para Responsive Design */
-
-/* Tablets y dispositivos medianos */
+/* Media Queries */
 @media (max-width: 768px) {
   .course-card-modern {
     padding: 20px 16px;
@@ -152,7 +156,6 @@
   }
 }
 
-/* Móviles pequeños */
 @media (max-width: 480px) {
   .course-card-modern {
     padding: 16px 12px;
@@ -213,7 +216,6 @@
   }
 }
 
-/* Móviles muy pequeños */
 @media (max-width: 360px) {
   .course-card-modern {
     padding: 12px 8px;
@@ -233,4 +235,3 @@
     font-size: 0.75rem;
   }
 }
-

@@ -4,14 +4,12 @@ import './LandingPage.css';
 const LandingPage = () => {
   return (
     <div className="landing-container">
-      {/* Abstract Background elements */}
       <div className="bg-glow bg-glow-1"></div>
       <div className="bg-glow bg-glow-2"></div>
       <div className="bg-grid"></div>
 
       <header className="landing-header">
         <div className="logo">
-          <span className="logo-icon">🚀</span>
           <span className="logo-text">Academia<span>Web</span></span>
         </div>
         <nav className="landing-nav">
@@ -23,7 +21,10 @@ const LandingPage = () => {
 
       <main className="landing-main">
         <section className="hero-section">
-          <div className="badge">¡Nuevo! Curso de Git Master</div>
+          <div className="badge">
+            <span className="pulse-dot"></span>
+            Plataforma de Aprendizaje
+          </div>
           <h1 className="hero-title">
             Domina el <span className="text-gradient">Desarrollo Web</span> <br />
             desde Cero hasta Pro
@@ -66,7 +67,7 @@ const LandingPage = () => {
               <div className="history-year">1991</div>
               <h4>El Inicio</h4>
               <p>Explora el nacimiento de la WWW con Tim Berners-Lee.</p>
-              <a href="/history/www" className="btn-link">Explorar en 3D →</a>
+              <a href="/history" className="btn-link">Explorar en 3D →</a>
             </div>
             <div className="history-item">
               <div className="history-year">Git</div>
@@ -75,7 +76,7 @@ const LandingPage = () => {
               <a href="/git" className="btn-link">Ver Curso →</a>
             </div>
             <div className="history-item">
-              <div className="history-year">2025</div>
+              <div className="history-year">2026</div>
               <h4>Web Moderna</h4>
               <p>Despliegue automático y microservicios modernos.</p>
               <a href="/backend" className="btn-link">Explorar →</a>
@@ -86,7 +87,7 @@ const LandingPage = () => {
 
       <footer className="landing-footer">
         <div className="footer-content">
-          <p>&copy; 2026 Academia Web. Desarrollado para el futuro.</p>
+          <p>© 2026 Academia Web. Desarrollado para el futuro.</p>
           <div className="footer-links">
             <a href="#">Privacidad</a>
             <a href="#">Términos</a>
@@ -99,4 +100,3 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
-

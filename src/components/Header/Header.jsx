@@ -60,7 +60,7 @@ const Header = () => {
   return (
     <header className="app-header">
       <a href="/dashboard" className="logo-link">
-        <h1>🚀 Academia Web</h1>
+        <h1>Academia<span style={{color: '#F97316'}}>Web</span></h1>
       </a>
 
       <button className={`mobile-menu-btn ${showMobileMenu ? 'active' : ''}`} onClick={toggleMobileMenu}>
