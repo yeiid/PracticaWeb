@@ -1,8 +1,8 @@
 .roadmap-step-modern {
   display: flex;
   align-items: center;
-  background-color: #fff;
-  border: 1px solid #e2e8f0;
+  background-color: var(--surface, #1A2235);
+  border: 1px solid var(--border, #252E42);
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 15px;
@@ -19,20 +19,20 @@
 
 .roadmap-step-modern:hover:not(.locked) {
   transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
 }
 
 .step-icon-modern {
   font-size: 1.8rem;
   margin-right: 20px;
-  background-color: #f1f5f9;
+  background-color: rgba(249, 115, 22, 0.1);
   width: 50px;
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  color: #64748b;
+  color: #F97316;
 }
 
 .step-content-modern {
@@ -42,7 +42,7 @@
 .step-number-modern {
   font-size: 0.8rem;
   font-weight: 600;
-  color: #94a3b8;
+  color: #64748b;
   margin-bottom: 4px;
   display: block;
 }
@@ -50,39 +50,40 @@
 .step-content-modern h4 {
   margin: 0 0 5px 0;
   font-size: 1.1rem;
-  color: #334155;
+  color: var(--text, #E2E8F0);
 }
 
 .step-content-modern p {
   margin: 0;
   font-size: 0.9rem;
-  color: #64748b;
+  color: #94A3B8;
 }
 
 /* Status: Completed */
 .roadmap-step-modern.completed .step-icon-modern {
-  background-color: #dcfce7;
+  background-color: rgba(34, 197, 94, 0.15);
   color: #22c55e;
 }
 .roadmap-step-modern.completed .step-content-modern h4 {
-  color: #166534;
+  color: #22c55e;
 }
 
 /* Status: In Progress */
 .roadmap-step-modern.in-progress .step-icon-modern {
-  background-color: #e0f2fe;
-  color: #0ea5e9;
+  background-color: rgba(56, 189, 248, 0.15);
+  color: #38BDF8;
 }
 
 /* Status: Locked */
 .roadmap-step-modern.locked {
-  background-color: #f8fafc;
+  background-color: rgba(26, 34, 53, 0.5);
   cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .roadmap-step-modern.locked .step-content-modern h4,
 .roadmap-step-modern.locked .step-content-modern p {
-  color: #cbd5e0;
+  color: #475569;
 }
 
 .lock-overlay {
@@ -91,12 +92,12 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(248, 250, 252, 0.7);
+  background-color: rgba(11, 15, 26, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  color: #94a3b8;
+  color: #64748b;
   font-size: 1rem;
 }
 
@@ -116,12 +117,9 @@
 .step-progress-text {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #16a34a;
+  color: #22c55e;
 }
 
-/* Media Queries para Responsive Design - Roadmap */
-
-/* Tablets */
 @media (max-width: 768px) {
   .roadmap-step-modern {
     padding: 16px;
@@ -152,7 +150,6 @@
   }
 }
 
-/* Móviles */
 @media (max-width: 480px) {
   .roadmap-step-modern {
     padding: 12px;
@@ -195,7 +192,6 @@
   }
 }
 
-/* Móviles muy pequeños */
 @media (max-width: 360px) {
   .roadmap-step-modern {
     padding: 10px;
@@ -215,4 +211,3 @@
     font-size: 0.75rem;
   }
 }
-

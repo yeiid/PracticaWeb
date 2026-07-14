@@ -5,22 +5,22 @@
 }
 
 .admin-container h2 {
-  color: #2d3748;
+  color: var(--text, #E2E8F0);
   margin-bottom: 30px;
   text-align: center;
 }
 
 .course-form {
-  background: #ffffff;
+  background: var(--surface, #1A2235);
   border-radius: 12px;
   padding: 24px;
   margin-bottom: 40px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  border: 1px solid var(--border, #252E42);
 }
 
 .course-form h3 {
-  color: #2d3748;
+  color: var(--text, #E2E8F0);
   margin-bottom: 20px;
   font-size: 1.25rem;
 }
@@ -40,7 +40,7 @@
   display: block;
   margin-bottom: 6px;
   font-weight: 600;
-  color: #4a5568;
+  color: #94A3B8;
   font-size: 0.9rem;
 }
 
@@ -48,8 +48,10 @@
 .form-group textarea {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border, #252E42);
   border-radius: 8px;
+  background: var(--bg, #0B0F1A);
+  color: var(--text, #E2E8F0);
   font-size: 0.95rem;
   transition: border-color 0.3s ease;
 }
@@ -57,8 +59,8 @@
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #F97316;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
 }
 
 .form-group textarea {
@@ -73,7 +75,7 @@
 }
 
 .btn-primary {
-  background-color: #667eea;
+  background: linear-gradient(135deg, #F97316, #38BDF8);
   color: white;
   border: none;
   padding: 12px 24px;
@@ -81,31 +83,32 @@
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
-  background-color: #5a67d8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.3);
 }
 
 .btn-secondary {
-  background-color: #e2e8f0;
-  color: #4a5568;
+  background: var(--border, #252E42);
+  color: var(--text, #E2E8F0);
   border: none;
   padding: 12px 24px;
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .btn-secondary:hover {
-  background-color: #cbd5e0;
+  background: #374151;
 }
 
 .courses-list h3 {
-  color: #2d3748;
+  color: var(--text, #E2E8F0);
   margin-bottom: 20px;
   font-size: 1.25rem;
 }
@@ -117,17 +120,17 @@
 }
 
 .course-item {
-  background: #ffffff;
+  background: var(--surface, #1A2235);
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  border: 1px solid var(--border, #252E42);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .course-item:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
 }
 
 .course-header {
@@ -139,7 +142,7 @@
 
 .course-icon {
   font-size: 1.5rem;
-  background-color: #f1f5f9;
+  background-color: rgba(249, 115, 22, 0.1);
   width: 40px;
   height: 40px;
   display: flex;
@@ -151,7 +154,7 @@
 .course-item h4 {
   flex-grow: 1;
   margin: 0;
-  color: #2d3748;
+  color: var(--text, #E2E8F0);
   font-size: 1.1rem;
 }
 
@@ -164,17 +167,17 @@
 }
 
 .status.active {
-  background-color: #dcfce7;
-  color: #166534;
+  background-color: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
 }
 
 .status.inactive {
-  background-color: #fef3c7;
-  color: #92400e;
+  background-color: rgba(234, 179, 8, 0.15);
+  color: #eab308;
 }
 
 .course-item p {
-  color: #4a5568;
+  color: #94A3B8;
   margin-bottom: 16px;
   line-height: 1.5;
 }
@@ -185,7 +188,7 @@
 }
 
 .btn-edit {
-  background-color: #f59e0b;
+  background-color: #F97316;
   color: white;
   border: none;
   padding: 8px 16px;
@@ -193,11 +196,12 @@
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .btn-edit:hover {
-  background-color: #d97706;
+  background-color: #EA580C;
+  transform: translateY(-1px);
 }
 
 .btn-delete {
@@ -209,14 +213,14 @@
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .btn-delete:hover {
   background-color: #dc2626;
+  transform: translateY(-1px);
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .admin-container {
     padding: 16px;

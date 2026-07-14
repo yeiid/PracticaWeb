@@ -58,7 +58,7 @@ const TimelineMap = ({ events, selectedId, onSelect }) => {
           key={event.id}
           className={`timeline-map-node ${selectedId === event.id ? 'active' : ''}`}
           onClick={() => onSelect(event.id)}
-          style={{ left: `${(index / (events.length - 1)) * 100}%` }}
+          style={{ left: events.length > 1 ? `${(index / (events.length - 1)) * 100}%` : '0%' }}
         >
           <div className="timeline-map-dot" />
           <span className="timeline-map-year">{event.year}</span>
@@ -660,13 +660,16 @@ const HistoryPage = () => {
                 )}
               </div>
             )}
-            {selectedCategory.id === 'personajes' && selectedEvent.CharacterScene && (
-              <div className="character-detail-section">
-                <Suspense fallback={<LoadingFallback />}>
-                  <selectedEvent.CharacterScene />
-                </Suspense>
-              </div>
-            )}
+            {selectedCategory.id === 'personajes' && selectedEvent.CharacterScene && (() => {
+              const CharScene = selectedEvent.CharacterScene;
+              return (
+                <div className="character-detail-section">
+                  <Suspense fallback={<LoadingFallback />}>
+                    <CharScene />
+                  </Suspense>
+                </div>
+              );
+            })()}
             {selectedEvent.pioneer && <PioneerBioCard pioneer={selectedEvent.pioneer} />}
             {selectedCategory.id === 'personajes' && selectedEvent.bio && (
               <CharacterCard character={selectedEvent} />

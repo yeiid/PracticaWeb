@@ -13,62 +13,7 @@
   font-weight: 500;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem 3rem;
-  background: rgba(11, 15, 26, 0.85);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  color: white;
-}
 
-.header h1 {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 800;
-  letter-spacing: -1px;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.profile-link {
-  color: #4A5568;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-
-.profile-link:hover {
-  color: white;
-}
-
-.user-email {
-  font-size: 0.875rem;
-  color: #4A5568;
-}
-
-.auth-button-logout {
-  background: rgba(239, 68, 68, 0.1);
-  color: #f87171;
-  border: 1px solid rgba(248, 113, 113, 0.2);
-  padding: 8px 16px;
-  border-radius: 99px;
-  cursor: pointer;
-  font-weight: 600;
-  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
-  transition: all 0.3s ease;
-}
-
-.auth-button-logout:hover {
-  background: #ef4444;
-  color: white;
-}
 
 .main-content {
   padding: 3rem 2rem;
@@ -123,15 +68,7 @@
     margin-bottom: 24px;
   }
 
-  .header {
-    padding: 16px;
-    flex-direction: column;
-    gap: 12px;
-  }
 
-  .header h1 {
-    font-size: 1.5rem;
-  }
 
   .back-button {
     padding: 6px 12px;
@@ -157,13 +94,7 @@
     padding: 0;
   }
 
-  .header {
-    padding: 12px;
-  }
 
-  .header h1 {
-    font-size: 1.3rem;
-  }
 
   .back-button {
     padding: 6px 12px;

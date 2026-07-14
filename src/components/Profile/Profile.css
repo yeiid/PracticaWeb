@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #f7fafc;
+  background-color: var(--bg, #0B0F1A);
 }
 
 .main-content-profile {
@@ -13,16 +13,17 @@
 .profile-container {
   max-width: 600px;
   margin: 20px auto;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.07);
-  overflow: hidden; /* To contain the children's border-radius */
+  background: var(--surface, #1A2235);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  border: 1px solid var(--border, #252E42);
+  overflow: hidden;
 }
 
 .profile-container h2 {
   text-align: center;
   margin-bottom: 30px;
-  color: #333;
+  color: var(--text, #E2E8F0);
 }
 
 .profile-form-container {
@@ -37,31 +38,34 @@
   display: block;
   margin-bottom: 8px;
   font-weight: 600;
-  color: #4a5568;
+  color: #94A3B8;
 }
 
 .form-group input {
   width: 100%;
   padding: 12px;
-  border: 1px solid #cbd5e0;
-  border-radius: 6px;
+  border: 1px solid var(--border, #252E42);
+  border-radius: 8px;
+  background: var(--bg, #0B0F1A);
+  color: var(--text, #E2E8F0);
   box-sizing: border-box;
   transition: border-color 0.3s, box-shadow 0.3s;
+  font-size: 0.95rem;
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+  border-color: #F97316;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
 }
 
 .submit-btn-unified {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #F97316 0%, #38BDF8 100%);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
   font-weight: 600;
@@ -70,19 +74,18 @@
 
 .submit-btn-unified:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.3);
 }
 
 .submit-btn-unified:disabled {
-  background-color: #a0aec0;
+  background: #374151;
+  color: #6B7280;
   cursor: not-allowed;
 }
 
-
-/* Action Buttons */
 .profile-actions {
   padding: 20px;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--border, #252E42);
   display: flex;
   gap: 15px;
   justify-content: center;
@@ -91,7 +94,7 @@
 .action-btn {
   padding: 12px 20px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -99,26 +102,45 @@
 }
 
 .dashboard-btn {
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #F97316, #38BDF8);
   color: white;
 }
 
 .dashboard-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.3);
 }
 
 .close-btn {
-  background: linear-gradient(135deg, #e53e3e, #c53030);
+  background: linear-gradient(135deg, #ef4444, #dc2626);
   color: white;
 }
 
 .close-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(229, 62, 62, 0.3);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
 }
 
-/* Responsive Design */
+.message {
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.message.success {
+  background-color: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.message.error {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
 @media (max-width: 768px) {
   .main-content-profile {
     padding: 15px;
@@ -128,7 +150,6 @@
     margin: 10px auto;
   }
 
-  
   .profile-actions {
     flex-direction: column;
     padding: 15px;
@@ -143,7 +164,7 @@
 @media (max-width: 480px) {
   .profile-container {
     margin: 5px;
-    border-radius: 4px;
+    border-radius: 8px;
   }
 
   .profile-form-container {
@@ -153,21 +174,4 @@
   .profile-actions {
     padding: 12px;
   }
-}
-
-.message {
-  padding: 10px;
-  margin-bottom: 20px;
-  border-radius: 4px;
-  text-align: center;
-}
-
-.message.success {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-.message.error {
-  background-color: #f8d7da;
-  color: #721c24;
 }

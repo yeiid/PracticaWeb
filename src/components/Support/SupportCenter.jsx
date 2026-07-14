@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import Header from '../Header/Header';
-import './../../components/Auth/Auth.css';
+import './Support.css';
 
 const SupportCenter = () => {
   const { user, isOffline } = useAuth();

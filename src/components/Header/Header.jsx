@@ -72,6 +72,7 @@ const Header = () => {
       <nav className={`main-nav ${showMobileMenu ? 'mobile-menu-open' : ''}`}>
         <a href="/dashboard" className={`nav-link ${currentPath === '/dashboard' ? 'active' : ''}`} onClick={() => setShowMobileMenu(false)}>Cursos</a>
         <a href="/history" className={`nav-link ${currentPath === '/history' ? 'active' : ''}`} onClick={() => setShowMobileMenu(false)}>Historia</a>
+        <a href="/bases" className={`nav-link ${currentPath === '/bases' ? 'active' : ''}`} onClick={() => setShowMobileMenu(false)}>Bases</a>
         <a href="/support" className={`nav-link ${currentPath === '/support' ? 'active' : ''}`} onClick={() => setShowMobileMenu(false)}>Soporte</a>
         {user?.role === 'admin' && (
           <a href="/admin/tickets" className={`nav-link admin-link ${currentPath.startsWith('/admin') ? 'active' : ''}`} onClick={() => setShowMobileMenu(false)}>🛡️ Admin</a>

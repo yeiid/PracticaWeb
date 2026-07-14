@@ -1,5 +1,5 @@
 ---
-import Profile from '../components/Profile/Profile';
+import BasesPage from '../pages-react/BasesPage/BasesPage';
 import Layout from '../layouts/Layout.astro';
 
 const session = Astro.cookies.get('session');
@@ -8,6 +8,6 @@ if (!session) {
 }
 ---
 
-<Layout title="Mi Perfil - Academia Web">
-  <Profile client:load />
+<Layout title="Bases de la Informática - Academia Web">
+  <BasesPage client:load />
 </Layout>

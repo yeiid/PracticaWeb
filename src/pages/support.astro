@@ -1,11 +1,13 @@
 ---
 import Support from '../components/Support/SupportCenter';
 import Layout from '../layouts/Layout.astro';
-import { AuthProvider } from '../contexts/AuthContext';
+
+const session = Astro.cookies.get('session');
+if (!session) {
+  return Astro.redirect('/login');
+}
 ---
 
 <Layout title="Soporte - Academia Web">
-  <AuthProvider>
-    <Support client:load />
-  </AuthProvider>
+  <Support client:load />
 </Layout>
