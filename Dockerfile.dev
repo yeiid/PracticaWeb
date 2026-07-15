@@ -13,11 +13,11 @@ RUN npm install --legacy-peer-deps
 COPY . .
 
 # Exponer el puerto de Astro
-EXPOSE 80
+EXPOSE 4328
 
 # Configuración de red para Astro dev
 ENV HOST=0.0.0.0
-ENV PORT=80
+ENV PORT=4328
 
 # Ejecutar en modo desarrollo
 CMD ["npm", "run", "dev", "--", "--host"]
