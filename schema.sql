@@ -87,12 +87,41 @@ CREATE TRIGGER update_progress_updated_at BEFORE UPDATE ON progress FOR EACH ROW
 
 DROP TRIGGER IF EXISTS update_courses_updated_at ON courses;
 CREATE TRIGGER update_courses_updated_at BEFORE UPDATE ON courses FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
--- Semillas de ejemplo
+-- Semillas de cursos
 INSERT INTO courses (title, description, icon, color, slides, url, active)
 VALUES 
-  ('Aprende Git desde Cero', 'Domina el control de versiones en 7 días.', '🧡', '#f97316', 7, '/git', true),
-  ('Domina el Backend', 'Node.js, Express y Bases de Datos.', '⚙️', '#6366f1', 7, '/backend', true)
-ON CONFLICT DO NOTHING;
+  ('Git Master', 'Domina el control de versiones en 7 días con visualizaciones interactivas.', '🧡', '#f97316', 7, '/git', true),
+  ('HTML5', 'Estructura semántica y fundamentos de la web moderna.', '📄', '#3498db', 7, '/html', true),
+  ('CSS3 Moderno', 'Diseños increíbles con Flexbox, Grid y Animaciones.', '🎨', '#0ea5e9', 8, '/css', true),
+  ('JavaScript 2025', 'De novato a ninja con el lenguaje más popular del mundo.', '⚡', '#facc15', 11, '/js', true),
+  ('Python Pro', 'Programación versátil: desde scripts básicos hasta IA.', '🐍', '#10b981', 10, '/python', true),
+  ('React.js Mastery', 'Construye interfaces de usuario modernas y reactivas.', '⚛️', '#06b6d4', 3, '/react', true),
+  ('Backend Node.js', 'Escalabilidad y arquitectura con Node, Express y SQL.', '⚙️', '#ec4899', 7, '/backend', true)
+ON CONFLICT (url) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  icon = EXCLUDED.icon,
+  color = EXCLUDED.color,
+  slides = EXCLUDED.slides;
+
+-- ============================================
+-- Usuarios de prueba (pgcrypto crypt para hashing)
+-- ============================================
+
+-- Student: prueba@academia.dev / Prueba123!
+INSERT INTO users (email, password_hash, full_name, role)
+VALUES ('prueba@academia.dev', crypt('Prueba123!', gen_salt('bf', 10)), 'Usuario de Prueba', 'student')
+ON CONFLICT (email) DO UPDATE
+  SET password_hash = EXCLUDED.password_hash,
+      full_name = EXCLUDED.full_name;
+
+-- Admin: admin@academia.dev / Admin123!
+INSERT INTO users (email, password_hash, full_name, role)
+VALUES ('admin@academia.dev', crypt('Admin123!', gen_salt('bf', 10)), 'Administrador', 'admin')
+ON CONFLICT (email) DO UPDATE
+  SET password_hash = EXCLUDED.password_hash,
+      full_name = EXCLUDED.full_name,
+      role = 'admin';
 
 -- ============================================
 -- Sistema de Soporte / Tickets
