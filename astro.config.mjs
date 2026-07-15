@@ -10,6 +10,9 @@ export default defineConfig({
     mode: 'standalone'
   }),
   vite: {
+    server: {
+      allowedHosts: ['cursos.neuraljira.tech']
+    },
     ssr: {
       // Estas librerías son SOLO para el navegador, no pueden correr en Node/SSR
       external: ['three', '@react-three/fiber', '@react-three/drei', 'gsap']
