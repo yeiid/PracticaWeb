@@ -32,8 +32,15 @@ async function initializeDatabase() {
 
       if (!usersTableExists) {
         const schemaSql = await readFile(schemaPath, 'utf8');
-        await sql.unsafe(schemaSql);
-        console.log('✅ Esquema de base de datos inicializado');
+        const statements = schemaSql
+          .split(';')
+          .map(s => s.trim())
+          .filter(s => s.length > 0 && !s.startsWith('--'));
+        
+        for (const stmt of statements) {
+          await sql.unsafe(stmt);
+        }
+        console.log('✅ Esquema de base de datos inicializado (' + statements.length + ' sentencias)');
       } else {
         console.log('✅ Esquema de base de datos ya disponible');
       }
