@@ -31,14 +31,14 @@ services:
     environment:
       DATABASE_URL: postgres://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-password}@db:5432/${POSTGRES_DB:-academia}
       JWT_SECRET: ${JWT_SECRET:-super-secret-key-change-me}
-      PORT: 4322
+      PORT: 80
       HOST: 0.0.0.0
     ports:
-      - "4322:4322"
+      - "80:80"
     volumes:
       - .:/app
       - /app/node_modules # Evitar sobrescribir node_modules del contenedor con los del host
-    command: ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "4322"]
+    command: ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "80"]
 
 volumes:
   postgres_data:
