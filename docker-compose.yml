@@ -28,10 +28,10 @@ services:
     environment:
       DATABASE_URL: postgres://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-password}@db:5432/${POSTGRES_DB:-academia}
       JWT_SECRET: ${JWT_SECRET:-super-secret-key-change-me}
-      PORT: 4328
+      PORT: 4128
       HOST: 0.0.0.0
     ports:
-      - "4328:4328"
+      - "4128:4128"
 
 volumes:
   postgres_data:

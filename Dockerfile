@@ -25,7 +25,7 @@ COPY --from=builder /app/docker-entrypoint.sh ./
 RUN chmod +x docker-entrypoint.sh
 
 ENV NODE_ENV=production
-ENV PORT=4328
-EXPOSE 4328
+ENV PORT=4128
+EXPOSE 4128
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
