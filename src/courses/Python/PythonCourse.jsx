@@ -1,34 +1,24 @@
-import React, { useState } from 'react';
-import IntroduccionPythonSlide from './IntroduccionPythonSlide';
-import HistoriaPythonSlide from './HistoriaPythonSlide';
-import InstalacionPythonSlide from './InstalacionPythonSlide';
-import SintaxisPythonSlide from './SintaxisPythonSlide';
-import EstructurasPythonSlide from './EstructurasPythonSlide';
-import FuncionesPythonSlide from './FuncionesPythonSlide';
-import POO_PythonSlide from './POO_PythonSlide';
-import LibreriasPythonSlide from './LibreriasPythonSlide';
-import HerramientasPythonSlide from './HerramientasPythonSlide';
-import CierrePythonSlide from './CierrePythonSlide';
+import React, { useState, Suspense } from 'react';
 import styles from '../ModernCourse.module.css';
+
+const slidesData = [
+  { lazy: React.lazy(() => import('./IntroduccionPythonSlide')), title: 'El Lenguaje de la Serpiente' },
+  { lazy: React.lazy(() => import('./HistoriaPythonSlide')), title: 'Origen y Evolución' },
+  { lazy: React.lazy(() => import('./InstalacionPythonSlide')), title: 'Entorno de Desarrollo' },
+  { lazy: React.lazy(() => import('./SintaxisPythonSlide')), title: 'Sintaxis Limpia' },
+  { lazy: React.lazy(() => import('./EstructurasPythonSlide')), title: 'Flujo de Ejecución' },
+  { lazy: React.lazy(() => import('./FuncionesPythonSlide')), title: 'Modularidad Eficaz' },
+  { lazy: React.lazy(() => import('./POO_PythonSlide')), title: 'Programación de Objetos' },
+  { lazy: React.lazy(() => import('./LibreriasPythonSlide')), title: 'Ecosistema de Librerías' },
+  { lazy: React.lazy(() => import('./HerramientasPythonSlide')), title: 'Herramientas Pro' },
+  { lazy: React.lazy(() => import('./CierrePythonSlide')), title: '¡Maestría Pythonista!' }
+];
 
 const PythonCourse = ({ onBack }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const slides = [ 
-    { component: IntroduccionPythonSlide, title: 'El Lenguaje de la Serpiente' },
-    { component: HistoriaPythonSlide, title: 'Origen y Evolución' },
-    { component: InstalacionPythonSlide, title: 'Entorno de Desarrollo' },
-    { component: SintaxisPythonSlide, title: 'Sintaxis Limpia' },
-    { component: EstructurasPythonSlide, title: 'Flujo de Ejecución' },
-    { component: FuncionesPythonSlide, title: 'Modularidad Eficaz' },
-    { component: POO_PythonSlide, title: 'Programación de Objetos' },
-    { component: LibreriasPythonSlide, title: 'Ecosistema de Librerías' },
-    { component: HerramientasPythonSlide, title: 'Herramientas Pro' },
-    { component: CierrePythonSlide, title: '¡Maestría Pythonista!' }
-  ];
-
   const nextSlide = () => {
-    if (currentSlide < slides.length - 1) {
+    if (currentSlide < slidesData.length - 1) {
       setCurrentSlide(currentSlide + 1);
       window.scrollTo(0, 0);
     }
@@ -41,9 +31,8 @@ const PythonCourse = ({ onBack }) => {
     }
   };
 
-  const CurrentSlideComponent = slides[currentSlide].component;
+  const CurrentSlideComponent = slidesData[currentSlide].lazy;
 
-  // Estilos específicos para Python (Emerald/Green)
   const pythonStyles = {
     '--course-primary': '#10b981',
     '--course-primary-dark': '#059669',
@@ -54,15 +43,17 @@ const PythonCourse = ({ onBack }) => {
   return (
     <div className={styles.courseContainer} style={pythonStyles}>
       <div className={styles.courseHeader}>
-        <button onClick={onBack} className={styles.backButton}>← Volver al Panel</button>
-        <h1 className={styles.headerTitle}>🐍 {slides[currentSlide].title}</h1>
+        <button onClick={onBack} className={styles.backButton} aria-label="Volver al panel de cursos">← Volver al Panel</button>
+        <h1 className={styles.headerTitle}>🐍 {slidesData[currentSlide].title}</h1>
         <div className={styles.progress}>
-          Paso {currentSlide + 1} de {slides.length}
+          Paso {currentSlide + 1} de {slidesData.length}
         </div>
       </div>
 
       <div className={styles.slideContainer}>
-        <CurrentSlideComponent />
+        <Suspense fallback={<div className={styles.slideLoading}>Cargando diapositiva...</div>}>
+          <CurrentSlideComponent />
+        </Suspense>
       </div>
 
       <div className={styles.navigation}>
@@ -70,6 +61,7 @@ const PythonCourse = ({ onBack }) => {
           onClick={prevSlide} 
           disabled={currentSlide === 0}
           className={`${styles.navButton} ${currentSlide === 0 ? styles.disabled : ''}`}
+          aria-label="Diapositiva anterior"
         >
           ← Anterior
         </button>
@@ -77,16 +69,17 @@ const PythonCourse = ({ onBack }) => {
         <div className={styles.progressBar}>
           <div 
             className={styles.progressFill} 
-            style={{ width: `${((currentSlide + 1) / slides.length) * 100}%` }}
+            style={{ width: `${((currentSlide + 1) / slidesData.length) * 100}%` }}
           />
         </div>
         
         <button 
           onClick={nextSlide} 
-          disabled={currentSlide === slides.length - 1}
-          className={`${styles.navButton} ${currentSlide === slides.length - 1 ? styles.disabled : ''}`}
+          disabled={currentSlide === slidesData.length - 1}
+          className={`${styles.navButton} ${currentSlide === slidesData.length - 1 ? styles.disabled : ''}`}
+          aria-label="Siguiente diapositiva"
         >
-          {currentSlide === slides.length - 1 ? '¡Script Finalizado!' : 'Siguiente Paso →'}
+          {currentSlide === slidesData.length - 1 ? '¡Script Finalizado!' : 'Siguiente Paso →'}
         </button>
       </div>
     </div>

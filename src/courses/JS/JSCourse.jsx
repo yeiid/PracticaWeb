@@ -1,36 +1,25 @@
-import React, { useState } from 'react';
-import IntroduccionJSSlide from './IntroduccionJSSlide';
-import VariablesJSSlide from './VariablesJSSlide';
-import OperadoresJSSlide from './OperadoresJSSlide';
-import EstructurasJSSlide from './EstructurasJSSlide';
-import FuncionesJSSlide from './FuncionesJSSlide';
-import ObjetosJSSlide from './ObjetosJSSlide';
-import ArraysJSSlide from './ArraysJSSlide';
-import DOMJSSlide from './DOMJSSlide';
-import EventosJSSlide from './EventosJSSlide';
-import ES6JSSlide from './ES6JSSlide';
-import CierreJSSlide from './CierreJSSlide';
+import React, { useState, Suspense } from 'react';
 import styles from '../ModernCourse.module.css';
+
+const slidesData = [
+  { lazy: React.lazy(() => import('./IntroduccionJSSlide')), title: 'El Motor de la Web' },
+  { lazy: React.lazy(() => import('./VariablesJSSlide')), title: 'Datos y Almacenamiento' },
+  { lazy: React.lazy(() => import('./OperadoresJSSlide')), title: 'Operadores Lógicos' },
+  { lazy: React.lazy(() => import('./EstructurasJSSlide')), title: 'Control del Flujo' },
+  { lazy: React.lazy(() => import('./FuncionesJSSlide')), title: 'El Poder de las Funciones' },
+  { lazy: React.lazy(() => import('./ObjetosJSSlide')), title: 'Modelando la Realidad' },
+  { lazy: React.lazy(() => import('./ArraysJSSlide')), title: 'Colecciones de Datos' },
+  { lazy: React.lazy(() => import('./DOMJSSlide')), title: 'Interactuando con la Web' },
+  { lazy: React.lazy(() => import('./EventosJSSlide')), title: 'Capturando Acciones' },
+  { lazy: React.lazy(() => import('./ES6JSSlide')), title: 'JavaScript Moderno ES6+' },
+  { lazy: React.lazy(() => import('./CierreJSSlide')), title: '¡Maestría Alcanzada!' }
+];
 
 const JSCourse = ({ onBack }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const slides = [
-    { component: IntroduccionJSSlide, title: 'El Motor de la Web' },
-    { component: VariablesJSSlide, title: 'Datos y Almacenamiento' },
-    { component: OperadoresJSSlide, title: 'Operadores Lógicos' },
-    { component: EstructurasJSSlide, title: 'Control del Flujo' },
-    { component: FuncionesJSSlide, title: 'El Poder de las Funciones' },
-    { component: ObjetosJSSlide, title: 'Modelando la Realidad' },
-    { component: ArraysJSSlide, title: 'Colecciones de Datos' },
-    { component: DOMJSSlide, title: 'Interactuando con la Web' },
-    { component: EventosJSSlide, title: 'Capturando Acciones' },
-    { component: ES6JSSlide, title: 'JavaScript Moderno ES6+' },
-    { component: CierreJSSlide, title: '¡Maestría Alcanzada!' }
-  ];
-
   const nextSlide = () => {
-    if (currentSlide < slides.length - 1) {
+    if (currentSlide < slidesData.length - 1) {
       setCurrentSlide(currentSlide + 1);
       window.scrollTo(0, 0);
     }
@@ -43,9 +32,8 @@ const JSCourse = ({ onBack }) => {
     }
   };
 
-  const CurrentSlideComponent = slides[currentSlide].component;
+  const CurrentSlideComponent = slidesData[currentSlide].lazy;
 
-  // Estilos específicos para JS (Amber/Yellow)
   const jsStyles = {
     '--course-primary': '#facc15',
     '--course-primary-dark': '#ca8a04',
@@ -56,15 +44,17 @@ const JSCourse = ({ onBack }) => {
   return (
     <div className={styles.courseContainer} style={jsStyles}>
       <div className={styles.courseHeader}>
-        <button onClick={onBack} className={styles.backButton}>← Volver al Panel</button>
-        <h1 className={styles.headerTitle}>⚡ {slides[currentSlide].title}</h1>
+        <button onClick={onBack} className={styles.backButton} aria-label="Volver al panel de cursos">← Volver al Panel</button>
+        <h1 className={styles.headerTitle}>⚡ {slidesData[currentSlide].title}</h1>
         <div className={styles.progress}>
-          Paso {currentSlide + 1} de {slides.length}
+          Paso {currentSlide + 1} de {slidesData.length}
         </div>
       </div>
 
       <div className={styles.slideContainer}>
-        <CurrentSlideComponent />
+        <Suspense fallback={<div className={styles.slideLoading}>Cargando diapositiva...</div>}>
+          <CurrentSlideComponent />
+        </Suspense>
       </div>
 
       <div className={styles.navigation}>
@@ -72,6 +62,7 @@ const JSCourse = ({ onBack }) => {
           onClick={prevSlide} 
           disabled={currentSlide === 0}
           className={`${styles.navButton} ${currentSlide === 0 ? styles.disabled : ''}`}
+          aria-label="Diapositiva anterior"
         >
           ← Anterior
         </button>
@@ -79,16 +70,17 @@ const JSCourse = ({ onBack }) => {
         <div className={styles.progressBar}>
           <div 
             className={styles.progressFill} 
-            style={{ width: `${((currentSlide + 1) / slides.length) * 100}%` }}
+            style={{ width: `${((currentSlide + 1) / slidesData.length) * 100}%` }}
           />
         </div>
         
         <button 
           onClick={nextSlide} 
-          disabled={currentSlide === slides.length - 1}
-          className={`${styles.navButton} ${currentSlide === slides.length - 1 ? styles.disabled : ''}`}
+          disabled={currentSlide === slidesData.length - 1}
+          className={`${styles.navButton} ${currentSlide === slidesData.length - 1 ? styles.disabled : ''}`}
+          aria-label="Siguiente diapositiva"
         >
-          {currentSlide === slides.length - 1 ? '¡Motor Encendido!' : 'Siguiente Paso →'}
+          {currentSlide === slidesData.length - 1 ? '¡Motor Encendido!' : 'Siguiente Paso →'}
         </button>
       </div>
     </div>

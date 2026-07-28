@@ -144,6 +144,107 @@
   line-height: 1.5;
 }
 
+/* Verification Box (Register success) */
+.verification-box {
+  background: rgba(249, 115, 22, 0.08);
+  border: 1px solid rgba(249, 115, 22, 0.25);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.verification-box .verification-icon {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.verification-box h3 {
+  color: #F8FAFC;
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+}
+
+.verification-box .success-submessage {
+  color: #94A3B8;
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.preview-note {
+  font-size: 0.8rem;
+  color: #F97316;
+  margin-top: 12px;
+  padding: 8px;
+  background: rgba(0,0,0,0.2);
+  border-radius: 6px;
+  word-break: break-all;
+}
+
+.preview-note a {
+  color: #FB923C;
+  text-decoration: underline;
+}
+
+/* Verification Required Box (Login) */
+.verification-required-box {
+  background: rgba(251, 191, 36, 0.08);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 10px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.verification-required-box .verification-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.verification-required-box strong {
+  display: block;
+  color: #FBBF24;
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.verification-required-box p {
+  color: #94A3B8;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0 0 12px 0;
+}
+
+.verification-required-box p strong {
+  display: inline;
+  font-size: 0.85rem;
+}
+
+.resend-btn {
+  background: transparent;
+  border: 1px solid #F97316;
+  color: #F97316;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+}
+
+.resend-btn:hover:not(:disabled) {
+  background: rgba(249, 115, 22, 0.1);
+  transform: translateY(-1px);
+}
+
+.resend-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .auth-form {
   display: flex;
   flex-direction: column;

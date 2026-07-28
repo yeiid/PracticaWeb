@@ -1,20 +1,17 @@
-import React, { useState } from 'react';
-import { IntroduccionReactSlide } from './IntroduccionReactSlide';
-import { ComponentesSlide } from './ComponentesSlide';
-import { PropsStateSlide } from './PropsStateSlide';
+import React, { useState, Suspense } from 'react';
 import styles from '../ModernCourse.module.css';
+
+const slidesData = [
+  { lazy: React.lazy(() => import('./IntroduccionReactSlide').then(m => ({ default: m.IntroduccionReactSlide }))), title: 'La Revolución de las UI' },
+  { lazy: React.lazy(() => import('./ComponentesSlide').then(m => ({ default: m.ComponentesSlide }))), title: 'Pensando en Componentes' },
+  { lazy: React.lazy(() => import('./PropsStateSlide').then(m => ({ default: m.PropsStateSlide }))), title: 'Controlando el Estado' }
+];
 
 const ReactCourse = ({ onBack }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const slides = [
-    { component: IntroduccionReactSlide, title: 'La Revolución de las UI' },
-    { component: ComponentesSlide, title: 'Pensando en Componentes' },
-    { component: PropsStateSlide, title: 'Controlando el Estado' }
-  ];
-
   const nextSlide = () => {
-    if (currentSlide < slides.length - 1) {
+    if (currentSlide < slidesData.length - 1) {
       setCurrentSlide(currentSlide + 1);
       window.scrollTo(0, 0);
     }
@@ -27,9 +24,8 @@ const ReactCourse = ({ onBack }) => {
     }
   };
 
-  const CurrentSlideComponent = slides[currentSlide].component;
+  const CurrentSlideComponent = slidesData[currentSlide].lazy;
 
-  // Estilos específicos para React (Cyan)
   const reactStyles = {
     '--course-primary': '#06b6d4',
     '--course-primary-dark': '#0891b2',
@@ -40,15 +36,17 @@ const ReactCourse = ({ onBack }) => {
   return (
     <div className={styles.courseContainer} style={reactStyles}>
       <div className={styles.courseHeader}>
-        <button onClick={onBack} className={styles.backButton}>← Volver al Panel</button>
-        <h1 className={styles.headerTitle}>⚛️ {slides[currentSlide].title}</h1>
+        <button onClick={onBack} className={styles.backButton} aria-label="Volver al panel de cursos">← Volver al Panel</button>
+        <h1 className={styles.headerTitle}>⚛️ {slidesData[currentSlide].title}</h1>
         <div className={styles.progress}>
-          Paso {currentSlide + 1} de {slides.length}
+          Paso {currentSlide + 1} de {slidesData.length}
         </div>
       </div>
 
       <div className={styles.slideContainer}>
-        <CurrentSlideComponent />
+        <Suspense fallback={<div className={styles.slideLoading}>Cargando diapositiva...</div>}>
+          <CurrentSlideComponent />
+        </Suspense>
       </div>
 
       <div className={styles.navigation}>
@@ -56,6 +54,7 @@ const ReactCourse = ({ onBack }) => {
           onClick={prevSlide} 
           disabled={currentSlide === 0}
           className={`${styles.navButton} ${currentSlide === 0 ? styles.disabled : ''}`}
+          aria-label="Diapositiva anterior"
         >
           ← Anterior
         </button>
@@ -63,16 +62,17 @@ const ReactCourse = ({ onBack }) => {
         <div className={styles.progressBar}>
           <div 
             className={styles.progressFill} 
-            style={{ width: `${((currentSlide + 1) / slides.length) * 100}%` }}
+            style={{ width: `${((currentSlide + 1) / slidesData.length) * 100}%` }}
           />
         </div>
         
         <button 
           onClick={nextSlide} 
-          disabled={currentSlide === slides.length - 1}
-          className={`${styles.navButton} ${currentSlide === slides.length - 1 ? styles.disabled : ''}`}
+          disabled={currentSlide === slidesData.length - 1}
+          className={`${styles.navButton} ${currentSlide === slidesData.length - 1 ? styles.disabled : ''}`}
+          aria-label="Siguiente diapositiva"
         >
-          {currentSlide === slides.length - 1 ? '¡Componente List!' : 'Siguiente Paso →'}
+          {currentSlide === slidesData.length - 1 ? '¡Componente List!' : 'Siguiente Paso →'}
         </button>
       </div>
     </div>

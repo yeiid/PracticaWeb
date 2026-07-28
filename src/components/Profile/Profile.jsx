@@ -72,13 +72,8 @@ const Profile = () => {
     }
   };
 
-  const handleCloseSection = async () => {
-    try {
-      await signOut();
-      window.location.href = '/login';
-    } catch (error) {
-      console.error('Error al cerrar sesión:', error);
-    }
+  const handleCloseSection = () => {
+    signOut();
   };
 
   const handleGoToDashboard = () => {

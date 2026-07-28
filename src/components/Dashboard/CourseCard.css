@@ -57,7 +57,7 @@
 
 .course-title-modern span {
   font-size: 0.875rem;
-  color: #4A5568;
+  color: #8892A4;
 }
 
 .course-description-modern {
@@ -89,7 +89,7 @@
 
 .progress-text-modern {
   font-size: 0.8rem;
-  color: #4A5568;
+  color: #8892A4;
   font-weight: 500;
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
 }

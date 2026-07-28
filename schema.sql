@@ -22,9 +22,22 @@ CREATE TABLE IF NOT EXISTS users (
   full_name TEXT NOT NULL,
   role TEXT DEFAULT 'student', -- 'admin', 'student'
   tenant_id UUID REFERENCES tenants(id) ON DELETE CASCADE,
+  email_verified BOOLEAN DEFAULT false,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
+
+-- Tokens de verificación de email
+CREATE TABLE IF NOT EXISTS email_verification_tokens (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE NOT NULL,
+  token TEXT NOT NULL,
+  expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+  UNIQUE(token)
+);
+
+CREATE INDEX IF NOT EXISTS idx_email_verification_token ON email_verification_tokens(token);
 
 -- Tabla de progreso de usuarios
 CREATE TABLE IF NOT EXISTS progress (

@@ -1,0 +1,82 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Verificar Email - Academia Web">
+  <div id="verify-email-root" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem;">
+    <div id="verify-email-card" style="background: #1a1a2e; border-radius: 16px; padding: 3rem; max-width: 480px; width: 100%; text-align: center; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
+      <div id="status-loading" style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+        <div class="spinner" style="width: 48px; height: 48px; border: 4px solid #333; border-top: 4px solid #F97316; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+        <p style="color: #999; font-size: 16px;">Verificando tu correo...</p>
+      </div>
+      <div id="status-success" style="display: none; flex-direction: column; align-items: center; gap: 1rem;">
+        <div style="font-size: 64px;">✅</div>
+        <h2 style="color: white; margin: 0;">¡Email Verificado!</h2>
+        <p style="color: #999; font-size: 16px; line-height: 1.6;">
+          Tu correo ha sido verificado exitosamente. Ya puedes iniciar sesión.
+        </p>
+        <a href="/login" style="background: #F97316; color: white; padding: 12px 36px; border-radius: 8px; text-decoration: none; font-size: 16px; font-weight: bold; display: inline-block; margin-top: 1rem;">
+          Ir a Iniciar Sesión
+        </a>
+      </div>
+      <div id="status-error" style="display: none; flex-direction: column; align-items: center; gap: 1rem;">
+        <div style="font-size: 64px;">❌</div>
+        <h2 style="color: white; margin: 0;">Error de Verificación</h2>
+        <p id="error-message" style="color: #999; font-size: 16px; line-height: 1.6;">
+          El token de verificación es inválido o ha expirado.
+        </p>
+        <a href="/login" style="background: #F97316; color: white; padding: 12px 36px; border-radius: 8px; text-decoration: none; font-size: 16px; font-weight: bold; display: inline-block; margin-top: 1rem;">
+          Volver al Login
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+</style>
+
+<script>
+  (async () => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+
+    const loadingEl = document.getElementById('status-loading');
+    const successEl = document.getElementById('status-success');
+    const errorEl = document.getElementById('status-error');
+    const errorMsg = document.getElementById('error-message');
+
+    if (!token) {
+      loadingEl.style.display = 'none';
+      errorMsg.textContent = 'Token de verificación no encontrado en la URL.';
+      errorEl.style.display = 'flex';
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/auth/verify-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token })
+      });
+
+      const data = await response.json();
+
+      loadingEl.style.display = 'none';
+
+      if (response.ok) {
+        successEl.style.display = 'flex';
+      } else {
+        errorMsg.textContent = data.error || 'Error al verificar el correo.';
+        errorEl.style.display = 'flex';
+      }
+    } catch (err) {
+      loadingEl.style.display = 'none';
+      errorMsg.textContent = 'Error de conexión. Intenta de nuevo más tarde.';
+      errorEl.style.display = 'flex';
+    }
+  })();
+</script>

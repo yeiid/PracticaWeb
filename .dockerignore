@@ -7,3 +7,9 @@ dist
 build_log*.txt
 .git
 .gitignore
+.pnpm-store
+doc
+*.md
+*.txt
+.vscode
+.idea

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import './RoadmapStep.css';
 
-const RoadmapStep = ({ step, onSelect, progress }) => {
+const RoadmapStep = memo(({ step, onSelect, progress }) => {
   const { id, title, description, completed, icon } = step;
 
   const getStatus = () => {
@@ -33,6 +33,8 @@ const RoadmapStep = ({ step, onSelect, progress }) => {
       {!completed && <div className="lock-overlay">Próximamente</div>}
     </div>
   );
-};
+});
+
+RoadmapStep.displayName = 'RoadmapStep';
 
 export default RoadmapStep;

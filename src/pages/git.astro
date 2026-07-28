@@ -10,7 +10,7 @@ if (!session) {
 
 <Layout title="Git Master - Academia Web">
   <main class="course-page">
-    <GitCourse client:load onBack={() => window.location.href = '/dashboard'} />
+    <GitCourse client:idle onBack={() => window.location.href = '/dashboard'} />
   </main>
 </Layout>
 

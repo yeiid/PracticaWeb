@@ -4,7 +4,7 @@ import { parse } from 'cookie';
 
 
 // Rutas públicas que no requieren sesión
-const publicPaths = ['/', '/login', '/api/auth/login', '/api/auth/register', '/reset-password'];
+const publicPaths = ['/', '/login', '/api/auth/login', '/api/auth/register', '/api/auth/logout', '/reset-password'];
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const { url, cookies, redirect } = context;

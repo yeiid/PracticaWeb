@@ -68,6 +68,16 @@ export const AuthProvider = ({ children }) => {
         setUser(data.user);
         setIsOffline(false);
         return { data: { user: data.user }, error: null };
+      } else if (response.status === 403 && data.requiresVerification) {
+        // Email no verificado
+        return {
+          data: null,
+          error: {
+            message: data.error,
+            requiresVerification: true,
+            email: data.email
+          }
+        };
       } else {
         return { data: null, error: { message: data.error } };
       }
@@ -95,8 +105,15 @@ export const AuthProvider = ({ children }) => {
 
       const data = await response.json();
       if (response.ok) {
-        setUser(data.user);
-        return { data: { user: data.user }, error: null };
+        // No hacer autologin - requiere verificación de email
+        return {
+          data: {
+            user: data.user,
+            requiresVerification: true,
+            previewUrl: data.previewUrl
+          },
+          error: null
+        };
       } else {
         return { data: null, error: { message: data.error } };
       }

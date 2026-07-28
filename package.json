@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "Plataforma completa de aprendizaje web",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --host 0.0.0.0 --port 4328",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
@@ -39,6 +39,7 @@
     "gsap": "^3.14.2",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^1.7.0",
+    "nodemailer": "^9.0.3",
     "postgres": "^3.4.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -46,6 +47,8 @@
     "typescript": "^6.0.3"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "@types/nodemailer": "^8.0.1",
+    "concurrently": "^8.2.2",
+    "vite-plugin-compression": "^0.5.1"
   }
 }

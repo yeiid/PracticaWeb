@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense, useCallback, useMemo } from 'react';
 import './Dashboard.css';
 import ProgressSystem from '../ProgressSystem/ProgressSystem';
-import HTMLCourse from '../../courses/HTML/HTMLCourse';
-import CSSCourse from '../../courses/CSS/CSSCourse';
-import JSCourse from '../../courses/JS/JSCourse';
-import PythonCourse from '../../courses/Python/PythonCourse';
-import ReactCourse from '../../courses/React/ReactCourse';
-import BackendCourse from '../../courses/Backend/BackendCourse';
-import GitCourse from '../../courses/Git/GitCourse';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth, AuthProvider } from '../../contexts/AuthContext';
 import { mockCourses } from '../../lib/mockData';
 import CourseCard from './CourseCard';
 import Header from '../Header/Header';
 import RoadmapStep from './RoadmapStep';
 import HistoryTimeline from './HistoryTimeline';
 
-import { AuthProvider } from '../../contexts/AuthContext';
+const HTMLCourse = lazy(() => import('../../courses/HTML/HTMLCourse'));
+const CSSCourse = lazy(() => import('../../courses/CSS/CSSCourse'));
+const JSCourse = lazy(() => import('../../courses/JS/JSCourse'));
+const PythonCourse = lazy(() => import('../../courses/Python/PythonCourse'));
+const ReactCourse = lazy(() => import('../../courses/React/ReactCourse'));
+const BackendCourse = lazy(() => import('../../courses/Backend/BackendCourse'));
+const GitCourse = lazy(() => import('../../courses/Git/GitCourse'));
 
 function DashboardContent() {
   const { user, isOffline } = useAuth();
@@ -24,6 +23,17 @@ function DashboardContent() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState({});
+
+  const handleCourseSelect = useCallback((course) => {
+    setSelectedCourse(course);
+    setCurrentView('course');
+  }, []);
+
+  const getProgressPercentage = useCallback((courseId) => {
+    const courseData = progress[courseId];
+    if (!courseData) return 0;
+    return Math.round((courseData.completed / courseData.total) * 100);
+  }, [progress]);
 
   useEffect(() => {
     if (user) {
@@ -57,25 +67,16 @@ function DashboardContent() {
     fetchCourses();
   }, [isOffline, user]);
 
-  const roadmapSteps = [
+  const roadmapSteps = useMemo(() => [
     { id: 1, title: 'HTML5 - Los Fundamentos', description: 'Estructura básica y semántica', completed: true, course: '/html', icon: '📄' },
     { id: 2, title: 'CSS3 - El diseño Visual', description: 'Estilos y layouts modernos', completed: true, course: '/css', icon: '🎨' },
     { id: 3, title: 'JavaScript - La Interactividad', description: 'Programación y DOM', completed: true, course: '/js', icon: '⚡' },
     { id: 4, title: 'Python - Programación Versátil', description: 'Lenguaje multiuso para todo', completed: true, course: '/python', icon: '🐍' },
     { id: 5, title: 'React - Modern UI', description: 'Aplicaciones web avanzadas', completed: true, course: '/react', icon: '⚛️' },
     { id: 6, title: 'Backend - Arquitectura', description: 'Node.js y APIs', completed: false, course: '/backend', icon: '⚙️' }
-  ];
+  ], []);
 
-  const handleCourseSelect = (course) => {
-    setSelectedCourse(course);
-    setCurrentView('course');
-  };
-
-  const getProgressPercentage = (courseId) => {
-    const courseData = progress[courseId];
-    if (!courseData) return 0;
-    return Math.round((courseData.completed / courseData.total) * 100);
-  };
+  const handleBack = useCallback(() => setCurrentView('home'), []);
 
   if (loading) {
     return (
@@ -90,13 +91,14 @@ function DashboardContent() {
     return (
       <div className="App">
         <ProgressSystem progress={progress} />
-        {url === '/html' && <HTMLCourse onBack={() => setCurrentView('home')} />}
-        {url === '/css' && <CSSCourse onBack={() => setCurrentView('home')} />}
-        {url === '/js' && <JSCourse onBack={() => setCurrentView('home')} />}
-        {url === '/python' && <PythonCourse onBack={() => setCurrentView('home')} />}
-        {url === '/react' && <ReactCourse onBack={() => setCurrentView('home')} />}
-        {url === '/backend' && <BackendCourse onBack={() => setCurrentView('home')} />}
-        {url === '/git' && <GitCourse onBack={() => setCurrentView('home')} />}
+        <Suspense fallback={<div className="loading">Cargando curso...</div>}>
+          {url === '/html' && <HTMLCourse onBack={handleBack} />}
+          {url === '/css' && <CSSCourse onBack={handleBack} />}
+          {url === '/js' && <JSCourse onBack={handleBack} />}
+          {url === '/python' && <PythonCourse onBack={handleBack} />}
+          {url === '/react' && <ReactCourse onBack={handleBack} />}
+          {url === '/backend' && <BackendCourse onBack={handleBack} />}
+          {url === '/git' && <GitCourse onBack={handleBack} />}
         
         {/* Safety Check: If NO component matched the URL */}
         {!['/html', '/css', '/js', '/python', '/react', '/backend', '/git'].includes(url) && (
@@ -108,6 +110,7 @@ function DashboardContent() {
             </div>
           </div>
         )}
+        </Suspense>
       </div>
     );
   }
@@ -138,7 +141,7 @@ function DashboardContent() {
         <section className="history-preview-section">
           <HistoryTimeline />
           <div style={{ textAlign: 'center', marginTop: '20px' }}>
-            <a href="/history" className="explore-history-btn">Explorar Historia Completa →</a>
+            <a href="/history" className="explore-history-btn" aria-label="Explorar la historia completa de la tecnología">Explorar Historia Completa →</a>
           </div>
         </section>
         <section className="roadmap-section">
@@ -162,9 +165,9 @@ function DashboardContent() {
       <footer className="footer">
         <p>🎓 ¡Aprende a tu ritmo, construye proyectos increíbles!</p>
         <div className="footer-links">
-          <a href="/support" className="footer-link">📩 Centro de Soporte</a>
+          <a href="/support" className="footer-link" aria-label="Centro de Soporte">📩 Centro de Soporte</a>
           {user?.role === 'admin' && (
-            <a href="/admin/tickets" className="footer-link admin-link">🛡️ Panel Admin</a>
+            <a href="/admin/tickets" className="footer-link admin-link" aria-label="Panel de Administración">🛡️ Panel Admin</a>
           )}
         </div>
       </footer>

@@ -1,30 +1,22 @@
-import React, { useState } from 'react';
-import IntroduccionSlide from './IntroduccionSlide';
-import FrontendBackendSlide from './FrontendBackendSlide';
-import PilaresSlide from './PilaresSlide';
-import HerramientasSlide from './HerramientasSlide';
-import EstructuraHTMLSlide from './EstructuraHTMLSlide';
-import EtiquetasSlide from './EtiquetasSlide';
-import HTMLQuiz from './HTMLQuiz';
-import CierreSlide from './CierreSlide';
+import React, { useState, Suspense } from 'react';
 import styles from '../ModernCourse.module.css';
+
+const slidesData = [
+  { lazy: React.lazy(() => import('./IntroduccionSlide')), title: 'Introducción a HTML5' },
+  { lazy: React.lazy(() => import('./FrontendBackendSlide')), title: 'Frontend vs Backend' },
+  { lazy: React.lazy(() => import('./PilaresSlide')), title: 'Los 3 Pilares del Web' },
+  { lazy: React.lazy(() => import('./HerramientasSlide')), title: 'Tu Arsenal de Trabajo' },
+  { lazy: React.lazy(() => import('./EstructuraHTMLSlide')), title: 'La Columna Vertebral' },
+  { lazy: React.lazy(() => import('./EtiquetasSlide')), title: 'Etiquetas Esenciales' },
+  { lazy: React.lazy(() => import('./HTMLQuiz')), title: 'Evaluación de HTML5' },
+  { lazy: React.lazy(() => import('./CierreSlide')), title: '¡Misión Cumplida!' }
+];
 
 const HTMLCourse = ({ onBack }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const slides = [
-    { component: IntroduccionSlide, title: 'Introducción a HTML5' },
-    { component: FrontendBackendSlide, title: 'Frontend vs Backend' },
-    { component: PilaresSlide, title: 'Los 3 Pilares del Web' },
-    { component: HerramientasSlide, title: 'Tu Arsenal de Trabajo' },
-    { component: EstructuraHTMLSlide, title: 'La Columna Vertebral' },
-    { component: EtiquetasSlide, title: 'Etiquetas Esenciales' },
-    { component: HTMLQuiz, title: 'Evaluación de HTML5' },
-    { component: CierreSlide, title: '¡Misión Cumplida!' }
-  ];
-
   const nextSlide = () => {
-    if (currentSlide < slides.length - 1) {
+    if (currentSlide < slidesData.length - 1) {
       setCurrentSlide(currentSlide + 1);
       window.scrollTo(0, 0);
     }
@@ -37,9 +29,8 @@ const HTMLCourse = ({ onBack }) => {
     }
   };
 
-  const CurrentSlideComponent = slides[currentSlide].component;
+  const CurrentSlideComponent = slidesData[currentSlide].lazy;
 
-  // Estilos específicos para HTML (Azul)
   const htmlStyles = {
     '--course-primary': '#3498db',
     '--course-primary-dark': '#2980b9',
@@ -50,15 +41,17 @@ const HTMLCourse = ({ onBack }) => {
   return (
     <div className={styles.courseContainer} style={htmlStyles}>
       <div className={styles.courseHeader}>
-        <button onClick={onBack} className={styles.backButton}>← Volver al Panel</button>
-        <h1 className={styles.headerTitle}>📄 {slides[currentSlide].title}</h1>
+        <button onClick={onBack} className={styles.backButton} aria-label="Volver al panel de cursos">← Volver al Panel</button>
+        <h1 className={styles.headerTitle}>📄 {slidesData[currentSlide].title}</h1>
         <div className={styles.progress}>
-          Paso {currentSlide + 1} de {slides.length}
+          Paso {currentSlide + 1} de {slidesData.length}
         </div>
       </div>
 
       <div className={styles.slideContainer}>
-        <CurrentSlideComponent />
+        <Suspense fallback={<div className={styles.slideLoading}>Cargando diapositiva...</div>}>
+          <CurrentSlideComponent />
+        </Suspense>
       </div>
 
       <div className={styles.navigation}>
@@ -66,6 +59,7 @@ const HTMLCourse = ({ onBack }) => {
           onClick={prevSlide} 
           disabled={currentSlide === 0}
           className={`${styles.navButton} ${currentSlide === 0 ? styles.disabled : ''}`}
+          aria-label="Diapositiva anterior"
         >
           ← Anterior
         </button>
@@ -73,16 +67,17 @@ const HTMLCourse = ({ onBack }) => {
         <div className={styles.progressBar}>
           <div 
             className={styles.progressFill} 
-            style={{ width: `${((currentSlide + 1) / slides.length) * 100}%` }}
+            style={{ width: `${((currentSlide + 1) / slidesData.length) * 100}%` }}
           />
         </div>
         
         <button 
           onClick={nextSlide} 
-          disabled={currentSlide === slides.length - 1}
-          className={`${styles.navButton} ${currentSlide === slides.length - 1 ? styles.disabled : ''}`}
+          disabled={currentSlide === slidesData.length - 1}
+          className={`${styles.navButton} ${currentSlide === slidesData.length - 1 ? styles.disabled : ''}`}
+          aria-label="Siguiente diapositiva"
         >
-          {currentSlide === slides.length - 1 ? '¡Finalizar Cimiento!' : 'Siguiente Paso →'}
+          {currentSlide === slidesData.length - 1 ? '¡Finalizar Cimiento!' : 'Siguiente Paso →'}
         </button>
       </div>
     </div>

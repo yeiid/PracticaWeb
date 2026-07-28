@@ -10,12 +10,18 @@ function Login({ onSwitchToRegister, onLoginSuccess, isDBOffline }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
+  const [requiresVerification, setRequiresVerification] = useState(false);
+  const [verificationEmail, setVerificationEmail] = useState('');
+  const [resending, setResending] = useState(false);
+  const [resendSuccess, setResendSuccess] = useState('');
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
     setMessage('');
+    setRequiresVerification(false);
+    setResendSuccess('');
 
     try {
       const { data, error } = await signIn({ email, password });
@@ -29,9 +35,44 @@ function Login({ onSwitchToRegister, onLoginSuccess, isDBOffline }) {
         }, 1000);
       }
     } catch (error) {
-      setError(error.message || 'Error al iniciar sesión');
+      if (error.requiresVerification) {
+        setRequiresVerification(true);
+        setVerificationEmail(error.email || email);
+        setError('');
+      } else {
+        setError(error.message || 'Error al iniciar sesión');
+      }
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleResendVerification = async () => {
+    setResending(true);
+    setResendSuccess('');
+    setError('');
+
+    try {
+      const response = await fetch('/api/auth/resend-verification', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: verificationEmail })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setResendSuccess('✅ Email de verificación reenviado. Revisa tu bandeja de entrada.');
+        if (data.previewUrl) {
+          setResendSuccess(`📬 Email de prueba: ${data.previewUrl}`);
+        }
+      } else {
+        setError(data.error || 'Error al reenviar verificación');
+      }
+    } catch (err) {
+      setError('Error de conexión');
+    } finally {
+      setResending(false);
     }
   };
 
@@ -56,7 +97,7 @@ function Login({ onSwitchToRegister, onLoginSuccess, isDBOffline }) {
     try {
       const { error } = await resetPassword(email);
       if (error) throw error;
-      setMessage('Se ha enviado un email para restablecer tu contraseña. (En modo de prueba, esto es una simulación)');
+      setMessage('Se ha enviado un email para restablecer tu contraseña.');
     } catch (error) {
       setError(error.message);
     } finally {
@@ -86,6 +127,26 @@ function Login({ onSwitchToRegister, onLoginSuccess, isDBOffline }) {
         <form onSubmit={handleLogin} className="auth-form">
           {error && <div className="auth-error">{error}</div>}
           {message && <div className="auth-success">{message}</div>}
+          {resendSuccess && <div className="auth-success">{resendSuccess}</div>}
+
+          {requiresVerification && (
+            <div className="verification-required-box">
+              <div className="verification-icon">📧</div>
+              <strong>Email no verificado</strong>
+              <p>
+                Debes verificar tu correo <strong>{verificationEmail}</strong> antes de iniciar sesión.
+                Revisa tu bandeja de entrada y haz clic en el enlace de verificación.
+              </p>
+              <button
+                type="button"
+                className="resend-btn"
+                onClick={handleResendVerification}
+                disabled={resending}
+              >
+                {resending ? 'Reenviando...' : 'Reenviar email de verificación'}
+              </button>
+            </div>
+          )}
 
           <div className="form-group">
             <label htmlFor="email">

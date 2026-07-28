@@ -11,7 +11,7 @@ const { title } = Astro.props;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Aprende desarrollo web de forma interactiva" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
@@ -32,6 +32,13 @@ const { title } = Astro.props;
       }catch(e){/* ignore */}
     })();
     </script>
+    <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js');
+      });
+    }
+    </script>
 	</body>
 </html>
 <style is:global>
@@ -49,7 +56,7 @@ const { title } = Astro.props;
     --secondary: #38BDF8;
     --tertiary: #8B5CF6;
     --text-main: #F8FAFC;
-    --text-muted: #4A5568;
+    --text-muted: #8892A4;
     --success: #34D399;
     --warning: #FBBF24;
     --nj-orange: #F97316;
@@ -72,7 +79,7 @@ const { title } = Astro.props;
     --secondary: #38BDF8;
     --tertiary: #8B5CF6;
     --text-main: #0B0F1A;
-    --text-muted: #4A5568;
+    --text-muted: #64748B;
     --nj-surface: #FFFFFF;
     --nj-border: rgba(37, 46, 66, 0.15);
     --nj-code-bg: #F1F5F9;
@@ -131,5 +138,27 @@ const { title } = Astro.props;
   .btn-secondary:hover {
     background: var(--bg-panel-strong);
     border-color: var(--nj-orange);
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  button:active,
+  a:active {
+    touch-action: manipulation;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 </style>

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './LandingPage.css';
 
 const LandingPage = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <div className="landing-container">
       <div className="bg-glow bg-glow-1"></div>
@@ -12,10 +14,22 @@ const LandingPage = () => {
         <div className="logo">
           <span className="logo-text">Academia<span>Web</span></span>
         </div>
-        <nav className="landing-nav">
-          <a href="/login" className="nav-link">Cursos</a>
-          <a href="/login" className="btn btn-secondary">Entrar</a>
-          <a href="/login?mode=register" className="btn btn-primary">Empezar Gratis</a>
+
+        <button
+          className={`landing-mobile-btn ${mobileMenuOpen ? 'active' : ''}`}
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Abrir menú de navegación"
+          aria-expanded={mobileMenuOpen}
+        >
+          <span className="landing-hamburger-line"></span>
+          <span className="landing-hamburger-line"></span>
+          <span className="landing-hamburger-line"></span>
+        </button>
+
+        <nav className={`landing-nav ${mobileMenuOpen ? 'landing-nav--open' : ''}`}>
+          <a href="/login" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Cursos</a>
+          <a href="/login" className="btn btn-secondary" onClick={() => setMobileMenuOpen(false)}>Entrar</a>
+          <a href="/login?mode=register" className="btn btn-primary" onClick={() => setMobileMenuOpen(false)}>Empezar Gratis</a>
         </nav>
       </header>
 
@@ -30,7 +44,7 @@ const LandingPage = () => {
             desde Cero hasta Pro
           </h1>
           <p className="hero-description">
-            La plataforma definitiva con lecciones interactivas, visualizaciones 3D 
+            La plataforma definitiva con lecciones interactivas, visualizaciones 3D
             y proyectos reales. Aprende con la infraestructura más moderna.
           </p>
           <div className="hero-actions">

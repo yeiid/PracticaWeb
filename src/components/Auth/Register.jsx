@@ -13,6 +13,8 @@ function Register({ onSwitchToLogin, isDBOffline }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [registeredEmail, setRegisteredEmail] = useState('');
+  const [previewUrl, setPreviewUrl] = useState('');
 
   const handleChange = (e) => {
     setFormData({
@@ -57,7 +59,9 @@ function Register({ onSwitchToLogin, isDBOffline }) {
 
       if (error) throw new Error(error.message);
 
-      if (data.user) {
+      if (data) {
+        setRegisteredEmail(formData.email);
+        setPreviewUrl(data.previewUrl || '');
         setSuccess(true);
         setFormData({
           email: '',
@@ -78,15 +82,24 @@ function Register({ onSwitchToLogin, isDBOffline }) {
       <div className="auth-container">
         <div className="auth-card">
           <div className="auth-header">
-            <div className="success-icon">✅</div>
-            <h2>¡Registro Exitoso!</h2>
+            <div className="success-icon">📧</div>
+            <h2>¡Cuenta Creada!</h2>
             <p className="success-message">
-              Hemos enviado un email de verificación a <strong>{formData.email}</strong>
+              Tu cuenta <strong>{registeredEmail}</strong> fue creada exitosamente.
             </p>
-            <p className="success-submessage">
-              Por favor, revisa tu bandeja de entrada y haz clic en el enlace de verificación
-              para activar tu cuenta.
-            </p>
+            <div className="verification-box">
+              <div className="verification-icon">✉️</div>
+              <h3>Verifica tu correo</h3>
+              <p className="success-submessage">
+                Te hemos enviado un email de confirmación. 
+                Revisa tu bandeja de entrada y haz clic en el enlace para activar tu cuenta.
+              </p>
+              {previewUrl && (
+                <p className="preview-note">
+                  📬 Modo desarrollo: <a href={previewUrl} target="_blank" rel="noopener noreferrer">Ver email de prueba</a>
+                </p>
+              )}
+            </div>
           </div>
 
           <button
