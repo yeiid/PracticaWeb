@@ -9,9 +9,9 @@ RUN pnpm install
 
 COPY . .
 
-EXPOSE 4128
+EXPOSE 4328
 
 ENV HOST=0.0.0.0
-ENV PORT=4128
+ENV PORT=4328
 
 CMD ["pnpm", "run", "dev"]
