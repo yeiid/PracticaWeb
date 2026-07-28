@@ -17,10 +17,10 @@ services:
       - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
 
   app:
-    container_name: academia-app
+    container_name: academia-app-dev
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     restart: always
     depends_on:
       db:
@@ -32,6 +32,10 @@ services:
       HOST: 0.0.0.0
     ports:
       - "4328:4328"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: ["pnpm", "run", "dev"]
 
 volumes:
   postgres_data:
