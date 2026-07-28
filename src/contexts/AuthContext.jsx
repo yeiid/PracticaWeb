@@ -123,19 +123,16 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signOut = async () => {
+    localStorage.removeItem('demo_mode');
+    localStorage.removeItem('demo_user');
+    document.cookie = 'session=; max-age=0; path=/; domain=' + window.location.hostname;
     try {
-      localStorage.removeItem('demo_mode');
-      localStorage.removeItem('demo_user');
       await fetch('/api/auth/logout', { method: 'POST' });
-      setUser(null);
-      window.location.href = '/';
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
-      localStorage.removeItem('demo_mode');
-      localStorage.removeItem('demo_user');
-      setUser(null);
-      window.location.href = '/';
     }
+    setUser(null);
+    window.location.href = '/';
   };
 
   const resetPassword = async (email) => {

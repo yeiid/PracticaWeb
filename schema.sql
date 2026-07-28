@@ -122,15 +122,15 @@ ON CONFLICT (url) DO UPDATE SET
 -- ============================================
 
 -- Student: prueba@academia.dev / Prueba123!
-INSERT INTO users (email, password_hash, full_name, role)
-VALUES ('prueba@academia.dev', crypt('Prueba123!', gen_salt('bf', 10)), 'Usuario de Prueba', 'student')
+INSERT INTO users (email, password_hash, full_name, role, email_verified)
+VALUES ('prueba@academia.dev', crypt('Prueba123!', gen_salt('bf', 10)), 'Usuario de Prueba', 'student', true)
 ON CONFLICT (email) DO UPDATE
   SET password_hash = EXCLUDED.password_hash,
       full_name = EXCLUDED.full_name;
 
 -- Admin: admin@academia.dev / Admin123!
-INSERT INTO users (email, password_hash, full_name, role)
-VALUES ('admin@academia.dev', crypt('Admin123!', gen_salt('bf', 10)), 'Administrador', 'admin')
+INSERT INTO users (email, password_hash, full_name, role, email_verified)
+VALUES ('admin@academia.dev', crypt('Admin123!', gen_salt('bf', 10)), 'Administrador', 'admin', true)
 ON CONFLICT (email) DO UPDATE
   SET password_hash = EXCLUDED.password_hash,
       full_name = EXCLUDED.full_name,

@@ -29,8 +29,8 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ error: 'Contraseña incorrecta' }), { status: 401 });
     }
 
-    // Verificar si el email está confirmado
-    if (!user.email_verified) {
+    // Verificar si el email está confirmado (solo en producción)
+    if (process.env.NODE_ENV === 'production' && !user.email_verified) {
       return new Response(JSON.stringify({
         error: 'Debes verificar tu correo electrónico antes de iniciar sesión',
         requiresVerification: true,
