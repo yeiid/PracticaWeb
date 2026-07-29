@@ -16,7 +16,7 @@ export const GET: APIRoute = async ({ request }) => {
     const payload = jwt.verify(token, process['env']['JWT_SECRET']||'dev-fallback') as any;
 
     const users = await sql`
-      SELECT id, email, full_name, tenant_id, role, email_verified FROM users WHERE id = ${payload.id}
+      SELECT id, email, full_name, tenant_id, role FROM users WHERE id = ${payload.id}
     `;
 
     if (users.length === 0) {

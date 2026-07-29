@@ -8,6 +8,10 @@ until nc -z db 5432; do
 done
 echo "✅ Base de datos detectada"
 
+# Ejecutar migraciones de esquema
+echo "🔧 Ejecutando migraciones de base de datos..."
+node scripts/migrate-db.js
+
 # Ejecutar el script de seeding para asegurar que el sistema tenga datos básicos
 echo "🚀 Sincronizando datos básicos..."
 node scripts/seed-user.js
