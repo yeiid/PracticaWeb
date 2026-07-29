@@ -33,10 +33,11 @@ const getTransporter = async () => {
 export async function sendVerificationEmail(
   to: string,
   token: string,
-  fullName: string
+  fullName: string,
+  origin?: string
 ): Promise<{ messageId: string; previewUrl?: string }> {
   const transporter = await getTransporter();
-  const baseUrl = process.env.PUBLIC_SITE_URL || 'http://localhost:4328';
+  const baseUrl = origin || process.env.PUBLIC_SITE_URL || 'http://localhost:4328';
   const verifyUrl = `${baseUrl}/verify-email?token=${token}`;
 
   const info = await transporter.sendMail({
@@ -65,8 +66,8 @@ export async function sendVerificationEmail(
           <p style="font-size: 14px; color: #999; line-height: 1.6;">
             Si no puedes hacer clic en el botón, copia y pega este enlace en tu navegador:
           </p>
-          <p style="font-size: 12px; color: #666; word-break: break-all; background: #0d0d1a; padding: 10px; border-radius: 6px;">
-            ${verifyUrl}
+          <p style="font-size: 12px; color: #ccc; word-break: break-all; background: #0d0d1a; padding: 10px; border-radius: 6px;">
+            <a href="${verifyUrl}" style="color: #F97316; text-decoration: underline;">${verifyUrl}</a>
           </p>
           <p style="font-size: 14px; color: #999; margin-top: 30px;">
             Este enlace expirará en 24 horas. Si no creaste esta cuenta, ignora este mensaje.

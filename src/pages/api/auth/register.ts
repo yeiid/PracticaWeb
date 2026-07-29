@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import crypto from 'node:crypto';
 import { sendVerificationEmail } from '../../../lib/email';
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, url }) => {
   try {
     const { email, password, full_name, tenant_id } = await request.json();
 
@@ -35,7 +35,8 @@ export const POST: APIRoute = async ({ request }) => {
         VALUES (${user.id}, ${token}, ${expiresAt.toISOString()})
       `;
 
-      const result = await sendVerificationEmail(email, token, full_name);
+      const origin = url.origin;
+      const result = await sendVerificationEmail(email, token, full_name, origin);
       previewUrl = result.previewUrl;
     } catch (verificationError) {
       console.error('Error en proceso de verificación de email:', verificationError);
