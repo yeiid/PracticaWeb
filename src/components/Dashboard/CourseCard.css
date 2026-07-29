@@ -1,14 +1,15 @@
 .course-card-modern {
   background: #1A2235;
-  border-radius: 18px;
-  padding: 24px;
+  border-radius: 24px;
+  padding: 28px;
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   cursor: pointer;
-  border: 1px solid #252E42;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   position: relative;
   overflow: hidden;
+  min-height: 320px;
 }
 
 .course-card-modern:before {
@@ -17,79 +18,82 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
+  height: 6px;
   background: linear-gradient(135deg, var(--course-color, #F97316), var(--course-primary-dark, #EA580C));
 }
 
 .course-card-modern:hover {
-  transform: translateY(-8px) scale(1.01);
-  border-color: #F97316;
-  box-shadow: 0 20px 44px rgba(249, 115, 22, 0.15);
+  transform: translateY(-10px) scale(1.01);
+  border-color: rgba(249, 115, 22, 0.35);
+  box-shadow: 0 28px 56px rgba(30, 41, 59, 0.22);
 }
 
 .course-card-header {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 16px;
+  gap: 18px;
+  margin-bottom: 18px;
 }
 
 .course-icon-modern {
   font-size: 2.5rem;
   background-color: var(--course-color, #F97316);
   color: white;
-  border-radius: 12px;
-  width: 60px;
-  height: 60px;
+  border-radius: 16px;
+  width: 62px;
+  height: 62px;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 10px 30px rgba(249, 115, 22, 0.12);
 }
 
 .course-title-modern h3 {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   color: #F8FAFC;
   font-family: var(--font-heading, 'Space Grotesk', sans-serif);
   font-weight: 700;
-  letter-spacing: -0.3px;
+  letter-spacing: -0.4px;
 }
 
 .course-title-modern span {
-  font-size: 0.875rem;
-  color: #8892A4;
+  display: block;
+  font-size: 0.9rem;
+  color: #94A3B8;
+  margin-top: 4px;
 }
 
 .course-description-modern {
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: #CBD5E1;
-  line-height: 1.5;
+  line-height: 1.75;
   flex-grow: 1;
-  margin-bottom: 24px;
+  margin-bottom: 26px;
 }
 
 .course-progress-modern {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .progress-bar-wrapper {
-  background-color: rgba(249, 115, 22, 0.15);
-  border-radius: 8px;
-  height: 8px;
+  background-color: rgba(249, 115, 22, 0.12);
+  border-radius: 999px;
+  height: 10px;
   overflow: hidden;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .progress-bar-fill {
   height: 100%;
   background: linear-gradient(90deg, var(--course-color, #F97316), #38BDF8);
-  border-radius: 8px;
+  border-radius: 999px;
   transition: width 0.4s ease;
 }
 
 .progress-text-modern {
-  font-size: 0.8rem;
-  color: #8892A4;
+  font-size: 0.85rem;
+  color: #94A3B8;
   font-weight: 500;
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
 }
@@ -98,39 +102,89 @@
   background: linear-gradient(135deg, var(--course-color, #F97316), var(--course-primary-dark, #EA580C));
   color: white;
   border: none;
-  border-radius: 8px;
-  padding: 12px 0;
+  border-radius: 14px;
+  padding: 14px 0;
   width: 100%;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   font-family: var(--font-heading, 'Space Grotesk', sans-serif);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
   margin-top: auto;
 }
 
 .start-course-btn:hover {
-  filter: brightness(1.1);
+  filter: brightness(1.05);
   transform: translateY(-1px);
-  box-shadow: 0 10px 24px rgba(249, 115, 22, 0.2);
+  box-shadow: 0 16px 30px rgba(249, 115, 22, 0.2);
+}
+
+.course-card-modern:focus-visible,
+.start-course-btn:focus-visible {
+  outline: 3px solid rgba(249, 115, 22, 0.35);
+  outline-offset: 4px;
 }
 
 /* Media Queries */
 @media (max-width: 768px) {
   .course-card-modern {
-    padding: 20px 16px;
-    margin-bottom: 16px;
+    padding: 22px 18px;
+    min-height: auto;
   }
 
   .course-card-header {
-    gap: 12px;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .course-icon-modern {
+    font-size: 2.2rem;
+    width: 54px;
+    height: 54px;
+  }
+
+  .course-title-modern h3 {
+    font-size: 1.2rem;
+  }
+
+  .course-title-modern span {
+    font-size: 0.85rem;
+  }
+
+  .course-description-modern {
+    font-size: 0.92rem;
+    margin-bottom: 22px;
+  }
+
+  .progress-text-modern {
+    font-size: 0.8rem;
+  }
+
+  .start-course-btn {
+    padding: 12px 0;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .course-card-modern {
+    padding: 18px 14px;
+  }
+
+  .course-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
     margin-bottom: 12px;
   }
 
   .course-icon-modern {
-    font-size: 2rem;
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .course-title-modern {
+    width: 100%;
   }
 
   .course-title-modern h3 {
@@ -142,96 +196,36 @@
   }
 
   .course-description-modern {
-    font-size: 0.875rem;
-    margin-bottom: 20px;
-  }
-
-  .progress-text-modern {
-    font-size: 0.75rem;
-  }
-
-  .start-course-btn {
-    padding: 10px 0;
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .course-card-modern {
-    padding: 16px 12px;
-    margin-bottom: 12px;
-  }
-
-  .course-card-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-    margin-bottom: 12px;
-  }
-
-  .course-icon-modern {
-    font-size: 1.75rem;
-    width: 45px;
-    height: 45px;
-    align-self: center;
-  }
-
-  .course-title-modern {
-    text-align: center;
-    width: 100%;
-  }
-
-  .course-title-modern h3 {
-    font-size: 1rem;
-    margin-bottom: 4px;
-  }
-
-  .course-title-modern span {
-    font-size: 0.75rem;
-  }
-
-  .course-description-modern {
-    font-size: 0.8rem;
-    text-align: center;
-    margin-bottom: 16px;
+    font-size: 0.85rem;
+    margin-bottom: 18px;
   }
 
   .course-progress-modern {
-    margin-bottom: 16px;
-  }
-
-  .progress-bar-wrapper {
-    height: 6px;
-    margin-bottom: 6px;
-  }
-
-  .progress-text-modern {
-    font-size: 0.7rem;
-    text-align: center;
-  }
-
-  .start-course-btn {
-    padding: 8px 0;
-    font-size: 0.85rem;
+    margin-bottom: 18px;
   }
 }
 
 @media (max-width: 360px) {
   .course-card-modern {
-    padding: 12px 8px;
+    padding: 14px 10px;
   }
 
   .course-icon-modern {
-    font-size: 1.5rem;
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
+    font-size: 1.4rem;
   }
 
   .course-title-modern h3 {
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
 
   .course-description-modern {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .start-course-btn {
+    padding: 10px 0;
+    font-size: 0.9rem;
   }
 }

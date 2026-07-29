@@ -194,3 +194,56 @@ code {
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-size: 0.9em;
 }
+
+@media (max-width: 768px) {
+  .courseContainer { padding: 1.25rem; }
+  .courseHeader { flex-direction: column; gap: 0.75rem; text-align: center; }
+  .backButton { font-size: 0.9rem; padding: 0.4rem 0.9rem; }
+  .progress { font-size: 0.85rem; padding: 0.4rem 0.9rem; }
+  .navigation { flex-wrap: wrap; gap: 1rem; justify-content: center; }
+  .navButton { min-width: 0; width: 100%; padding: 0.75rem 1.25rem; font-size: 0.9rem; }
+  .progressBar { margin: 0.5rem 0; }
+  .slide { padding: 0.5rem 0; }
+  .title { font-size: 2rem; }
+  .subtitle { font-size: 1.4rem; }
+  .content { font-size: 1rem; }
+  .codeBlock { font-size: 0.85rem; padding: 1rem; }
+  .exampleContainer { padding: 1rem; }
+  .note { padding: 1rem; }
+  ul, ol { padding-left: 1.5rem; }
+}
+
+@media (max-width: 480px) {
+  .courseContainer { padding: 1rem; }
+  .courseHeader { margin-bottom: 1.5rem; }
+  .backButton { font-size: 0.85rem; padding: 0.35rem 0.8rem; }
+  .progress { font-size: 0.8rem; padding: 0.35rem 0.8rem; }
+  .navigation { gap: 0.75rem; padding-top: 1rem; }
+  .navButton { padding: 0.65rem 1rem; font-size: 0.85rem; }
+  .slide { padding: 0; }
+  .title { font-size: 1.6rem; margin-bottom: 1.5rem; }
+  .subtitle { font-size: 1.2rem; }
+  .content { font-size: 0.95rem; }
+  .codeBlock { font-size: 0.8rem; padding: 0.85rem; }
+  .exampleContainer { padding: 0.85rem; }
+  .note { padding: 0.85rem; }
+}
+
+@media (max-width: 360px) {
+  .courseContainer { padding: 0.75rem; }
+  .courseHeader { margin-bottom: 1rem; padding-bottom: 0.75rem; }
+  .backButton { font-size: 0.8rem; padding: 0.3rem 0.7rem; border-radius: 8px; }
+  .progress { font-size: 0.75rem; padding: 0.3rem 0.7rem; }
+  .slideContainer { padding: 0.5rem 0; }
+  .navigation { gap: 0.5rem; }
+  .navButton { padding: 0.6rem 0.85rem; font-size: 0.8rem; border-radius: 8px; }
+  .progressBar { height: 6px; }
+  .title { font-size: 1.3rem; }
+  .subtitle { font-size: 1.1rem; }
+  .content { font-size: 0.9rem; }
+  .codeBlock { font-size: 0.75rem; padding: 0.75rem; border-radius: 8px; }
+  .exampleContainer { padding: 0.75rem; }
+  .note { padding: 0.75rem; }
+  li { font-size: 0.9rem; }
+  ul, ol { padding-left: 1.25rem; }
+}

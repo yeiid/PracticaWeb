@@ -205,8 +205,33 @@
     margin: 1rem 0;
     border-radius: 8px;
   }
+  .slide h2 { font-size: 1.4rem; }
+  .slide h3 { font-size: 1.15rem; }
+  .slide p { font-size: 0.95em; }
+  .slide li { font-size: 0.9em; }
   .slide pre {
     padding: 0.75rem;
     font-size: 0.8em;
   }
+  .note, .warning { padding: 1rem; font-size: 0.95em; }
+  .highlight { padding: 1rem; }
+  .example { padding: 1rem; }
+}
+
+@media (max-width: 360px) {
+  .slide {
+    padding: 0.75rem;
+    border-radius: 6px;
+    border-left-width: 3px;
+  }
+  .slide h2 { font-size: 1.2rem; }
+  .slide h3 { font-size: 1rem; }
+  .slide h4 { font-size: 1rem; }
+  .slide p { font-size: 0.9em; }
+  .slide li { font-size: 0.85em; }
+  .slide pre { font-size: 0.75em; padding: 0.6rem; }
+  .note, .warning { padding: 0.75rem; font-size: 0.9em; border-radius: 0 8px 8px 0; }
+  .highlight { padding: 0.75rem; }
+  .example { padding: 0.75rem; }
+  .slide th, .slide td { padding: 0.5rem 0.6rem; font-size: 0.8em; }
 }

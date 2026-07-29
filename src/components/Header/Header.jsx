@@ -181,7 +181,6 @@ const Header = () => {
       >
         <div className="drawer-header">
           <span className="drawer-logo">Academia<span>Web</span></span>
-          <button className="drawer-close" onClick={closeDrawer} aria-label="Cerrar menú">✕</button>
         </div>
 
         <div className="drawer-section-title">Páginas</div>

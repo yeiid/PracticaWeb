@@ -368,27 +368,6 @@ html[data-theme="light"] .login-btn-header:hover {
   color: #F97316;
 }
 
-.drawer-close {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 10px;
-  color: #E2E8F0;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.drawer-close:hover {
-  background: rgba(249, 115, 22, 0.16);
-  border-color: #F97316;
-  color: #F97316;
-}
-
 /* Drawer Navigation */
 .drawer-nav {
   flex: 1;
@@ -665,11 +644,6 @@ html[data-theme="light"] .login-btn-header:hover {
     width: 100%;
     max-width: 100%;
     padding-top: 18px;
-  }
-
-  .drawer-close {
-    width: 40px;
-    height: 40px;
   }
 
   .drawer-nav {

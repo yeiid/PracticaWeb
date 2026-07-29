@@ -214,3 +214,59 @@ code {
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-size: 0.9em;
 }
+
+@media (max-width: 768px) {
+  .slide {
+    padding: 1.25rem;
+    margin: 0 0 1rem;
+    border-radius: 12px;
+  }
+  .slide h1 { font-size: 1.8em; }
+  .slide h2 { font-size: 1.35em; }
+  .slide h3 { font-size: 1.2em; }
+  .slide p { font-size: 1em; }
+  .slide li { font-size: 0.95em; }
+  .content { font-size: 1em; }
+  .codeBlock { font-size: 0.85rem; padding: 1rem; }
+  .exampleContainer { padding: 1rem; }
+  .note { padding: 1rem; }
+  .navigation { flex-wrap: wrap; gap: 1rem; justify-content: center; }
+  .navButton { min-width: 0; width: 100%; padding: 0.85rem 1.5rem; font-size: 0.95rem; }
+  .title { font-size: 2rem; }
+  .subtitle { font-size: 1.4rem; }
+}
+
+@media (max-width: 480px) {
+  .slide {
+    padding: 1rem;
+    border-radius: 10px;
+  }
+  .slide h1 { font-size: 1.5em; }
+  .slide h2 { font-size: 1.2em; }
+  .slide h3 { font-size: 1.1em; }
+  .slide p { font-size: 0.95em; }
+  .slide li { font-size: 0.9em; }
+  .content { font-size: 0.95em; }
+  .codeBlock { font-size: 0.8rem; padding: 0.85rem; }
+  .exampleContainer { padding: 0.85rem; }
+  .note { padding: 0.85rem; }
+  .title { font-size: 1.6rem; }
+  .subtitle { font-size: 1.2rem; }
+}
+
+@media (max-width: 360px) {
+  .slide {
+    padding: 0.75rem;
+    border-radius: 8px;
+    border-left-width: 3px;
+  }
+  .slide h1 { font-size: 1.3em; }
+  .slide h2 { font-size: 1.1em; }
+  .slide h3 { font-size: 1em; }
+  .slide p { font-size: 0.9em; }
+  .slide li { font-size: 0.85em; }
+  .content { font-size: 0.9em; }
+  .codeBlock { font-size: 0.75rem; padding: 0.75rem; }
+  .title { font-size: 1.3rem; }
+  .subtitle { font-size: 1.1rem; }
+}
