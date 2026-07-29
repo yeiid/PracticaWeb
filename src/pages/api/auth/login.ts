@@ -29,15 +29,6 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ error: 'Contraseña incorrecta' }), { status: 401 });
     }
 
-    // Verificar si el email está confirmado (solo en producción)
-    if (process.env.NODE_ENV === 'production' && !user.email_verified) {
-      return new Response(JSON.stringify({
-        error: 'Debes verificar tu correo electrónico antes de iniciar sesión',
-        requiresVerification: true,
-        email: user.email
-      }), { status: 403 });
-    }
-
     const token = jwt.sign(
       { id: user.id, email: user.email, tenant_id: user.tenant_id, role: user.role },
       process['env']['JWT_SECRET']||'dev-fallback',

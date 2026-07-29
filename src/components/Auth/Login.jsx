@@ -63,9 +63,6 @@ function Login({ onSwitchToRegister, onLoginSuccess, isDBOffline }) {
 
       if (response.ok) {
         setResendSuccess('✅ Email de verificación reenviado. Revisa tu bandeja de entrada.');
-        if (data.previewUrl) {
-          setResendSuccess(`📬 Email de prueba: ${data.previewUrl}`);
-        }
       } else {
         setError(data.error || 'Error al reenviar verificación');
       }
