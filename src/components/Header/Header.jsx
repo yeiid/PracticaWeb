@@ -97,6 +97,7 @@ const Header = () => {
   ];
 
   return (
+    <>
     <header className="app-header">
       <a href="/dashboard" className="logo-link">
         <h1>Academia<span style={{color: '#F97316'}}>Web</span></h1>
@@ -265,6 +266,29 @@ const Header = () => {
         </div>
       </aside>
     </header>
+
+    <nav className="mobile-bottom-nav" aria-label="Navegación móvil">
+      {navLinks.map(link => (
+        <a
+          key={link.href}
+          href={link.href}
+          className={`mobile-nav-link ${currentPath === link.href ? 'mobile-active' : ''}`}
+          aria-current={currentPath === link.href ? 'page' : undefined}
+        >
+          {link.icon} {link.label}
+        </a>
+      ))}
+      {user?.role === 'admin' && (
+        <a
+          href="/admin/tickets"
+          className={`mobile-nav-link ${currentPath.startsWith('/admin') ? 'mobile-active' : ''}`}
+          aria-current={currentPath.startsWith('/admin') ? 'page' : undefined}
+        >
+          🛡️ Admin
+        </a>
+      )}
+    </nav>
+    </>
   );
 };
 

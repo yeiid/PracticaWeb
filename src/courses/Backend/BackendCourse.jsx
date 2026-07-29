@@ -1,5 +1,6 @@
 import React, { useState, Suspense } from 'react';
 import styles from '../ModernCourse.module.css';
+import { useProgress } from '../../contexts/ProgressContext';
 
 const slidesData = [
   { lazy: React.lazy(() => import('./IntroduccionBackendSlide').then(m => ({ default: m.IntroduccionBackendSlide }))), title: 'El Corazón del Sistema' },
@@ -11,13 +12,15 @@ const slidesData = [
   { lazy: React.lazy(() => import('./DespliegueBackendSlide').then(m => ({ default: m.DespliegueBackendSlide }))), title: 'Hacia la Nube' }
 ];
 
-const BackendCourse = ({ onBack = () => {} }) => {
+const BackendCourse = ({ onBack = () => {}, courseId }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const { markSlideCompleted } = useProgress();
 
   const nextSlide = () => {
     if (currentSlide < slidesData.length - 1) {
       setCurrentSlide(currentSlide + 1);
       window.scrollTo(0, 0);
+      markSlideCompleted(courseId, slidesData.length);
     }
   };
 

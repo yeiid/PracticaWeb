@@ -323,7 +323,14 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .main-content-bases {
+.page-container {
+  min-height: 100vh;
+  background: var(--bg-dark, #0B0F1A);
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content-bases {
     padding: 1rem;
   }
 

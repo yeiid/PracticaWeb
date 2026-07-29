@@ -1,4 +1,11 @@
 /* HistoryPage - NeuralJira Theme */
+.page-container {
+  min-height: 100vh;
+  background: var(--bg-dark, #0B0F1A);
+  display: flex;
+  flex-direction: column;
+}
+
 .main-content-history {
   padding: 30px;
   max-width: 1200px;
