@@ -22,6 +22,15 @@ export const AuthProvider = ({ children }) => {
 
   const checkUser = async () => {
     try {
+      // Si cerramos sesión recientemente, no llamar al API
+      if (sessionStorage.getItem('loggedOut')) {
+        sessionStorage.removeItem('loggedOut');
+        document.cookie = 'session=; max-age=0; path=/';
+        setUser(null);
+        setLoading(false);
+        return;
+      }
+
       const response = await fetch('/api/auth/me');
       if (response.ok) {
         const data = await response.json();
@@ -29,11 +38,9 @@ export const AuthProvider = ({ children }) => {
         setIsOffline(data.isOffline || false);
       } else {
         setUser(null);
-        // Verificar si la API responde 503 o similar para marcar offline
         if (response.status === 503 || response.status === 504) {
           setIsOffline(true);
         }
-        // Si hay modo demo en localStorage, restaurar usuario
         const demoUser = localStorage.getItem('demo_user');
         if (demoUser) {
           setUser(JSON.parse(demoUser));
@@ -44,7 +51,6 @@ export const AuthProvider = ({ children }) => {
       console.error('Error verificando sesión:', error);
       setUser(null);
       setIsOffline(true);
-      // Restaurar modo demo si existe
       const demoUser = localStorage.getItem('demo_user');
       if (demoUser) {
         setUser(JSON.parse(demoUser));
@@ -125,6 +131,10 @@ export const AuthProvider = ({ children }) => {
   const signOut = async () => {
     localStorage.removeItem('demo_mode');
     localStorage.removeItem('demo_user');
+    // Marcar que cerramos sesión para que checkUser no re-autentique
+    sessionStorage.setItem('loggedOut', 'true');
+    // Limpiar cookie desde el cliente (múltiples variantes)
+    document.cookie = 'session=; max-age=0; path=/';
     document.cookie = 'session=; max-age=0; path=/; domain=' + window.location.hostname;
     try {
       await fetch('/api/auth/logout', { method: 'POST' });
