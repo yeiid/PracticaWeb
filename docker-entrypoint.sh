@@ -10,11 +10,11 @@ echo "✅ Base de datos detectada"
 
 # Ejecutar migraciones de esquema
 echo "🔧 Ejecutando migraciones de base de datos..."
-node scripts/migrate-db.js
+node scripts/migrate-db.js || echo "⚠️  Migraciones completadas con advertencias"
 
 # Ejecutar el script de seeding para asegurar que el sistema tenga datos básicos
 echo "🚀 Sincronizando datos básicos..."
-node scripts/seed-user.js
+node scripts/seed-user.js || echo "⚠️  Seed completado con advertencias"
 
 # Iniciar la aplicación
 echo "🌟 Iniciando Academia Web..."

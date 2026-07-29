@@ -36,11 +36,12 @@ async function seedUser() {
 
     // Insertar usuario student (o actualizar si ya existe)
     const result = await sql`
-      INSERT INTO users (email, password_hash, full_name, role)
-      VALUES (${email}, ${password_hash}, ${full_name}, 'student')
+      INSERT INTO users (email, password_hash, full_name, role, email_verified)
+      VALUES (${email}, ${password_hash}, ${full_name}, 'student', true)
       ON CONFLICT (email) DO UPDATE
         SET password_hash = EXCLUDED.password_hash,
-            full_name = EXCLUDED.full_name
+            full_name = EXCLUDED.full_name,
+            email_verified = true
       RETURNING id, email, full_name, role
     `;
 
@@ -56,12 +57,13 @@ async function seedUser() {
 
     // Insertar usuario admin (o actualizar si ya existe)
     const adminResult = await sql`
-      INSERT INTO users (email, password_hash, full_name, role)
-      VALUES (${adminEmail}, ${admin_password_hash}, ${adminName}, 'admin')
+      INSERT INTO users (email, password_hash, full_name, role, email_verified)
+      VALUES (${adminEmail}, ${admin_password_hash}, ${adminName}, 'admin', true)
       ON CONFLICT (email) DO UPDATE
         SET password_hash = EXCLUDED.password_hash,
             full_name = EXCLUDED.full_name,
-            role = 'admin'
+            role = 'admin',
+            email_verified = true
       RETURNING id, email, full_name, role
     `;
 

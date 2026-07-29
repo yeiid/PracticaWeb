@@ -1,4 +1,4 @@
-import sql from '../src/lib/db';
+import sql from '../src/lib/db.js';
 
 const migrations = [
   `ALTER TABLE users ADD COLUMN IF NOT EXISTS email_verified BOOLEAN DEFAULT false`,
