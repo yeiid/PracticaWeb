@@ -13,7 +13,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Buscar usuario
     const users = await sql`
-      SELECT id, full_name, email_verified FROM users WHERE email = ${email} LIMIT 1
+      SELECT id, full_name FROM users WHERE email = ${email} LIMIT 1
     `;
 
     if (users.length === 0) {
@@ -22,21 +22,19 @@ export const POST: APIRoute = async ({ request }) => {
 
     const user = users[0];
 
-    if (user.email_verified) {
-      return new Response(JSON.stringify({ error: 'El correo ya está verificado' }), { status: 400 });
-    }
-
-    // Eliminar tokens anteriores
-    await sql`DELETE FROM email_verification_tokens WHERE user_id = ${user.id}`;
-
     // Generar nuevo token
     const token = crypto.randomBytes(32).toString('hex');
     const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 horas
 
-    await sql`
-      INSERT INTO email_verification_tokens (user_id, token, expires_at)
-      VALUES (${user.id}, ${token}, ${expiresAt.toISOString()})
-    `;
+    try {
+      await sql`DELETE FROM email_verification_tokens WHERE user_id = ${user.id}`;
+      await sql`
+        INSERT INTO email_verification_tokens (user_id, token, expires_at)
+        VALUES (${user.id}, ${token}, ${expiresAt.toISOString()})
+      `;
+    } catch (dbError) {
+      console.error('Error al gestionar token de verificación:', dbError);
+    }
 
     // Enviar email
     const result = await sendVerificationEmail(email, token, user.full_name);

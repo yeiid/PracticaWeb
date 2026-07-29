@@ -2,6 +2,7 @@ import sql from '../src/lib/db';
 
 const migrations = [
   `ALTER TABLE users ADD COLUMN IF NOT EXISTS email_verified BOOLEAN DEFAULT false`,
+  `UPDATE users SET email_verified = true WHERE email_verified IS NULL`,
   `CREATE TABLE IF NOT EXISTS email_verification_tokens (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     user_id UUID REFERENCES users(id) ON DELETE CASCADE NOT NULL,
