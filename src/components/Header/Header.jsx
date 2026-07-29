@@ -184,6 +184,8 @@ const Header = () => {
           <button className="drawer-close" onClick={closeDrawer} aria-label="Cerrar menú">✕</button>
         </div>
 
+        <div className="drawer-section-title">Páginas</div>
+
         <nav className="drawer-nav" aria-label="Enlaces de navegación">
           {navLinks.map(link => (
             <a
@@ -266,28 +268,6 @@ const Header = () => {
         </div>
       </aside>
     </header>
-
-    <nav className="mobile-bottom-nav" aria-label="Navegación móvil">
-      {navLinks.map(link => (
-        <a
-          key={link.href}
-          href={link.href}
-          className={`mobile-nav-link ${currentPath === link.href ? 'mobile-active' : ''}`}
-          aria-current={currentPath === link.href ? 'page' : undefined}
-        >
-          {link.icon} {link.label}
-        </a>
-      ))}
-      {user?.role === 'admin' && (
-        <a
-          href="/admin/tickets"
-          className={`mobile-nav-link ${currentPath.startsWith('/admin') ? 'mobile-active' : ''}`}
-          aria-current={currentPath.startsWith('/admin') ? 'page' : undefined}
-        >
-          🛡️ Admin
-        </a>
-      )}
-    </nav>
     </>
   );
 };
