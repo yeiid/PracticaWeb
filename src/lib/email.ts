@@ -37,7 +37,7 @@ export async function sendVerificationEmail(
   origin?: string
 ): Promise<{ messageId: string; previewUrl?: string }> {
   const transporter = await getTransporter();
-  const baseUrl = origin || process.env.PUBLIC_SITE_URL || 'http://localhost:4328';
+  const baseUrl = process.env.PUBLIC_SITE_URL || origin || 'http://localhost:4328';
   const verifyUrl = `${baseUrl}/verify-email?token=${token}`;
 
   const info = await transporter.sendMail({
