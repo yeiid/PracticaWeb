@@ -316,18 +316,18 @@ html[data-theme="light"] .login-btn-header:hover {
 .mobile-drawer {
   position: fixed;
   top: 0;
-  left: 0;
   right: 0;
+  left: auto;
   bottom: 0;
-  width: 100vw;
-  max-width: 100vw;
+  width: 85%;
+  max-width: 320px;
   min-height: 100vh;
   background: linear-gradient(180deg, #0B1221 0%, #0F172A 45%, #151F32 100%);
-  border-left: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
   z-index: 1003;
   display: flex;
   flex-direction: column;
-  transform: translateX(100%);
+  transform: translateX(120%);
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   box-shadow: -12px 0 55px rgba(0, 0, 0, 0.55);
   padding-bottom: 24px;
@@ -679,8 +679,7 @@ html[data-theme="light"] .login-btn-header:hover {
   }
 
   .mobile-drawer {
-    width: 100%;
-    max-width: 100%;
+    width: 88%;
   }
 }
 
