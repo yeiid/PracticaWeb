@@ -1,4 +1,11 @@
-import sql from '../src/lib/db.js';
+import postgres from 'postgres';
+import { config } from 'dotenv';
+
+config();
+
+const DATABASE_URL = process.env.DATABASE_URL || 'postgres://postgres:password@localhost:5432/academia';
+
+const sql = postgres(DATABASE_URL, { max: 5 });
 
 const migrations = [
   `ALTER TABLE users ADD COLUMN IF NOT EXISTS email_verified BOOLEAN DEFAULT false`,
