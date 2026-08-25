@@ -131,11 +131,7 @@ export const AuthProvider = ({ children }) => {
   const signOut = async () => {
     localStorage.removeItem('demo_mode');
     localStorage.removeItem('demo_user');
-    // Marcar que cerramos sesión para que checkUser no re-autentique
     sessionStorage.setItem('loggedOut', 'true');
-    // Limpiar cookie desde el cliente (múltiples variantes)
-    document.cookie = 'session=; max-age=0; path=/';
-    document.cookie = 'session=; max-age=0; path=/; domain=' + window.location.hostname;
     try {
       await fetch('/api/auth/logout', { method: 'POST' });
     } catch (error) {

@@ -1,13 +1,15 @@
 import type { APIRoute } from 'astro';
 import { serialize } from 'cookie';
 
+const p = process['env'];
+
 export const POST: APIRoute = async () => {
   const cookie = serialize('session', '', {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: p['NODE_ENV'] === 'production',
     sameSite: 'lax',
     path: '/',
-    maxAge: 0 // Expira inmediatamente
+    maxAge: 0
   });
 
   return new Response(JSON.stringify({ success: true }), {
