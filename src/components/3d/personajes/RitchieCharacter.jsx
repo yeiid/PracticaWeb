@@ -94,7 +94,7 @@ const Avatar = ({ color }) => {
   );
 };
 
-const RitchieCharacter = () => {
+const RitchieCharacter = ({ name = 'Dennis Ritchie', years = '1941 — 2011' }) => {
   return (
     <div style={{ height: '300px', width: '100%', cursor: 'grab' }}>
       <Canvas camera={{ position: [0, 1, 5], fov: 45 }}>
@@ -105,8 +105,8 @@ const RitchieCharacter = () => {
         <Avatar color="#4682B4" />
         <CodeWindow position={[-1.1, 0.6, 0.5]} delay={0} />
         <CodeWindow position={[1.1, 0.8, -0.3]} delay={1.5} />
-        <Text position={[0, -0.5, 0]} fontSize={0.15} color="#F8FAFC" anchorX="center">Dennis Ritchie</Text>
-        <Text position={[0, -0.7, 0]} fontSize={0.08} color="#F97316" anchorX="center">1941 — 2011</Text>
+        <Text position={[0, -0.5, 0]} fontSize={0.15} color="#F8FAFC" anchorX="center">{name}</Text>
+        <Text position={[0, -0.7, 0]} fontSize={0.08} color="#F97316" anchorX="center">{years}</Text>
         <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.4} />
       </Canvas>
     </div>

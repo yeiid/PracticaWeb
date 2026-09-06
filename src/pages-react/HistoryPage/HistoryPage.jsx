@@ -92,9 +92,35 @@ const CharacterTimeline = ({ characters, selectedId, onSelect }) => {
   );
 };
 
+const CharacterInfoTable = ({ info }) => {
+  if (!info) return null;
+  const rows = [
+    info.birth && { label: 'Nacimiento', value: info.birth },
+    info.death && { label: 'Fallecimiento', value: info.death },
+    info.place && { label: 'Lugar', value: info.place },
+    info.field && { label: 'Campo', value: Array.isArray(info.field) ? info.field.join(', ') : info.field },
+    info.knownFor && { label: 'Conocid@ por', value: info.knownFor },
+    info.organization && { label: 'Organización', value: info.organization },
+    info.education && { label: 'Formación', value: info.education },
+    info.awards && { label: 'Reconocimientos', value: info.awards }
+  ].filter(Boolean);
+  if (rows.length === 0) return null;
+  return (
+    <div className="character-info-table">
+      {rows.map((row, i) => (
+        <div key={i} className="character-info-row">
+          <span className="character-info-label">{row.label}</span>
+          <span className="character-info-value">{row.value}</span>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 const CharacterCard = ({ character }) => {
   if (!character) return null;
   const Scene = character.CharacterScene;
+  const years = character.year ? `${character.year}${character.deathYear ? ` — ${character.deathYear}` : ' —'}` : '';
   return (
     <div className="character-detail-card">
       <div className="character-detail-header">
@@ -105,10 +131,24 @@ const CharacterCard = ({ character }) => {
           <h3>{character.name}</h3>
           <div className="character-detail-meta">
             <span className="character-years">{character.year}</span>
-            <span className="character-sep">·</span>
-            <span className="character-role">{character.role}</span>
-            <span className="character-sep">·</span>
-            <span className="character-nationality">{character.nationality}</span>
+            {character.epoca && (
+              <>
+                <span className="character-sep">·</span>
+                <span className="character-era">{character.epoca}</span>
+              </>
+            )}
+            {character.role && (
+              <>
+                <span className="character-sep">·</span>
+                <span className="character-role">{character.role}</span>
+              </>
+            )}
+            {character.nationality && (
+              <>
+                <span className="character-sep">·</span>
+                <span className="character-nationality">{character.nationality}</span>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -116,11 +156,17 @@ const CharacterCard = ({ character }) => {
         <blockquote className="character-quote">"{character.quote}"</blockquote>
       )}
       <p className="character-bio">{character.bio}</p>
+      {character.info && (
+        <>
+          <h4 className="character-ficha-title">Ficha técnica</h4>
+          <CharacterInfoTable info={character.info} />
+        </>
+      )}
       {Scene && (
         <div className="character-scene-section">
           <h4 className="character-scene-title">{character.sceneTitle}</h4>
           <Suspense fallback={<LoadingFallback />}>
-            <Scene />
+            <Scene name={character.name} years={years} />
           </Suspense>
         </div>
       )}
@@ -244,85 +290,155 @@ const historyData = {
     ],
     personajes: [
       {
-        id: 'char-pascal', name: 'Blaise Pascal', year: '1623', icon: '🔢',
+        id: 'char-pascal', name: 'Blaise Pascal', year: '1623', deathYear: '1662', icon: '🔢',
         role: 'Matemático y Filósofo', nationality: '🇫🇷 Francés',
         title: 'Blaise Pascal — El Visionario del Cálculo Mecánico',
         subtitle: 'A los 19 años creó la primera calculadora del mundo',
         description: 'Genio francés del siglo XVII que sentó las bases de la mecanización del pensamiento con la Pascalina.',
         quote: 'El corazón tiene razones que la razón no entiende.',
         bio: 'Pascal fue un matemático, físico y filósofo francés del siglo XVII. A los 19 años inventó la Pascalina, la primera calculadora mecánica de la historia, para ayudar a su padre con los cálculos fiscales. Además, contribuyó en matemáticas (el triángulo de Pascal), física (la presión atmosférica) y filosofía (los Pensées). Su trabajo demostró que las operaciones matemáticas podían ser ejecutadas por una máquina, sentando el primer ladrillo de la computación.',
+        info: {
+          birth: '19 de junio de 1623',
+          death: '19 de agosto de 1662',
+          place: 'Clermont-Ferrand, Francia',
+          field: ['Matemáticas', 'Física', 'Filosofía'],
+          knownFor: 'La Pascalina, la primera calculadora mecánica',
+          organization: 'Royal Society',
+          education: 'Formación autodidacta, guiada por su padre',
+          awards: 'La unidad de presión "pascal" (Pa) lleva su nombre'
+        },
         CharacterScene: PascalCharacter,
         sceneTitle: 'La Pascalina — Su Invención',
         milestone: { title: 'Legado', text: 'La Pascalina abrió el camino para todos los dispositivos de cálculo que siguieron. Sin Pascal, no habría existido Babbage, ni Turing, ni computadoras modernas.', facts: ['Construyó alrededor de 50 prototipos de la Pascalina', 'Su triángulo matemático se usa aún en probabilidad', 'Los Pensées son una de las obras filosóficas más importantes'] }
       },
       {
-        id: 'char-babbage', name: 'Charles Babbage', year: '1791', icon: '⚙️',
+        id: 'char-babbage', name: 'Charles Babbage', year: '1791', deathYear: '1871', icon: '⚙️',
         role: 'Matemático e Ingeniero', nationality: '🇬🇧 Británico',
         title: 'Charles Babbage — El Padre de la Computación',
         subtitle: 'Concebí la primera computadora 100 años antes de que existiera',
         description: 'Ingeniero británico que diseñó la Analytical Engine, el primer diseño completo de una computadora programable.',
         quote: 'Los errores nos muestran exactamente dónde la lógica falla.',
         bio: 'Babbage pasó décadas diseñando máquinas cada vez más sofisticadas. Su Difference Engine calculaba polinomios y su Analytical Engine contenía todos los componentes de una computadora moderna: unidad de procesamiento, memoria, entrada y salida. Aunque nunca se completó en su vida, su visión anticipó la informática en un siglo.',
+        info: {
+          birth: '26 de diciembre de 1791',
+          death: '18 de octubre de 1871',
+          place: 'Londres, Inglaterra',
+          field: ['Matemáticas', 'Ingeniería', 'Computación'],
+          knownFor: 'La Máquina Analítica, primer diseño de computadora programable',
+          organization: 'Universidad de Cambridge (profesor Lucasiano)',
+          education: 'Trinity College y Peterhouse, Universidad de Cambridge',
+          awards: 'Medalla de oro de la Royal Astronomical Society (1824)'
+        },
         CharacterScene: BabbageCharacter,
         sceneTitle: 'La Difference Engine — Su Invención',
         milestone: { title: 'Legado', text: 'Su Analytical Engine contenía la "Mill" (CPU), la "Store" (memoria), tarjetas perforadas (entrada) y una impresora (salida). Era una computadora completa, 100 años antes de su tiempo.', facts: ['La "Store" podía guardar 1,000 números de 50 dígitos', 'Usaba programación con tarjetas perforadas', 'Ada Lovelace trabajó con su diseño'] }
       },
       {
-        id: 'char-lovelace', name: 'Ada Lovelace', year: '1815', icon: '📝',
+        id: 'char-lovelace', name: 'Ada Lovelace', year: '1815', deathYear: '1852', icon: '📝',
         role: 'Matemática y Escritora', nationality: '🇬🇧 Británica',
         title: 'Ada Lovelace — La Primera Programadora',
         subtitle: 'Escribió el primer código de la historia',
         description: 'Visionaria que entendió el potencial de las máquinas computacionales antes que nadie.',
         quote: 'La Máquina Analítica teje patrones algebraicos igual que el telar de Jacquard teje flores y hojas.',
         bio: 'Hija del poeta Lord Byron, Ada fue una matemática que trabajó con Charles Babbage. Sus Notas sobre la Máquina Analítica incluyen el primer algoritmo de la historia y una reflexión profunda sobre los límites de la computación. Predijo, 100 años antes, que las máquinas podían crear música y arte.',
+        info: {
+          birth: '10 de diciembre de 1815',
+          death: '27 de noviembre de 1852',
+          place: 'Londres, Inglaterra',
+          field: ['Matemáticas', 'Ciencia de la Computación'],
+          knownFor: 'El primer algoritmo destinado a una máquina',
+          organization: 'Colaboradora de Charles Babbage',
+          education: 'Formación matemática con Mary Somerville y Augustus De Morgan',
+          awards: 'El lenguaje de programación "Ada" (1980) lleva su nombre'
+        },
         CharacterScene: LovelaceCharacter,
         sceneTitle: 'Tarjetas Perforadas — Su Algoritmo',
         milestone: { title: 'Legado', text: 'El Departamento de Defensa de EE.UU. nombró al lenguaje "Ada" en su honor. Es el símbolo de las mujeres en tecnología.', facts: ['Escribió el primer algoritmo para máquina computadora', 'Predijo la computación creativa 100 años antes', 'El lenguaje Ada fue creado en su honor en 1980'] }
       },
       {
-        id: 'char-turing', name: 'Alan Turing', year: '1912', icon: '🧮',
+        id: 'char-turing', name: 'Alan Turing', year: '1912', deathYear: '1954', icon: '🧮',
         role: 'Matemático y Criptoanalista', nationality: '🇬🇧 Británico',
         title: 'Alan Turing — El Padre de la Computación Teórica',
         subtitle: 'Definió qué es computable y creó la inteligencia artificial',
         description: 'Su máquina teórica definió los límites de la computación y su trabajo en Enigma cambió la historia.',
         quote: 'A veces es las personas las que nadie imagina cosas que nadie ha pensado.',
         bio: 'Turing es considerado padre de la ciencia de la computación e inteligencia artificial. Su Máquina de Turing definió formalmente qué es un algoritmo. Durante la WWII descifró el código Enigma, acortando la guerra. El "Test de Turing" sigue siendo el estándar para medir inteligencia artificial.',
+        info: {
+          birth: '23 de junio de 1912',
+          death: '7 de junio de 1954',
+          place: 'Londres, Inglaterra',
+          field: ['Matemáticas', 'Computación', 'Inteligencia Artificial'],
+          knownFor: 'La Máquina de Turing y el descifrado de la máquina Enigma',
+          organization: 'Bletchley Park · National Physical Laboratory · Universidad de Mánchester',
+          education: "King's College (Cambridge) · doctorado en Princeton",
+          awards: 'Orden del Imperio Británico (OBE); el premio "Turing Award" lleva su nombre'
+        },
         CharacterScene: TuringCharacter,
         sceneTitle: 'La Cinta de Turing — Su Máquina',
         milestone: { title: 'Legado', text: 'Sin Turing no existiría la ciencia de la computación. Su trabajo teórico es la base de cada computadora, smartphone y sistema de IA del mundo.', facts: ['La Máquina de Turing puede simular cualquier algoritmo', 'Descifró Enigma, salvando millones de vidas', 'El Test de Turing mide inteligencia artificial desde 1950'] }
       },
       {
-        id: 'char-hopper', name: 'Grace Hopper', year: '1906', icon: '🐛',
+        id: 'char-hopper', name: 'Grace Hopper', year: '1906', deathYear: '1992', icon: '🐛',
         role: 'Almirante y Científica Informática', nationality: '🇺🇸 Estadounidense',
         title: 'Grace Hopper — La Abuela de COBOL',
         subtitle: 'Inventó el compilador y democratizó la programación',
         description: 'Pionera de la programación que permitió que las computadoras entendieran inglés.',
-        quote: 'Los problemas más interestantes vienen de no saber qué pregunta hacer.',
+        quote: 'Los problemas más interesantes vienen de no saber qué pregunta hacer.',
         bio: 'Grace Hopper fue almirante de la Marina de EE.UU. y pionera de la programación. Creó el primer compilador (A-0), que traducía código en inglés a código máquina. Fue coautora de COBOL, el lenguaje que aún procesa el 95% de las transacciones ATM. Inventó el término "debugging" después de encontrar un moth en un computador.',
+        info: {
+          birth: '9 de diciembre de 1906',
+          death: '1 de enero de 1992',
+          place: 'Nueva York, EE.UU.',
+          field: ['Ciencia de la Computación', 'Ingeniería', 'Fuerza Naval'],
+          knownFor: 'El primer compilador (A-0) y el lenguaje COBOL',
+          organization: 'Marina de EE.UU. · UNIVAC · Digital Equipment Corporation',
+          education: 'Vassar College · doctorado en Matemáticas en Yale',
+          awards: 'Medalla Nacional de Tecnología (1991); nombrada contraalmirante'
+        },
         CharacterScene: HopperCharacter,
         sceneTitle: 'Terminal COBOL — Su Compilador',
-        milestone: { title: 'Legado', text: 'Su compilador permitió que cualquiera pudiera programar sin ser ingeniero. COBOL, basado en su trabajo, procesa miles de millones de transacciones diarias.', facts: ['Inventó el término "debugging"', 'COBOL aún se usa en bancos y gouverments', 'Fue la primera mujer Medalla de Ciencia en Computación'] }
+        milestone: { title: 'Legado', text: 'Su compilador permitió que cualquiera pudiera programar sin ser ingeniero. COBOL, basado en su trabajo, procesa miles de millones de transacciones diarias.', facts: ['Inventó el término "debugging"', 'COBOL aún se usa en bancos y gobiernos', 'Fue la primera mujer Medalla de Ciencia en Computación'] }
       },
       {
-        id: 'char-ritchie', name: 'Dennis Ritchie', year: '1941', icon: '💾',
+        id: 'char-ritchie', name: 'Dennis Ritchie', year: '1941', deathYear: '2011', icon: '💾',
         role: 'Científico de la Computación', nationality: '🇺🇸 Estadounidense',
         title: 'Dennis Ritchie — El Creador de C y Unix',
         subtitle: 'Construyó los cimientos de todo software moderno',
         description: 'Creó el lenguaje C y el sistema operativo Unix, la base de Linux, macOS, Android e internet.',
         quote: 'Unix es simple. Solo hay que ser un genio para entender su simplicidad.',
         bio: 'Dennis Ritchie trabajó en los Laboratorios Bell, donde creó el lenguaje de programación C (1972) y co-creó el sistema operativo Unix (1969). C es la base de C++, Java, Python, JavaScript y casi todos los lenguajes modernos. Unix es la base de Linux, macOS, iOS y Android. Su trabajo es literalmente la fundación de todo el software actual.',
+        info: {
+          birth: '9 de septiembre de 1941',
+          death: '12 de octubre de 2011',
+          place: 'Bronxville, Nueva York, EE.UU.',
+          field: ['Ciencia de la Computación', 'Sistemas Operativos', 'Lenguajes de Programación'],
+          knownFor: 'El lenguaje C y el sistema operativo Unix',
+          organization: 'Bell Labs (AT&T)',
+          education: 'Universidad de Harvard',
+          awards: 'Premio Turing (1983) y Medalla Nacional de Tecnología (1998)'
+        },
         CharacterScene: RitchieCharacter,
         sceneTitle: 'Terminal C/Unix — Sus Creaciones',
         milestone: { title: 'Legado', text: 'C y Unix son la base de prácticamente todo el software moderno. Sin Ritchie, no existirían Linux, macOS, Android, ni internet tal como la conocemos.', facts: ['C es la base de C++, Java, Python, JavaScript', 'Unix evolucionó en Linux, macOS, iOS, Android', 'Recibió el Premio Turing en 1983'] }
       },
       {
-        id: 'char-jobs', name: 'Steve Jobs', year: '1955', icon: '🍎',
+        id: 'char-jobs', name: 'Steve Jobs', year: '1955', deathYear: '2011', icon: '🍎',
         role: 'Emprendedor y Visionario', nationality: '🇺🇸 Estadounidense',
         title: 'Steve Jobs — El Visionario que Cambió la Tecnología',
         subtitle: 'Convirtió la tecnología en cultura popular',
         description: 'Co-fundador de Apple, revolucionó la informática personal, la música, los teléfonos y la animación digital.',
         quote: 'La gente no sabe lo que quiere hasta que se lo enseñas.',
         bio: 'Steve Jobs co-fundó Apple en 1976 y la convirtió en la empresa más valiosa del mundo. Bajo su liderazgo, Apple creó el Macintosh (1984), el iMac (1998), el iPod (2001), el iPhone (2007) y el iPad (2010). También fundó Pixar, que revolucionó la animación digital con Toy Story (1995). Su obsesión por el diseño y la experiencia de usuario transformó la industria tecnológica para siempre.',
+        info: {
+          birth: '24 de febrero de 1955',
+          death: '5 de octubre de 2011',
+          place: 'San Francisco, Estados Unidos',
+          field: ['Emprendimiento', 'Diseño', 'Informática'],
+          knownFor: 'Co-fundar Apple y crear el iPhone',
+          organization: 'Apple · Pixar',
+          education: 'Reed College (abandonó)',
+          awards: 'Premio a la Trayectoria (Grammy, 2012, por su impacto en la música y Pixar)'
+        },
         CharacterScene: JobsCharacter,
         sceneTitle: 'Dispositivos Apple — Sus Creaciones',
         milestone: { title: 'Legado', text: 'Jobs demostró que la tecnología no solo debe ser funcional, sino también hermosa. El iPhone cambió la forma en que el mundo se comunica.', facts: ['El iPhone (2007) reinventó el teléfono inteligente', 'Pixar creó las primeras películas 100% digitales', 'Apple es la empresa más valiosa del mundo'] }
@@ -335,6 +451,15 @@ const historyData = {
         description: 'Creó Linux y Git, dos de las herramientas de software más importantes de la historia.',
         quote: 'Talk is cheap. Show me the code.',
         bio: 'Linus Torvalds creó el kernel de Linux en 1991 como un proyecto personal mientras estudiaba en Helsinki. Hoy, Linux ejecuta el 96% de los servidores del mundo, todos los smartphones Android, los supercomputadores y miles de millones de dispositivos IoT. También creó Git (2005), el sistema de control de versiones usado por millones de desarrolladores en todo el mundo.',
+        info: {
+          birth: '28 de diciembre de 1969',
+          place: 'Helsinki, Finlandia',
+          field: ['Ingeniería de Software', 'Sistemas Operativos'],
+          knownFor: 'El kernel de Linux y el sistema de control de versiones Git',
+          organization: 'Linux Foundation',
+          education: 'Universidad de Helsinki',
+          awards: 'Premio de Tecnología del Milenio (2012); Salón de la Fama de Internet (2012)'
+        },
         CharacterScene: TorvaldsCharacter,
         sceneTitle: 'Terminal Linux — Sus Creaciones',
         milestone: { title: 'Legado', text: 'Linux es la columna vertebral de internet y la computación moderna. Git transformó la forma en que el mundo desarrolla software.', facts: ['Linux ejecuta el 96% de los servidores del mundo', 'Android (basado en Linux) tiene 3,500 millones de usuarios', 'Git es usado por millones de desarrolladores'] }
@@ -347,9 +472,263 @@ const historyData = {
         description: 'Creó Python, el lenguaje de programación más usado en ciencia de datos, IA y automatización.',
         quote: 'Python es el lenguaje de programación que más se parece al pseudocódigo.',
         bio: 'Guido van Rossum creó Python en 1991 en los Países Bajos. Su filosofía de diseño prioriza la legibilidad del código y la simplicidad. Python se ha convertido en el lenguaje más popular del mundo, usado en ciencia de datos, inteligencia artificial, automatización, web y educación. Es el lenguaje preferido por Google, Netflix, Instagram y miles de empresas más.',
+        info: {
+          birth: '31 de enero de 1956',
+          place: 'Haarlem, Países Bajos',
+          field: ['Ingeniería de Software', 'Lenguajes de Programación'],
+          knownFor: 'El lenguaje de programación Python',
+          organization: 'Dropbox · Python Software Foundation · Microsoft',
+          education: 'Universidad de Ámsterdam',
+          awards: 'Premio al Software Libre de la FSF (2001)'
+        },
         CharacterScene: VanRossumCharacter,
         sceneTitle: 'Python — Su Lenguaje',
         milestone: { title: 'Legado', text: 'Python democratizó la programación y se convirtió en el lenguaje #1 en ciencia de datos e inteligencia artificial.', facts: ['Python es el lenguaje #1 en popularidad (TIOBE)', 'Es el lenguaje estándar en IA y ciencia de datos', 'Usado por Google, Netflix, Instagram, NASA'] }
+      }
+    ],
+    infravalorados: [
+      {
+        id: 'inf-al-juarismi',
+        name: 'Al-Juarismi', year: '820', epoca: 'Precursores Antiguos', icon: '📐',
+        title: 'Al-Juarismi — El Nombre Detrás de los Algoritmos',
+        subtitle: 'De su nombre nació la palabra "algoritmo"',
+        description: 'Matemático persa cuyo nombre dio origen a la palabra "algoritmo"; sentó las bases matemáticas de toda la programación moderna.',
+        bio: 'Al-Juarismi vivió en el siglo IX bajo el Califato Abasí y trabajó en la Casa de la Sabiduría de Bagdad. Escribió el tratado "Al-Yabr wa\'l-Muqābalah", que dio nombre al álgebra, e introdujo en Occidente el sistema de numeración hindú-arábigo con el cero.',
+        logro: 'En el 820 escribió el texto que difundió el sistema de numeración hindú (con el cero) y codificó los procedimientos de cálculo que hoy llamamos algoritmos.',
+        milestone: {
+          title: 'Por qué importa',
+          text: 'Su nombre latinizado, "Algoritmi", se convirtió en la palabra algoritmo: el concepto que mueve absolutamente todo el software moderno.',
+          facts: [
+            'De "al-Jabr" derivan las palabras álgebra y algebrista',
+            'Su sistema de numeración reemplazó al ábaco en la Europa medieval',
+            'Cada función matemática o de programación hereda sus algoritmos'
+          ]
+        },
+        info: {
+          birth: 'c. 780', death: 'c. 850',
+          place: 'Bagdad, Califato Abasí',
+          field: ['Matemáticas', 'Astronomía'],
+          knownFor: 'El álgebra y el concepto de algoritmo',
+          organization: 'Casa de la Sabiduría de Bagdad',
+          education: 'Casa de la Sabiduría',
+          awards: 'Su nombre es el origen etimológico de "algoritmo"'
+        }
+      },
+      {
+        id: 'inf-jacquard',
+        name: 'Joseph Marie Jacquard', year: '1804', epoca: 'Precursores Antiguos', icon: '🧵',
+        title: 'Joseph Marie Jacquard — El Telar que Programó la Máquina',
+        subtitle: 'Inventó el telar programable con tarjetas perforadas',
+        description: 'Inventó el telar programable con tarjetas perforadas, la inspiración directa de Babbage y Hollerith.',
+        bio: 'Tejedor y comerciante francés nacido en Lyon. En 1804 presentó el telar Jacquard, que permitía programar automáticamente el diseño del tejido mediante tarjetas perforadas. Su invento primero enfureció a los tejedores y después revolucionó la industria textil.',
+        logro: 'Su telar usaba una cadena de tarjetas perforadas que decidía qué hilos alzar, automatizando patrones complejos sin intervención humana.',
+        milestone: {
+          title: 'Por qué importa',
+          text: 'Fue la primera vez que se "programó" una máquina con datos externos. Babbage y Hollerith tomaron directamente su idea de las tarjetas perforadas.',
+          facts: [
+            'Se llegaron a usar más de 20,000 tarjetas para un solo diseño',
+            'Babbage poseía un retrato tejido en seda por un telar Jacquard',
+            'Las tarjetas perforadas dominaron la informática hasta los años 70'
+          ]
+        },
+        info: {
+          birth: '7 de julio de 1752', death: '7 de agosto de 1834',
+          place: 'Lyon, Francia',
+          field: ['Industria Textil', 'Automatización'],
+          knownFor: 'El telar programable con tarjetas perforadas',
+          organization: 'Industria textil de Lyon',
+          education: 'Hijo de tejedor, formación en gran parte autodidacta',
+          awards: 'Su invención dio nombre a la técnica de tejido "jacquard"'
+        }
+      },
+      {
+        id: 'inf-hollerith',
+        name: 'Herman Hollerith', year: '1890', epoca: 'Era Mecánica', icon: '🗂️',
+        title: 'Herman Hollerith — El Censo que Creó a IBM',
+        subtitle: 'Automatizó el censo de EE.UU. y su empresa se convirtió en IBM',
+        description: 'Automatizó el censo de EE.UU. con tarjetas perforadas; su empresa se convirtió en IBM.',
+        bio: 'Ingeniero estadounidense que en la década de 1880 desarrolló el tabulador eléctrico de tarjetas perforadas. Su máquina redujo el censo nacional de 1890 de unos 8 años de trabajo a poco más de 1. En 1896 fundó la Tabulating Machine Company, semilla de la Computing-Tabulating-Recording Company (CTR), rebautizada como IBM en 1924.',
+        logro: 'Su tabulador procesaba las tarjetas del censo en segundos, con agujas que detectaban las perforaciones mediante contactos eléctricos.',
+        milestone: {
+          title: 'Por qué importa',
+          text: 'Hollerith unió por primera vez los datos perforados con el procesamiento eléctrico: fue el nacimiento de la industria de la computación de datos.',
+          facts: [
+            'El censo de 1890 tardó 1 año en vez de 8',
+            'Las tarjetas de 80 columnas fueron el estándar informático durante décadas',
+            'Su empresa CTR se convirtió en IBM en 1924'
+          ]
+        },
+        info: {
+          birth: '29 de febrero de 1860', death: '17 de noviembre de 1929',
+          place: 'Buffalo, Nueva York, EE.UU.',
+          field: ['Ingeniería', 'Procesamiento de Datos'],
+          knownFor: 'El tabulador eléctrico y las tarjetas perforadas',
+          organization: 'Tabulating Machine Co. (futura IBM)',
+          education: 'City College y Universidad de Columbia',
+          awards: 'Medalla Elliott Cresson (1890)'
+        }
+      },
+      {
+        id: 'inf-zuse',
+        name: 'Konrad Zuse', year: '1941', epoca: 'Pioneros Invisibilizados', icon: '🖥️',
+        title: 'Konrad Zuse — La Primera Computadora Programable',
+        subtitle: 'Construyó el Z3, la primera computadora funcional del mundo',
+        description: 'Construyó el Z3 en Alemania, la primera computadora programable funcional del mundo, casi ignorado frente a los esfuerzos anglosajones.',
+        bio: 'Ingeniero alemán que trabajó aislado durante la Segunda Guerra Mundial. En 1941 terminó el Z3 en el salón de su casa en Berlín: una máquina electromecánica que usaba binario de forma pionera, mucho antes que los proyectos aliados. Su trabajo fue parcialmente destruido por los bombardeos y solo fue reconocido tardíamente.',
+        logro: 'El Z3 era totalmente programable y ejecutaba aritmética con coma flotante en binario usando bits y relés.',
+        milestone: {
+          title: 'Por qué importa',
+          text: 'El Z3 demuestra que el concepto de computadora programable no nació solo en EE.UU.: Zuse llegó a él en solitario en 1941.',
+          facts: [
+            'Usaba aritmética binaria pura, antes que ENIAC y Colossus',
+            'Tenía unas 2,000 relés y palabras de 22 bits',
+            'El Z3 original fue reconstruido y hoy está en el Deutsches Museum'
+          ]
+        },
+        info: {
+          birth: '22 de junio de 1910', death: '18 de diciembre de 1995',
+          place: 'Berlín, Alemania',
+          field: ['Ingeniería', 'Computación'],
+          knownFor: 'El Z3 y el primer lenguaje de programación (Plankalkül)',
+          organization: 'Zuse Apparatebau (futura Zuse KG)',
+          education: 'Universidad Técnica de Berlín-Charlottenburg',
+          awards: 'Doctorados honoris causa; el cráter lunar "Zuse" lleva su nombre'
+        }
+      },
+      {
+        id: 'inf-eniac',
+        name: 'Programadoras del ENIAC', year: '1945', epoca: 'Pioneros Invisibilizados', icon: '👩‍💻',
+        title: 'Las Programadoras del ENIAC — Las Primeras del Mundo',
+        subtitle: 'Programaron a mano la primera computadora electrónica digital',
+        description: 'Kay McNulty, Jean Bartik, Betty Holberton y otras programaron a mano la primera computadora electrónica digital, inventando la disciplina sobre la marcha.',
+        bio: 'Un grupo de seis mujeres matemáticas —Jean Bartik, Kathleen "Kay" Antonelli, Marlyn Meltzer, Betty Holberton, Frances Spence y Ruth Teitelbaum— fueron contratadas para programar el ENIAC, la primera computadora electrónica de propósito general. Sin manuales ni cursos, descifraron la máquina cableando paneles y planificando los algoritmos en papel.',
+        logro: 'Inventaron técnicas de programación como las subrutinas y el análisis lógico del hardware para que el ENIAC calculara trayectorias balísticas.',
+        milestone: {
+          title: 'Por qué importa',
+          text: 'Fundaron la profesión de programadora décadas antes de que existiera una "ciencia de la computación"; su nombre solo se recuperó oficialmente en los años 80.',
+          facts: [
+            'Programaban cambiando cables y configurando interruptores',
+            'El ENIAC calculaba una trayectoria en 30 segundos',
+            'En 1997 ingresaron al Salón de la Fama de las Mujeres en Tecnología'
+          ]
+        },
+        info: {
+          birth: 'Proyecto ENIAC, 1945-1946',
+          place: 'Filadelfia, EE.UU. (Escuela Moore de Ingeniería)',
+          field: ['Programación', 'Matemáticas'],
+          knownFor: 'Ser las primeras programadoras de computadoras',
+          organization: 'Proyecto ENIAC, Universidad de Pensilvania',
+          education: 'Formadas en cálculo y protocolos de guerra (programadoras humanas)',
+          awards: 'Salón de la Fama de las Mujeres en Tecnología (1997)'
+        }
+      },
+      {
+        id: 'inf-shannon',
+        name: 'Claude Shannon', year: '1948', epoca: 'Pioneros Invisibilizados', icon: '📡',
+        title: 'Claude Shannon — El Padre de la Información',
+        subtitle: 'Su tesis de 1937 hizo posible el bit',
+        description: 'Padre de la teoría de la información; sin él no existiría la codificación binaria tal como la conocemos.',
+        bio: 'Ingeniero y matemático estadounidense, llamado "el padre de la era de la información". En su tesis de máster de 1937 demostró que los circuitos eléctricos podían resolver la lógica booleana, y en 1948 publicó "Una teoría matemática de la comunicación", donde definió el bit como unidad de información.',
+        logro: 'Probó que las señales pueden transmitirse sin corrupción usando codificación binaria y acuñó el término "bit".',
+        milestone: {
+          title: 'Por qué importa',
+          text: 'El bit de Shannon es el átomo de todo el mundo digital: sin su teoría no existirían la compresión, el cifrado ni las comunicaciones modernas.',
+          facts: [
+            'Su tesis de 1937 unió el álgebra de Boole con los circuitos eléctricos',
+            'Trabajó en los Bell Labs, donde coincidió con la visita de Turing',
+            'Su fama de excéntrico lúdico ocultaba un genio práctico'
+          ]
+        },
+        info: {
+          birth: '30 de abril de 1916', death: '24 de febrero de 2001',
+          place: 'Gaylord, Míchigan, EE.UU.',
+          field: ['Matemáticas', 'Ingeniería Eléctrica', 'Criptografía'],
+          knownFor: 'La teoría de la información y el bit',
+          organization: 'Bell Labs · MIT',
+          education: 'Universidad de Míchigan · MIT (doctorado)',
+          awards: 'Premio Turing (1972) y Medalla de Honor del IEEE (1966)'
+        }
+      },
+      {
+        id: 'inf-thompson',
+        name: 'Ken Thompson', year: '1969', epoca: 'Puente Moderno', icon: '💻',
+        title: 'Ken Thompson — El Padre Silencioso de Unix',
+        subtitle: 'Co-creó Unix, casi siempre eclipsado por Ritchie',
+        description: 'Co-creador de Unix junto a Ritchie, casi siempre eclipsado por él aunque el diseño original fue suyo.',
+        bio: 'Científico de la computación de Bell Labs. En 1969 diseñó y escribió la primera versión de Unix en una computadora en desuso, buscando un sistema multiusuario simple y elegante. También creó el lenguaje B (antecesor directo de C), aportes clave a la expresión regular y, décadas después, el lenguaje Go en Google.',
+        logro: 'Escribió el kernel y el sistema de archivos de Unix: un diseño minimalista que se convirtió en el "sistema operativo de los sistemas operativos".',
+        milestone: {
+          title: 'Por qué importa',
+          text: 'Unix es la semilla de Linux, macOS, iOS y Android: lo que Thompson diseñó en 1969 corre hoy en casi todos los dispositivos del mundo.',
+          facts: [
+            'Escribió Unix casi solo, en una PDP-7 en desuso',
+            'Creó el lenguaje B, del que deriva directamente C',
+            'Compartió el Premio Turing (1983) con Ritchie'
+          ]
+        },
+        info: {
+          birth: '4 de febrero de 1943',
+          place: 'Nueva Orleans, EE.UU.',
+          field: ['Sistemas Operativos', 'Lenguajes de Programación', 'Lógica'],
+          knownFor: 'Co-crear Unix y el lenguaje Go',
+          organization: 'Bell Labs · Google',
+          education: 'Universidad de California, Berkeley (licenciatura y máster)',
+          awards: 'Premio Turing (1983) y Medalla Nacional de Tecnología (1998)'
+        }
+      },
+      {
+        id: 'inf-hamilton',
+        name: 'Margaret Hamilton', year: '1969', epoca: 'Puente Moderno', icon: '🚀',
+        title: 'Margaret Hamilton — La Ingeniera que Llevó el Apolo a la Luna',
+        subtitle: 'Lideró el software de guía del Apolo 11 y acuñó el término "ingeniería de software"',
+        description: 'Lideró el software de guía del Apolo 11 y acuñó el término "ingeniería de software" cuando ni siquiera existía como profesión.',
+        bio: 'Científica de la computación estadounidense que dirigió el equipo del MIT que desarrolló el software de vuelo de las misiones Apolo. En 1969 ese software, escrito con tarjetas perforadas y lenguaje ensamblador, llevó al Apolo 11 a la Luna. Acuñó el término "ingeniería de software" para legitimar un campo que entonces nadie tomaba en serio.',
+        logro: 'Diseñaron un sistema con tareas prioritarias que gestionaba en tiempo real los límites de memoria y los márgenes de fallo del viaje lunar.',
+        milestone: {
+          title: 'Por qué importa',
+          text: 'Fue pionera del software tolerante a fallos: sus prioridades evitaron un aborto del Apolo 11 durante el descenso lunar.',
+          facts: [
+            'El software del Apolo 11 ocupaba unos 145 KB',
+            'Su módulo descartaba tareas innecesarias bajo presión',
+            'Recibió la Medalla Presidencial de la Libertad (2016)'
+          ]
+        },
+        info: {
+          birth: '17 de agosto de 1936',
+          place: 'Paoli, Indiana, EE.UU.',
+          field: ['Ingeniería de Software', 'Ciencia de la Computación'],
+          knownFor: 'El software de guía del programa Apolo',
+          organization: 'MIT Instrumentation Laboratory (hoy Draper) · Hamilton Technologies',
+          education: 'Earlham College · MIT',
+          awards: 'Medalla Presidencial de la Libertad (2016)'
+        }
+      },
+      {
+        id: 'inf-perlman',
+        name: 'Radia Perlman', year: '1985', epoca: 'Puente Moderno', icon: '🌐',
+        title: 'Radia Perlman — La Madre de Internet',
+        subtitle: 'Creó el protocolo Spanning Tree, base de las redes actuales',
+        description: 'Creó el protocolo Spanning Tree, base de cómo funcionan las redes hoy; conocida como "la madre de Internet".',
+        bio: 'Ingeniera de redes estadounidense que en 1985 inventó el algoritmo Spanning Tree Protocol (STP), que permite que las redes Ethernet funcionen de forma redundante sin bucles infinitos. Autora del libro "Interconnections" y de décadas de estándares IEEE, bromea diciendo que "Star Trek tiene primos graciosos".',
+        logro: 'El STP garantiza que los switches Ethernet no repitan datos en círculos, haciendo posibles redes locales confiables a gran escala.',
+        milestone: {
+          title: 'Por qué importa',
+          text: 'Sin STP no existirían las redes Ethernet redundantes: su algoritmo está en cada switch y router del mundo.',
+          facts: [
+            'Concibió el STP con solo 24 años',
+            'Es autora de décadas de estándares IEEE 802',
+            'Ingresó al Salón de la Fama de Internet (2014)'
+          ]
+        },
+        info: {
+          birth: '18 de diciembre de 1951',
+          place: 'Nueva Jersey, EE.UU.',
+          field: ['Redes de Computadoras', 'Ingeniería de Software'],
+          knownFor: 'El algoritmo Spanning Tree',
+          organization: 'Digital Equipment Corp. · Novell · Sun · Intel · Dell EMC',
+          education: 'MIT (licenciatura, máster y doctorado)',
+          awards: 'Salón de la Fama de Internet (2014)'
+        }
       }
     ],
     industrial: [
@@ -374,7 +753,7 @@ const historyData = {
         title: 'La Desmotadora de Whitney',
         description: 'Eli Whitney inventa la desmotadora de algodón, automatizando la separación de semillas.',
         icon: '🌿',
-        milestone: { title: '¿Por qué es importante?', text: 'Reducjo el trabajo de separar semillas de 10 horas a 1 hora por libra. Revolucionó la industria algodonera y transformó la economía del sur de Estados Unidos.', facts: ['Podía procesar 50 libras de algodón por día', 'Transformó el algodón en el cultivo más rentable de EE.UU.', 'Paradoxalmente aumentó la demanda de esclavitud'] },
+        milestone: { title: '¿Por qué es importante?', text: 'Redujo el trabajo de separar semillas de 10 horas a 1 hora por libra. Revolucionó la industria algodonera y transformó la economía del sur de Estados Unidos.', facts: ['Podía procesar 50 libras de algodón por día', 'Transformó el algodón en el cultivo más rentable de EE.UU.', 'Paradójicamente aumentó la demanda de esclavitud'] },
         pioneer: { name: 'Eli Whitney', years: '1765 — 1825', role: 'Inventor e Industrial', nationality: '🇺🇸 Estadounidense', icon: '🌿', quote: 'Una buena máquina debe hacer el trabajo de diez hombres.', bio: 'Inventor estadounidense que creó la desmotadora de algodón en 1793. Su invención transformó la industria algodonera, aunque paradójicamente aumentó la dependencia de la esclavitud en el sur de EE.UU.', inventionTitle: 'La Desmotadora de Algodón', PioneerScene: CottonGinScene }
       },
       {
@@ -415,7 +794,7 @@ const historyData = {
         description: 'Alexander Graham Bell inventa el teléfono, permitiendo la comunicación de voz a distancia.',
         icon: '📞',
         milestone: { title: '¿Por qué es importante?', text: 'Transformó la comunicación humana para siempre. Permitió la conversación directa a distancia, creando las bases de las telecomunicaciones modernas.', facts: ['La primera frase fue "Mr. Watson, come here!"', 'Patentó la invención horas antes que Gray', 'En 1915 se hizo la primera llamada transatlántica'] },
-        pioneer: { name: 'Alexander Graham Bell', years: '1847 — 1922', role: 'Inventor y Científico', nationality: '🇬🇧🇬🇧 Británico-Canadiense', icon: '📞', quote: 'Cuando una puerta se cierra, otra se abre; pero miramos tanto la puerta cerrada que no vemos la que se abre.', bio: 'Inventor del teléfono en 1876. Su trabajo con sordos le llevó a experimentar con la transmisión del sonido, creando el dispositivo que revolucionó la comunicación humana.', inventionTitle: 'El Telééfono', PioneerScene: TelephoneScene }
+        pioneer: { name: 'Alexander Graham Bell', years: '1847 — 1922', role: 'Inventor y Científico', nationality: '🇬🇧 Británico 🇨🇦 Canadiense', icon: '📞', quote: 'Cuando una puerta se cierra, otra se abre; pero miramos tanto la puerta cerrada que no vemos la que se abre.', bio: 'Inventor del teléfono en 1876. Su trabajo con sordos le llevó a experimentar con la transmisión del sonido, creando el dispositivo que revolucionó la comunicación humana.', inventionTitle: 'El Teléfono', PioneerScene: TelephoneScene }
       },
       {
         id: 'automobile', year: '1886',
@@ -523,12 +902,14 @@ const HistoryPage = () => {
   const [view, setView] = useState('hub');
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [personajesTab, setPersonajesTab] = useState('principales');
 
   const handleSelectCategory = (categoryId) => {
     const category = historyData.categories.find(c => c.id === categoryId);
     if (category && category.available) {
       setSelectedCategory(category);
       if (categoryId === 'personajes') {
+        setPersonajesTab('principales');
         setView('personajes');
       } else if (categoryId === 'industrial') {
         setView('industrial');
@@ -540,7 +921,8 @@ const HistoryPage = () => {
 
   const handleSelectEvent = (eventId) => {
     const events = historyData.events[selectedCategory.id] || [];
-    const event = events.find(e => e.id === eventId);
+    const event = events.find(e => e.id === eventId)
+      || (historyData.events.infravalorados || []).find(e => e.id === eventId);
     if (event) {
       setSelectedEvent(event);
       setView('detail');
@@ -592,22 +974,72 @@ const HistoryPage = () => {
               <h2>{selectedCategory.icon} {selectedCategory.title}</h2>
               <p>Los visionarios que construyeron los cimientos de la tecnología moderna.</p>
             </div>
-            <CharacterTimeline
-              characters={historyData.events.personajes}
-              selectedId={selectedEvent?.id}
-              onSelect={handleSelectEvent}
-            />
-            <div className="characters-grid">
-              {historyData.events.personajes.map(char => (
-                <div key={char.id} className="character-card" onClick={() => handleSelectEvent(char.id)}>
-                  <div className="character-card-avatar">{char.icon}</div>
-                  <h3>{char.name}</h3>
-                  <p className="character-card-subtitle">{char.subtitle}</p>
-                  <span className="character-card-year">{char.year}</span>
-                  <span className="character-card-explore">Ver más →</span>
-                </div>
-              ))}
+            <div className="character-tabs">
+              <button
+                className={`character-tab ${personajesTab === 'principales' ? 'active' : ''}`}
+                onClick={() => setPersonajesTab('principales')}
+              >
+                👤 Personajes Principales
+              </button>
+              <button
+                className={`character-tab ${personajesTab === 'infravalorados' ? 'active' : ''}`}
+                onClick={() => setPersonajesTab('infravalorados')}
+              >
+                🏆 Infravalorados
+              </button>
             </div>
+            {personajesTab === 'principales' ? (
+              <>
+                <CharacterTimeline
+                  characters={historyData.events.personajes}
+                  selectedId={selectedEvent?.id}
+                  onSelect={handleSelectEvent}
+                />
+                <div className="characters-grid">
+                  {historyData.events.personajes.map(char => (
+                    <div key={char.id} className="character-card" onClick={() => handleSelectEvent(char.id)}>
+                      <div className="character-card-avatar">{char.icon}</div>
+                      <h3>{char.name}</h3>
+                      <p className="character-card-subtitle">{char.subtitle}</p>
+                      <span className="character-card-year">{char.year}</span>
+                      <span className="character-card-explore">Ver más →</span>
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <>
+                <p className="character-eras-intro">
+                  Pioneros que la historia no recuerda lo suficiente pero cuyas ideas sostienen la tecnología moderna.
+                </p>
+                {['Precursores Antiguos', 'Era Mecánica', 'Pioneros Invisibilizados', 'Puente Moderno'].map(era => {
+                  const chars = (historyData.events.infravalorados || []).filter(c => c.epoca === era);
+                  if (chars.length === 0) return null;
+                  const eraIcon = {
+                    'Precursores Antiguos': '🏛️',
+                    'Era Mecánica': '⚙️',
+                    'Pioneros Invisibilizados': '💡',
+                    'Puente Moderno': '🌉'
+                  }[era] || '✨';
+                  return (
+                    <div key={era} className="character-era-group">
+                      <h3 className="character-era-title">{eraIcon} {era}</h3>
+                      <div className="characters-grid">
+                        {chars.map(char => (
+                          <div key={char.id} className="character-card" onClick={() => handleSelectEvent(char.id)}>
+                            <div className="character-card-avatar">{char.icon}</div>
+                            <h3>{char.name}</h3>
+                            <p className="character-card-subtitle">{char.subtitle || char.description}</p>
+                            <span className="character-card-year">{char.year}</span>
+                            <span className="character-card-explore">Ver más →</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </>
+            )}
           </>
         );
 
@@ -641,7 +1073,7 @@ const HistoryPage = () => {
       case 'detail':
         return (
           <>
-            <button onClick={handleGoBack} className="back-btn">← Volver a la Línea de Tiempo</button>
+            <button onClick={handleGoBack} className="back-btn">← {selectedCategory.id === 'personajes' ? 'Volver a Personajes' : 'Volver a la Línea de Tiempo'}</button>
             <div className="detail-header">
               <h2>{selectedEvent.icon || selectedEvent.name} {selectedEvent.title || selectedEvent.name}</h2>
               <p className="detail-year-badge">{selectedEvent.year}</p>
@@ -649,6 +1081,12 @@ const HistoryPage = () => {
             <div className="detail-main-description">
               <p>{selectedEvent.description}</p>
             </div>
+            {selectedEvent.logro && (
+              <div className="achievement-card">
+                <h3>🏆 Logro clave</h3>
+                <p>{selectedEvent.logro}</p>
+              </div>
+            )}
             {selectedEvent.milestone && (
               <div className="milestone-card">
                 <h3>{selectedEvent.milestone.title}</h3>
@@ -660,16 +1098,6 @@ const HistoryPage = () => {
                 )}
               </div>
             )}
-            {selectedCategory.id === 'personajes' && selectedEvent.CharacterScene && (() => {
-              const CharScene = selectedEvent.CharacterScene;
-              return (
-                <div className="character-detail-section">
-                  <Suspense fallback={<LoadingFallback />}>
-                    <CharScene />
-                  </Suspense>
-                </div>
-              );
-            })()}
             {selectedEvent.pioneer && <PioneerBioCard pioneer={selectedEvent.pioneer} />}
             {selectedCategory.id === 'personajes' && selectedEvent.bio && (
               <CharacterCard character={selectedEvent} />

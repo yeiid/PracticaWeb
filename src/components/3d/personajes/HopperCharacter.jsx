@@ -73,7 +73,7 @@ const Avatar = ({ color }) => {
   );
 };
 
-const HopperCharacter = () => {
+const HopperCharacter = ({ name = 'Grace Hopper', years = '1906 — 1992' }) => {
   return (
     <div style={{ height: '300px', width: '100%', cursor: 'grab' }}>
       <Canvas camera={{ position: [0, 1, 5], fov: 45 }}>
@@ -84,8 +84,8 @@ const HopperCharacter = () => {
         <Avatar color="#2E8B57" />
         <FloatingTerminal position={[-1.1, 0.7, 0.5]} delay={0} />
         <FloatingTerminal position={[1.1, 0.5, -0.3]} delay={1.5} />
-        <Text position={[0, -0.5, 0]} fontSize={0.15} color="#F8FAFC" anchorX="center">Grace Hopper</Text>
-        <Text position={[0, -0.7, 0]} fontSize={0.08} color="#F97316" anchorX="center">1906 — 1992</Text>
+        <Text position={[0, -0.5, 0]} fontSize={0.15} color="#F8FAFC" anchorX="center">{name}</Text>
+        <Text position={[0, -0.7, 0]} fontSize={0.08} color="#F97316" anchorX="center">{years}</Text>
         <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.4} />
       </Canvas>
     </div>

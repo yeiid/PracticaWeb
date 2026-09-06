@@ -96,7 +96,7 @@ const Penguin = ({ position }) => {
   );
 };
 
-const TorvaldsCharacter = () => {
+const TorvaldsCharacter = ({ name = 'Linus Torvalds', years = '1969 —' }) => {
   return (
     <div style={{ height: '300px', width: '100%', cursor: 'grab' }}>
       <Canvas camera={{ position: [0, 1, 5], fov: 45 }}>
@@ -135,8 +135,8 @@ const TorvaldsCharacter = () => {
         <CodeTerminal position={[-1.1, 0.6, 0.5]} delay={0} />
         <CodeTerminal position={[1.1, 0.8, -0.3]} delay={1.5} />
         <Penguin position={[0, -0.3, 1]} />
-        <Text position={[0, -0.6, 0]} fontSize={0.15} color="#F8FAFC" anchorX="center">Linus Torvalds</Text>
-        <Text position={[0, -0.8, 0]} fontSize={0.08} color="#F97316" anchorX="center">1969 —</Text>
+        <Text position={[0, -0.6, 0]} fontSize={0.15} color="#F8FAFC" anchorX="center">{name}</Text>
+        <Text position={[0, -0.8, 0]} fontSize={0.08} color="#F97316" anchorX="center">{years}</Text>
         <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.4} />
       </Canvas>
     </div>

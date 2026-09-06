@@ -69,7 +69,7 @@ const Avatar = ({ color }) => {
   );
 };
 
-const BabbageCharacter = () => {
+const BabbageCharacter = ({ name = 'Charles Babbage', years = '1791 — 1871' }) => {
   return (
     <div style={{ height: '300px', width: '100%', cursor: 'grab' }}>
       <Canvas camera={{ position: [0, 1, 5], fov: 45 }}>
@@ -81,8 +81,8 @@ const BabbageCharacter = () => {
         <FloatingWheel position={[-1.2, 0.5, 0.5]} size={0.35} speed={0.4} color="#B8860B" />
         <FloatingWheel position={[1.3, 0.7, -0.3]} size={0.3} speed={-0.5} color="#DAA520" />
         <FloatingWheel position={[0, 1.8, -0.8]} size={0.25} speed={0.6} color="#CD853F" />
-        <Text position={[0, -0.5, 0]} fontSize={0.15} color="#F8FAFC" anchorX="center">Charles Babbage</Text>
-        <Text position={[0, -0.7, 0]} fontSize={0.08} color="#F97316" anchorX="center">1791 — 1871</Text>
+        <Text position={[0, -0.5, 0]} fontSize={0.15} color="#F8FAFC" anchorX="center">{name}</Text>
+        <Text position={[0, -0.7, 0]} fontSize={0.08} color="#F97316" anchorX="center">{years}</Text>
         <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.4} />
       </Canvas>
     </div>

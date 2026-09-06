@@ -64,9 +64,10 @@ function DashboardMain() {
     { id: 1, title: 'HTML5 - Los Fundamentos', description: 'Estructura básica y semántica', completed: true, course: '/html', icon: '📄' },
     { id: 2, title: 'CSS3 - El diseño Visual', description: 'Estilos y layouts modernos', completed: true, course: '/css', icon: '🎨' },
     { id: 3, title: 'JavaScript - La Interactividad', description: 'Programación y DOM', completed: true, course: '/js', icon: '⚡' },
-    { id: 4, title: 'Python - Programación Versátil', description: 'Lenguaje multiuso para todo', completed: true, course: '/python', icon: '🐍' },
-    { id: 5, title: 'React - Modern UI', description: 'Aplicaciones web avanzadas', completed: true, course: '/react', icon: '⚛️' },
-    { id: 6, title: 'Backend - Arquitectura', description: 'Node.js y APIs', completed: false, course: '/backend', icon: '⚙️' }
+    { id: 4, title: 'Git - Control de Versiones', description: 'Colaboración y versionado de código', completed: true, course: '/git', icon: '🌿' },
+    { id: 5, title: 'Python - Programación Versátil', description: 'Lenguaje multiuso para todo', completed: true, course: '/python', icon: '🐍' },
+    { id: 6, title: 'React - Modern UI', description: 'Aplicaciones web avanzadas', completed: true, course: '/react', icon: '⚛️' },
+    { id: 7, title: 'Backend - Arquitectura', description: 'Node.js y APIs', completed: false, course: '/backend', icon: '⚙️' }
   ], []);
 
   const handleBack = useCallback(() => setCurrentView('home'), []);

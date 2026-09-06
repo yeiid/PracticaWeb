@@ -95,7 +95,7 @@ const Avatar = ({ color }) => {
   );
 };
 
-const JobsCharacter = () => {
+const JobsCharacter = ({ name = 'Steve Jobs', years = '1955 — 2011' }) => {
   return (
     <div style={{ height: '300px', width: '100%', cursor: 'grab' }}>
       <Canvas camera={{ position: [0, 1, 5], fov: 45 }}>
@@ -107,8 +107,8 @@ const JobsCharacter = () => {
         <FloatingDevice position={[-1.2, 0.6, 0.5]} delay={0} type="phone" />
         <FloatingDevice position={[1.2, 0.8, -0.3]} delay={1} type="laptop" />
         <FloatingDevice position={[0, 1.7, -0.6]} delay={2} type="tablet" />
-        <Text position={[0, -0.5, 0]} fontSize={0.15} color="#F8FAFC" anchorX="center">Steve Jobs</Text>
-        <Text position={[0, -0.7, 0]} fontSize={0.08} color="#F97316" anchorX="center">1955 — 2011</Text>
+        <Text position={[0, -0.5, 0]} fontSize={0.15} color="#F8FAFC" anchorX="center">{name}</Text>
+        <Text position={[0, -0.7, 0]} fontSize={0.08} color="#F97316" anchorX="center">{years}</Text>
         <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.4} />
       </Canvas>
     </div>

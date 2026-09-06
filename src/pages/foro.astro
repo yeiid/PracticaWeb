@@ -1,0 +1,13 @@
+---
+import ForumBoard from '../components/Forum/ForumBoard';
+import Layout from '../layouts/Layout.astro';
+
+const session = Astro.cookies.get('session');
+if (!session) {
+  return Astro.redirect('/login');
+}
+---
+
+<Layout title="Foro Didáctico - Academia Web">
+  <ForumBoard client:idle />
+</Layout>

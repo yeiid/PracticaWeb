@@ -69,7 +69,7 @@ const Avatar = ({ color }) => {
   );
 };
 
-const LovelaceCharacter = () => {
+const LovelaceCharacter = ({ name = 'Ada Lovelace', years = '1815 — 1852' }) => {
   return (
     <div style={{ height: '300px', width: '100%', cursor: 'grab' }}>
       <Canvas camera={{ position: [0, 1, 5], fov: 45 }}>
@@ -81,8 +81,8 @@ const LovelaceCharacter = () => {
         <FloatingCard position={[-1, 0.6, 0.5]} delay={0} rotation={[0.1, 0.2, 0]} />
         <FloatingCard position={[1.1, 0.8, -0.3]} delay={1} rotation={[0.1, -0.3, 0.05]} />
         <FloatingCard position={[0, 1.6, -0.6]} delay={2} rotation={[0.1, 0.1, -0.05]} />
-        <Text position={[0, -0.5, 0]} fontSize={0.15} color="#F8FAFC" anchorX="center">Ada Lovelace</Text>
-        <Text position={[0, -0.7, 0]} fontSize={0.08} color="#F97316" anchorX="center">1815 — 1852</Text>
+        <Text position={[0, -0.5, 0]} fontSize={0.15} color="#F8FAFC" anchorX="center">{name}</Text>
+        <Text position={[0, -0.7, 0]} fontSize={0.08} color="#F97316" anchorX="center">{years}</Text>
         <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.4} />
       </Canvas>
     </div>

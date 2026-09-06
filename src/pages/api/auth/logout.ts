@@ -1,12 +1,11 @@
 import type { APIRoute } from 'astro';
 import { serialize } from 'cookie';
+import { isSecureRequest } from '../../../lib/isSecureRequest';
 
-const p = process['env'];
-
-export const POST: APIRoute = async () => {
+export const POST: APIRoute = async ({ request }) => {
   const cookie = serialize('session', '', {
     httpOnly: true,
-    secure: p['NODE_ENV'] === 'production',
+    secure: isSecureRequest(request),
     sameSite: 'lax',
     path: '/',
     maxAge: 0

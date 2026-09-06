@@ -90,7 +90,7 @@ const Snake = ({ position }) => {
   );
 };
 
-const VanRossumCharacter = () => {
+const VanRossumCharacter = ({ name = 'Guido van Rossum', years = '1956 —' }) => {
   return (
     <div style={{ height: '300px', width: '100%', cursor: 'grab' }}>
       <Canvas camera={{ position: [0, 1, 5], fov: 45 }}>
@@ -142,8 +142,8 @@ const VanRossumCharacter = () => {
         <PythonWindow position={[-1.1, 0.6, 0.5]} delay={0} />
         <PythonWindow position={[1.1, 0.8, -0.3]} delay={1.5} />
         <Snake position={[0, -0.2, 1]} />
-        <Text position={[0, -0.6, 0]} fontSize={0.15} color="#F8FAFC" anchorX="center">Guido van Rossum</Text>
-        <Text position={[0, -0.8, 0]} fontSize={0.08} color="#F97316" anchorX="center">1956 —</Text>
+        <Text position={[0, -0.6, 0]} fontSize={0.15} color="#F8FAFC" anchorX="center">{name}</Text>
+        <Text position={[0, -0.8, 0]} fontSize={0.08} color="#F97316" anchorX="center">{years}</Text>
         <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.4} />
       </Canvas>
     </div>

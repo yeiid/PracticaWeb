@@ -93,6 +93,7 @@ const Header = () => {
     { href: '/dashboard', label: 'Cursos', icon: '📚' },
     { href: '/history', label: 'Historia', icon: '🏛️' },
     { href: '/bases', label: 'Bases', icon: '💻' },
+    { href: '/foro', label: 'Foro', icon: '💬' },
     { href: '/support', label: 'Soporte', icon: '📬' },
   ];
 

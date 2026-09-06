@@ -3,8 +3,7 @@ import sql from '../../../lib/db';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { serialize } from 'cookie';
-
-const p = process['env'];
+import { isSecureRequest } from '../../../lib/isSecureRequest';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -37,7 +36,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     const cookie = serialize('session', token, {
       httpOnly: true,
-      secure: p['NODE_ENV'] === 'production',
+      secure: isSecureRequest(request),
       sameSite: 'lax',
       path: '/',
       maxAge: 60 * 60 * 24 * 7

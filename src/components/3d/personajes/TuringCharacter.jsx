@@ -70,7 +70,7 @@ const Avatar = ({ color }) => {
   );
 };
 
-const TuringCharacter = () => {
+const TuringCharacter = ({ name = 'Alan Turing', years = '1912 — 1954' }) => {
   return (
     <div style={{ height: '300px', width: '100%', cursor: 'grab' }}>
       <Canvas camera={{ position: [0, 1, 5], fov: 45 }}>
@@ -82,8 +82,8 @@ const TuringCharacter = () => {
         <TapeStrip position={[-1.2, 0.8, 0.5]} speed={0.4} />
         <TapeStrip position={[1.2, 0.6, -0.3]} speed={-0.5} />
         <TapeStrip position={[0, 1.6, -0.7]} speed={0.6} />
-        <Text position={[0, -0.5, 0]} fontSize={0.15} color="#F8FAFC" anchorX="center">Alan Turing</Text>
-        <Text position={[0, -0.7, 0]} fontSize={0.08} color="#F97316" anchorX="center">1912 — 1954</Text>
+        <Text position={[0, -0.5, 0]} fontSize={0.15} color="#F8FAFC" anchorX="center">{name}</Text>
+        <Text position={[0, -0.7, 0]} fontSize={0.08} color="#F97316" anchorX="center">{years}</Text>
         <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.4} />
       </Canvas>
     </div>
